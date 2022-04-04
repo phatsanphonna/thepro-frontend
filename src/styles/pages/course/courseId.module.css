@@ -1,0 +1,47 @@
+.wrapper {
+    @apply flex flex-col gap-3;
+}
+
+.header {
+    @apply flex flex-col justify-start gap-5;
+}
+
+.header h1 {
+    @apply font-bold lg:text-3xl text-lg;
+}
+
+.header h5 {
+    @apply font-medium text-lg;
+}
+
+.header h5 span {
+    @apply font-semibold text-red-500 underline;
+}
+
+.teacherinfo {
+    @apply flex flex-row items-center gap-2;
+}
+
+.teacherinfo p {
+    @apply text-lg;
+}
+
+.teacherinfo__avatar {
+    @apply aspect-square rounded-full;
+}
+
+.hr {
+    @apply border-black;
+}
+
+.desc {
+    @apply text-base font-light;
+}
+
+.course_title {
+    @apply font-semibold text-xl underline;
+}
+
+.course_content {
+    @apply flex flex-col gap-5 mt-1;
+}

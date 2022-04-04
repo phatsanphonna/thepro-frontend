@@ -1,0 +1,22 @@
+.productCard {
+    @apply bg-white rounded border shadow-md;
+
+    @apply w-full h-60;
+    @apply p-4;
+
+    @apply flex flex-col items-start;
+}
+
+.productCard__header {
+    @apply font-semibold text-xl hover:underline;
+}
+
+.productCard__footer {
+    @apply mt-auto w-full; 
+
+    @apply flex flex-row justify-between items-baseline;
+}
+
+.productCard__footer p {
+    @apply font-bold text-red-500;
+}

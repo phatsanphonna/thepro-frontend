@@ -1,0 +1,23 @@
+.root {
+    @apply items-center h-full;
+}
+
+.wrapper {
+    @apply flex flex-col justify-center items-center gap-5;
+}
+
+.title {
+    @apply text-3xl font-semibold;
+}
+
+.form {
+    @apply flex flex-col gap-2;
+}
+
+.form input {
+    @apply border-2 px-2 py-3 rounded w-full lg:w-96;
+}
+
+.form label {
+    @apply text-lg;
+}

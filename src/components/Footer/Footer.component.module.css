@@ -1,0 +1,45 @@
+.root {
+    @apply bg-golden-tainoi;
+    min-height: 14rem;
+    @apply p-5;
+}
+
+.wrapper {
+    @apply container mx-auto h-full;
+    @apply flex flex-col justify-start;
+}
+
+.hr {
+    @apply border-black my-2;
+}
+
+.grid {
+    display: grid;
+    @apply grid-cols-1 md:grid-cols-2 gap-2;
+}
+
+.grid h3 {
+    @apply text-lg font-medium mb-1;
+}
+
+.grid ul {
+    @apply flex flex-col;
+}
+
+.grid li {
+    @apply inline-flex flex-row items-center gap-1;
+}
+
+.sitemap_grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+}
+
+.link {
+    @apply hover:underline;
+}
+
+.copyright {
+    @apply mt-auto;
+    @apply text-sm text-black;
+}

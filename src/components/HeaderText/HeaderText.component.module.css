@@ -1,0 +1,4 @@
+.header {
+    @apply text-black font-bold text-3xl;
+    @apply m-3;
+}

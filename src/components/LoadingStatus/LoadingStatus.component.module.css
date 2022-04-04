@@ -1,0 +1,14 @@
+.box {
+    @apply absolute;
+    @apply bottom-10 right-10;
+    @apply w-12 h-12;
+    z-index: 9999999;
+    overflow: hidden;
+
+    @apply bg-black;
+
+    @apply rounded;
+    @apply flex items-center justify-center;
+
+    @apply transition-all ease-in-out duration-300;
+}

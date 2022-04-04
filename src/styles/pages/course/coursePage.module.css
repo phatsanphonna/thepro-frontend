@@ -1,0 +1,7 @@
+.grid {
+    display: grid;
+    @apply grid-cols-1 md:grid-cols-3 gap-3;
+    @apply w-full;
+
+    @apply my-4 mx-auto;
+}
