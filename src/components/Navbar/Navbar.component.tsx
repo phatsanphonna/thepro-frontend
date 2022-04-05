@@ -1,9 +1,10 @@
 import { MenuIcon, UserCircleIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import LoadingIcon from '../LoadingIcon'
 import styles from './Navbar.component.module.css'
+
 
 
 const Navbar: React.FC = () => {
@@ -11,34 +12,27 @@ const Navbar: React.FC = () => {
 
   const authUser = useSelector((state: any) => state.authUser)
 
-  const [screenWidth, setScreenWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : mobileBreakpoint
-  )
+  const [screenWidth, setScreenWidth] = useState(mobileBreakpoint)
 
-  const handleResize = () => {
+  useLayoutEffect(() => {
     const changeWidth = () => {
       setScreenWidth(window.innerWidth)
     }
-
-    window.addEventListener('resize', changeWidth)
-
-    return () => {
-      window.removeEventListener('resize', changeWidth)
-    }
-  }
-
-  useEffect(() => {
-    handleResize()
+    changeWidth()
 
     window.addEventListener('resize', () => {
-      handleResize()
+      changeWidth()
     })
 
     return () => {
       window.removeEventListener('resize', () => {
-        handleResize()
+        changeWidth()
       })
     }
+  }, [])
+
+  useEffect(() => {
+    
   }, [])
 
   return (

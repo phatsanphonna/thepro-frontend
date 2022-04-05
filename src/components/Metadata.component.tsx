@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 
 type Props = {
-  title: string
+  title: string | null
   description?: string
 }
 

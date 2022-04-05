@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
-import styles from '../styles/pages/signin.module.css'
+import styles from '@/styles/pages/signin.module.css'
 
-import Layout from '../components/Layout/Layout.component'
-import Button from '../components/Button/Button.component'
-import Metadata from '../components/Metadata.component'
+import Layout from '@/components/Layout/Layout.component'
+import Button from '@/components/Button/Button.component'
+import Metadata from '@/components/Metadata.component'
 
 const SignInPage: NextPage = () => {
   const [username, setUsername] = useState('')

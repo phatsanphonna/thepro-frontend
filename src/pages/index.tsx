@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import { useDispatch } from 'react-redux'
-import Layout from '../components/Layout/Layout.component'
-import Metadata from '../components/Metadata.component'
-import { setLoading } from '../redux/features/loading.feature'
+import Layout from '@/components/Layout/Layout.component'
+import Metadata from '@/components/Metadata.component'
+import { setLoading } from '@/redux/features/loading.feature'
 
 
 const HomePage: NextPage = () => {

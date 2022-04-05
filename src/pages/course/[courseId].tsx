@@ -1,12 +1,12 @@
 import React from 'react'
 import type { GetServerSideProps, NextPage } from 'next'
-import styles from '../../styles/pages/course/courseId.module.css'
+import styles from '@/styles/pages/course/courseId.module.css'
 import Image from 'next/image'
 
-import Layout from '../../components/Layout/Layout.component'
-import CourseSectionCard from '../../components/course/CourseSectionCard/CourseSectionCard.component'
-import Metadata from '../../components/Metadata.component'
-import Button from '../../components/Button/Button.component'
+import Layout from '@/components/Layout/Layout.component'
+import CourseSectionCard from '@/components/course/CourseSectionCard/CourseSectionCard.component'
+import Metadata from '@/components/Metadata.component'
+import Button from '@/components/Button/Button.component'
 
 type Props = {
   course: {
