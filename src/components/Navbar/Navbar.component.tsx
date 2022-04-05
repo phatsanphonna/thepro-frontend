@@ -1,4 +1,5 @@
 import { MenuIcon, UserCircleIcon } from '@heroicons/react/solid'
+import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -32,7 +33,7 @@ const Navbar: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    
+
   }, [])
 
   return (
@@ -41,6 +42,7 @@ const Navbar: React.FC = () => {
         <div className={styles.logo}>
           <Link href='/' passHref>
             <a>
+              <Image src='/theprologo.png' alt='THE PRO LOGO' width={40} height={40} />
               <h1>THE PRO</h1>
             </a>
           </Link>

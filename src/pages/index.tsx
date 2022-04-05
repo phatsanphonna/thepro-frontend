@@ -11,7 +11,7 @@ const HomePage: NextPage = () => {
 
   return (
     <>
-      <Metadata title='หน้าหลัก' />
+      <Metadata title='หน้าหลัก | THE PRO' />
 
       <Layout>
         <button onClick={() => { dispatch(setLoading(true)) }}>click 1</button>

@@ -9,7 +9,7 @@ type Props = {
 const Metadata = ({ title, description }: Props) => {
   return (
     <Head>
-      <title>{title} | THE PRO</title>
+      <title>{title}</title>
       <meta name='description' content={description} />
       <link rel='icon' href='./favicon.ico' />
     </Head>

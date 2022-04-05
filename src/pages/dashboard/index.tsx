@@ -13,7 +13,7 @@ const DashboardPage = () => {
 
   return (
     <>
-      <Metadata title='Dashboard' />
+      <Metadata title='Dashboard | THE PRO' />
 
       <Layout>
         <HeaderText>Dashboard</HeaderText>

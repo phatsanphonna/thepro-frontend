@@ -18,7 +18,7 @@ const SignInPage: NextPage = () => {
 
   return (
     <>
-      <Metadata title='เข้าสู่ระบบ'/>
+      <Metadata title='เข้าสู่ระบบ | THE PRO'/>
       <Layout>
         <div className={styles.root}>
           <div className={styles.wrapper}>
