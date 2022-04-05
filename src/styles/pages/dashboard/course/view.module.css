@@ -1,0 +1,35 @@
+.root {
+    @apply w-full;
+}
+
+.main {
+    @apply w-full;
+    @apply inline-flex;
+}
+
+.content {
+    @apply w-3/4;
+}
+
+.course_sidebar {
+    min-height: calc(100vh - 4rem);
+    @apply w-1/4;
+    @apply bg-red-500;
+}
+
+.course_sidebar_title {
+
+}
+
+.course_section {
+    min-height: calc(100vh - 4rem);
+    @apply block;
+}
+
+.lessons_container {
+    @apply z-[1] overflow-y-auto overflow-x-hidden max-h-full;
+}
+
+.lessons_container__content {
+    box-sizing: border-box;
+}

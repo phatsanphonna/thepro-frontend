@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './ProductCard.component.module.css'
 
-import Button from '../Button/Button.component'
+import Button from '../../Button/Button.component'
 import Link from 'next/link'
 
 type Props = {

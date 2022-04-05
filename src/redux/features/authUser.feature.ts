@@ -1,11 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { useStorage } from "@/libs/storage.libs"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-  isAuthenticated: true,
+  isAuthenticated: false,
   user: {
-    name: 'โดม'
+    name: 'เจน'
   }
 }
+
+const fetchUserAuth = createAsyncThunk(
+  'authUser/fetchUserAuth', async (thunkAPI) => {
+    const { getStorageItem } = useStorage()
+    return getStorageItem('jwt')
+  }
+)
 
 const authUserSlice = createSlice({
   name: 'authUser',
@@ -13,8 +21,21 @@ const authUserSlice = createSlice({
   reducers: {
     setAuthStatus: (state, action) => {
       state.isAuthenticated = action.payload
+    },
+    getLocalUserAuth: (state) => {
+      //eslint-disable-next-line
+      const { getStorageItem } = useStorage()
+
+      const localAuthUser = getStorageItem('localAuthUser')
+
+      if (localAuthUser) {
+        const parsedLocalAuthUser = JSON.parse(localAuthUser)
+
+        state.isAuthenticated = true
+
+      }
     }
-  }
+  },
 })
 
 export default authUserSlice.reducer
