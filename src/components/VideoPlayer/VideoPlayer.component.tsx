@@ -5,7 +5,7 @@ import { setLoading } from '@/redux/features/loading.feature'
 import { PlayIcon } from '@heroicons/react/solid'
 
 type Props = {
-  source: string
+  source?: string
 }
 
 const VideoPlayer: React.FC<Props> = ({ source }) => {
@@ -47,7 +47,7 @@ const VideoPlayer: React.FC<Props> = ({ source }) => {
         <PlayIcon
           className='w-20 text-white hover:w-24 transition-all drop-shadow'
         />
-      }      
+      }
       width='100%'
       config={{
         file: {

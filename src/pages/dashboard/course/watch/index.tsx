@@ -1,22 +1,45 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Course } from '@/types/course.type'
+import { useRouter } from 'next/router'
 import styles from '@/styles/pages/dashboard/course/view.module.css'
 
 import Metadata from '@/components/Metadata.component'
 import Navbar from '@/components/Navbar/Navbar.component'
 import VideoPlayer from '@/components/VideoPlayer/VideoPlayer.component'
+import CourseSectionWatchPage from '@/components/WatchPage/CourseSection/CourseSection.component'
+import Footer from '@/components/Footer/Footer.component'
+import { VideoCameraIcon } from '@heroicons/react/solid'
+
+type Course = {
+  title: string
+  description: string
+  price: number
+  teacher: {
+    name: string
+    avatarURL: string
+  }
+  lessons: Array<Lesson>
+}
+
+type Lesson = {
+  title: string
+  content: Array<LessonContent>
+}
+
+type LessonContent = {
+  title: string
+  type: 'video' | 'file'
+  contentURL: string
+}
 
 const DashboardCourseViewPage = () => {
-  const [fetchedCourse, setFetchCourse] = useState<Course>()
-  const [url, setUrl] = useState('https://lamberta.github.io/html5-animation/examples/ch04/assets/movieclip.mp4')
+  const router = useRouter()
 
-  const courseSectionRef = useRef(null)
-  const changeUrl = () => {
-    setUrl('https://www.youtube.com/watch?v=eDEFolvLn0A')
-  }
+  const [fetchedCourse, setFetchCourse] = useState<Course>()
+  const [currentContent, setCurrentContent] = useState<LessonContent>()
 
   useEffect(() => {
-    setFetchCourse({
+    const courseId = router.query.id
+    const courseData: Course = {
       title: 'TP001 | PROMATH TCAS65 ติวสอบวิชา PAT 1 คณิตศาสตร์ วิชาสามัญ คณิตศาสตร์ 1',
       description: 'วอเตอร์ฮ่องเต้บูติคอุปทาน เพนตากอนแฟรี่ฮอต ซูเปอร์วีเจอันเดอร์ วาไรตี้เอ็นเตอร์เทน โปรเจ็คท์คอนแท็คลีเมอร์ฮาโลวีน วานิลลา ช็อปปิ้งอุตสาหการว้อยแซวห่วย สตาร์คอนแท็คแดรี่ล็อต ลอจิสติกส์คอมเมนต์ มั้งเทปโบกี้ ดีมานด์แซ็กโซโฟนตัวตนอริยสงฆ์แคร์ โทรพันธกิจคีตปฏิภาณ ชีสติวเตอร์แมคเคอเรลภารตะ อุรังคธาตุ แฟรี่เปปเปอร์มินต์ซิลเวอร์งั้นอาร์ติสต์ อยุติธรรมสโลว์ปัจเจกชนอพาร์ทเมนท์',
       price: 500,
@@ -26,16 +49,49 @@ const DashboardCourseViewPage = () => {
       },
       lessons: [
         {
-          title: 'เซต'
+          title: 'เซต',
+          content: [
+            {
+              title: 'ฟังก์ชั่น EP.1',
+              type: 'video',
+              contentURL: 'https://streamable.com/mqgmaw'
+            }
+          ]
         },
         {
-          title: 'เวกเตอร์'
+          title: 'เวกเตอร์',
+          content: [
+            {
+              title: 'เอกสารประกอบการเรียน',
+              type: 'file',
+              contentURL: 'https://streamable.com/ex7wun'
+            },
+            {
+              title: 'เวกเตอร์ EP.1',
+              type: 'video',
+              contentURL: 'https://streamable.com/ex7wun'
+            }
+          ]
         },
         {
-          title: 'เมทริกซ์'
+          title: 'เมทริกซ์',
+          content: [
+            {
+              title: 'ฟังก์ชั่น EP.1',
+              type: 'video',
+              contentURL: 'https:'
+            }
+          ]
         },
         {
-          title: 'ตรีโกณมิติ'
+          title: 'ตรีโกณมิติ',
+          content: [
+            {
+              title: 'ฟังก์ชั่น EP.1',
+              type: 'video',
+              contentURL: 'https:'
+            }
+          ]
         },
         {
           title: 'ฟังก์ชั่น',
@@ -48,12 +104,85 @@ const DashboardCourseViewPage = () => {
           ]
         },
         {
-          title: 'จำนวนจริง'
+          title: 'จำนวนจริง',
+          content: [
+            {
+              title: 'ฟังก์ชั่น EP.1',
+              type: 'video',
+              contentURL: 'https:'
+            }
+          ]
+        },
+        {
+          title: 'จำนวนจริง',
+          content: [
+            {
+              title: 'ฟังก์ชั่น EP.1',
+              type: 'video',
+              contentURL: 'https:'
+            }
+          ]
+        }, {
+          title: 'จำนวนจริง',
+          content: [
+            {
+              title: 'ฟังก์ชั่น EP.1',
+              type: 'video',
+              contentURL: 'https:'
+            }
+          ]
+        }, {
+          title: 'จำนวนจริง',
+          content: [
+            {
+              title: 'ฟังก์ชั่น EP.1',
+              type: 'video',
+              contentURL: 'https:'
+            }
+          ]
+        }, {
+          title: 'จำนวนจริง',
+          content: [
+            {
+              title: 'ฟังก์ชั่น EP.1',
+              type: 'video',
+              contentURL: 'https:'
+            }
+          ]
+        }, {
+          title: 'จำนวนจริง',
+          content: [
+            {
+              title: 'ฟังก์ชั่น EP.1',
+              type: 'video',
+              contentURL: 'https:'
+            }
+          ]
+        }, {
+          title: 'จำนวนจริง',
+          content: [
+            {
+              title: 'ฟังก์ชั่น EP.1',
+              type: 'video',
+              contentURL: 'https:'
+            }
+          ]
+        }, {
+          title: 'จำนวนจริง',
+          content: [
+            {
+              title: 'ฟังก์ชั่น EP.1',
+              type: 'video',
+              contentURL: 'https:'
+            }
+          ]
         },
       ]
-    })
+    }
+
+    setFetchCourse(courseData)
     return () => { }
-  }, [])
+  }, [router.query.id])
 
   return (
     <>
@@ -64,56 +193,41 @@ const DashboardCourseViewPage = () => {
 
         <main className={styles.main}>
           <div className={styles.content}>
-            <div onContextMenu={() => false}>
-              <VideoPlayer source={url} />
+            <div>
+              <VideoPlayer source={currentContent?.contentURL} />
             </div>
-            <button onClick={changeUrl}>change</button><br />
-            <button onClick={changeUrl}>change</button><br />
-            <button onClick={changeUrl}>change</button><br />
-            <button onClick={changeUrl}>change</button><br />
-            <button onClick={changeUrl}>change</button><br />
-            <button onClick={changeUrl}>change</button><br />
-            <button onClick={changeUrl}>change</button><br />
-            <button onClick={changeUrl}>change</button><br />
-            <button onClick={changeUrl}>change</button><br />
-            <button onClick={changeUrl}>change</button><br />
-            <button onClick={changeUrl}>change</button><br />
-            <button onClick={changeUrl}>change</button><br />
-            <button onClick={changeUrl}>change</button><br />
-            <button onClick={changeUrl}>change</button><br />
-            <button onClick={changeUrl}>change</button><br />
+            {currentContent && (
+              <div className={styles.content_info}>
+                <h2 className={styles.content_info_title}>
+                  <VideoCameraIcon className={styles.statusicon} />
+                  {currentContent?.title}
+                </h2>
+              </div>
+            )}
           </div>
-          <div className={styles.course_sidebar} ref={courseSectionRef}>
+          <div className={styles.course_sidebar}>
             <section className={styles.course_section}>
               <div className={styles.course_sidebar_title}>
-                <h4>เนื้อหาคอร์สเรียน</h4>
+                <h3>เนื้อหาคอร์สเรียน</h3>
               </div>
+
               <div className={styles.lessons_container}>
-                <ul className={styles.lessons_container__content}>
-                  <li className="h-20 bg-slate-400">
-                    d
-                  </li>
-                  <li className="h-20 bg-slate-400">
-                    d
-                  </li>
-                  <li className="h-20 bg-slate-400">
-                    d
-                  </li>
-                  <li className="h-20 bg-slate-400">
-                    d
-                  </li>
-                  <li className="h-20 bg-slate-400">
-                    d
-                  </li>
-                  <li className="h-20 bg-slate-400">
-                    d
-                  </li>
-                
-                </ul>
+                <div className={styles.lessons_container__content}>
+                  {fetchedCourse?.lessons.map((lesson, index) => (
+                    <CourseSectionWatchPage
+                      key={index} index={index + 1}
+                      lesson={lesson}
+                      setCurrentContent={setCurrentContent}
+                    />
+                  ))
+                  }
+                </div>
               </div>
             </section>
           </div>
         </main>
+
+        <Footer />
       </div>
     </>
   )

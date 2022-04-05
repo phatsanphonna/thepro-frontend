@@ -1,0 +1,41 @@
+.root {
+    @apply w-full h-full;
+    @apply bg-white;
+    @apply border-b border-gray-300;
+    @apply select-none;
+}
+
+.header {
+    @apply h-16;
+    @apply bg-gray-100;
+    @apply flex flex-row justify-between items-center;
+    @apply p-4;
+}
+
+.header p {
+    @apply font-medium;
+    @apply cursor-pointer;
+}
+
+.header p span {
+    @apply ml-1;
+}
+
+.statusicon {
+    @apply h-5 w-5;
+}
+
+.content {
+    @apply w-full py-2 px-3 mx-auto;
+    @apply bg-white;
+    @apply font-light text-sm;
+}
+
+.content p {
+    @apply flex flex-row gap-1 my-1;
+    @apply cursor-pointer;
+}
+
+.link {
+    @apply hover:underline;
+}
