@@ -18,6 +18,13 @@
     @apply font-semibold text-red-500 underline;
 }
 
+.header p {
+    @apply inline-flex flex-row items-center;
+}
+.header p span {
+    @apply ml-2;
+}
+
 .teacherinfo {
     @apply flex flex-row items-center gap-2;
 }

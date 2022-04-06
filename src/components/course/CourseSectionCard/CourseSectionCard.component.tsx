@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styles from './CourseSectionCard.component.module.css'
 import {
   ChevronDownIcon, ChevronUpIcon,

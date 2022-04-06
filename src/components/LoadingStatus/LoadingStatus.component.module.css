@@ -1,9 +1,8 @@
 .box {
     @apply absolute;
-    @apply bottom-10 right-10;
+    @apply top-10 right-10;
     @apply w-12 h-12;
     z-index: 9999999;
-    overflow: hidden;
 
     @apply bg-black;
 

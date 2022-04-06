@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { NextPage } from 'next'
 import styles from '@/styles/pages/signin.module.css'
 
@@ -18,7 +18,7 @@ const SignInPage: NextPage = () => {
 
   return (
     <>
-      <Metadata title='เข้าสู่ระบบ | THE PRO'/>
+      <Metadata title='เข้าสู่ระบบ | THE PRO TUTOR' />
       <Layout>
         <div className={styles.root}>
           <div className={styles.wrapper}>

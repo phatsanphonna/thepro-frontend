@@ -1,0 +1,14 @@
+.card {
+    @apply transition-all;
+
+    @apply w-48 h-24;
+    @apply grid place-items-center;
+
+    @apply select-none;
+    @apply text-black text-xl font-semibold;
+    @apply bg-golden-tainoi;
+    @apply rounded;
+    @apply shadow;
+
+    @apply hover:-translate-y-2;
+}

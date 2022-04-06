@@ -2,6 +2,7 @@ export type Course = {
   title: string
   description: string
   price: number
+  studyHours: string
   teacher: {
     name: string
     avatarURL: string

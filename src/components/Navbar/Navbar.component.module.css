@@ -1,5 +1,11 @@
 .nav {
-    @apply bg-thepro-gray h-16;
+    @apply bg-thepro-gray h-16 z-50;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 .wrapper {
@@ -10,8 +16,7 @@
 
 .logo a {
     @apply flex flex-row justify-center items-center select-none gap-4;
-    @apply text-white font-normal text-xl;
-    letter-spacing: 18px;
+    @apply text-white font-normal text-xl tracking-widest;
 }
 
 .navlinks {
@@ -28,5 +33,30 @@
 }
 
 .hamburger {
-    @apply text-white;
+    @apply text-white cursor-pointer;
+}
+
+.hamburger_tab {
+    @apply transition-all ease-in-out duration-300;
+    @apply absolute top-16 h-auto w-full;
+    @apply z-50;
+    @apply p-4;
+    @apply bg-thepro-gray;
+    @apply text-center;
+}
+
+.hamburger_tab_list {
+    @apply font-light text-white text-base select-none;
+}
+
+.hamburger_tab_list li {
+    @apply transition-all;
+    @apply p-4;
+    @apply border-b first:border-t border-white;
+    @apply hover:underline;
+    @apply hover:bg-white hover:text-black;
+}
+
+.hamburger_tab_list li {
+    @apply border-b p-4;
 }

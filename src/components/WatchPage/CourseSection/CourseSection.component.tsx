@@ -1,6 +1,12 @@
-import { ChevronDownIcon, ChevronUpIcon, DocumentIcon, VideoCameraIcon } from '@heroicons/react/solid'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styles from './CourseSection.component.module.css'
+
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  DocumentIcon,
+  VideoCameraIcon
+} from '@heroicons/react/solid'
 
 type Props = {
   index: number

@@ -1,30 +1,24 @@
-import React from 'react'
 import Link from 'next/link'
 import styles from './Footer.component.module.css'
 
-import { AtSymbolIcon, LinkIcon, PhoneIcon } from '@heroicons/react/solid'
+import { LinkIcon, PhoneIcon } from '@heroicons/react/solid'
+import FacebookIcon from '../Icons/FacebookIcon'
+import LineIcon from '../Icons/LineIcon'
+import InstagramIcon from '../Icons/InstagramIcon'
 
 const siteMap = [
-  {
-    name: 'หน้าหลัก',
-    slug: '/'
-  },
-  {
-    name: 'คอร์สเรียน',
-    slug: '/course'
-  },
-  {
-    name: 'เกี่ยวกับเรา',
-    slug: '/about'
-  },
-  {
-    name: 'รีวิว',
-    slug: '/review'
-  },
-  {
-    name: 'เข้าสู่ระบบ',
-    slug: '/signin'
-  },
+  { name: 'หน้าหลัก', slug: '/' },
+  { name: 'คอร์สเรียน', slug: '/course' },
+  { name: 'เกี่ยวกับเรา', slug: '/about' },
+  { name: 'รีวิว', slug: '/review' },
+  { name: 'เข้าสู่ระบบ', slug: '/signin' },
+]
+
+const contacts = [
+  { component: <PhoneIcon height={20} width={20} />, url: 'tel:0962239941', text: '096-223-9941' },
+  { component: <FacebookIcon />, url: 'https://www.facebook.com/The-Pro-Tutor-104995751003126/', text: 'The Pro Tutor' },
+  { component: <LineIcon />, url: 'https://line.me/R/ti/p/@the-pro', text: '@the-pro (มีเครื่องหมาย @)' },
+  { component: <InstagramIcon />, url: 'https://www.instagram.com/thepro_tutor/', text: 'thepro_tutor' }
 ]
 
 const Footer: React.FC = () => {
@@ -32,15 +26,31 @@ const Footer: React.FC = () => {
     <footer className={styles.root}>
       <div className={styles.wrapper}>
         <div className={styles.grid}>
+          <div className={styles.address}>
+            <h3>ที่อยู่</h3>
+            <p>
+              559/3
+              <br />ซอยพหลโยธิน 58 แยก 31
+              <br />แขวงสายไหม เขตสายไหม
+              <br />กรุงเทพมหานคร
+              <br />10220
+            </p>
+          </div>
           <div className={styles.contact}>
             <h3>ติดต่อเรา</h3>
             <ul>
-              <li>
-                <AtSymbolIcon height={20} width={20} /> <span>thepro@gmail.com</span>
-              </li>
-              <li>
-                <PhoneIcon height={20} width={20} /> <span>0123456789</span>
-              </li>
+              {contacts.map((contact, index) => (
+                <li key={index}>
+                  {contact.component}
+                  <a
+                    href={contact.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {contact.text}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
           <div className={styles.sitemap}>
@@ -67,14 +77,17 @@ const Footer: React.FC = () => {
         <div className={styles.copyright}>
           <hr className={styles.hr} />
 
-          <p>© 2022 THE PRO, All right reserved. Made by{' '}
-            <a href='https://github.com/phatsanphonna'>
+          <p>© 2022 THE PRO TUTOR, All rights reserved. Made by{' '}
+            <a
+              href='https://github.com/phatsanphonna'
+              target="_blank"
+              rel="noreferrer"
+            >
               Phatsanphon Nakaranurak
             </a>
           </p>
         </div>
       </div>
-
     </footer>
   )
 }

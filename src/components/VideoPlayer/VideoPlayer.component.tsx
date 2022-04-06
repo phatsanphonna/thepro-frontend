@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import ReactPlayer from "react-player"
 import { setLoading } from '@/redux/features/loading.feature'
@@ -57,7 +57,7 @@ const VideoPlayer: React.FC<Props> = ({ source }) => {
         }
       }}
       style={{ backgroundColor: 'black' }}
-      height={width > breakpoint ? 720 : 360}
+      height={width > breakpoint ? 720 : width > breakpoint - 256 ? 480 : 240}
     />
   )
 }

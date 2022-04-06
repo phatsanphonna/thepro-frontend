@@ -1,6 +1,5 @@
-import React from 'react'
 import { useSelector } from 'react-redux'
-import LoadingIcon from '../LoadingIcon'
+import LoadingIcon from '../Icons/LoadingIcon'
 import styles from './LoadingStatus.component.module.css'
 
 type Props = {}
@@ -17,7 +16,8 @@ const LoadingStatus: React.FC = (props: Props) => {
           style={{
             opacity: globalLoading ? 100 : 0,
             transform: globalLoading ? 'translateY(0%)' : 'translateY(20%)'
-          }}>
+          }}
+          >
           <div className={styles.icon}>
             <LoadingIcon wh={30} />
           </div>

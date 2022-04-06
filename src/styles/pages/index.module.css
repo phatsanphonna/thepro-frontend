@@ -1,0 +1,62 @@
+.header {
+    height: calc(100vh - 64px);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    @apply grid place-items-center;
+    @apply text-center;
+
+    @apply bg-black;
+
+    @apply text-white;
+}
+
+.header h1 {
+    @apply font-bold text-3xl md:text-5xl;
+}
+
+.header p {
+    @apply font-normal text-xl md:text-3xl;
+}
+
+.wrapper {
+    @apply container;
+    @apply flex flex-col items-center justify-center;
+    @apply p-4 mx-auto;
+}
+
+.course {
+    @apply bg-white;
+    @apply h-auto p-4 py-24;
+}
+
+.course .course__layout {
+    @apply flex flex-col justify-center items-center gap-4;
+}
+
+.course_grid {
+    @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4;
+}
+
+.review {
+    @apply bg-golden-tainoi;
+    @apply h-auto p-4;
+}
+
+.study {
+    @apply bg-white;
+    @apply h-auto p-4 py-24;
+    @apply text-center lg:text-left;
+}
+
+.study .map {
+    @apply w-full md:w-96 h-48;
+}
+
+.study .study__layout {
+    @apply w-full md:w-3/5;
+    @apply flex flex-col items-center justify-between;
+    @apply gap-4;
+    @apply lg:flex-row;
+}

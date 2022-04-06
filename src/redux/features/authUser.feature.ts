@@ -1,8 +1,8 @@
-import { useStorage } from "@/libs/storage.libs"
+import { useStorage } from "@/libs/storage/storage.lib"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: true,
   user: {
     name: 'เจน'
   }

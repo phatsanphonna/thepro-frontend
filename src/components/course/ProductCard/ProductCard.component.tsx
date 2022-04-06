@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './ProductCard.component.module.css'
 
 import Button from '../../Button/Button.component'
@@ -30,7 +29,7 @@ const ProductCard: React.FC<Props> = ({ title, shortDescription, price, slug }) 
             <Button type='outline-primary'>ดูคอร์สนี้</Button>
           </a>
         </Link>
-        <p>{price}฿</p>
+        <p>฿{price}</p>
       </div>
     </div>
   )

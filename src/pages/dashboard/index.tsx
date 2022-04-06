@@ -1,19 +1,21 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import HeaderText from '@/components/HeaderText/HeaderText.component'
 import Layout from '@/components/Layout/Layout.component'
 import Metadata from '@/components/Metadata.component'
+import { useAuth } from '@/libs/auth/auth.lib'
+import { useRouter } from 'next/router'
 
 type Props = {}
 
 const DashboardPage = () => {
+  const router = useRouter()
+  useAuth(router)
 
   useEffect(() => {
-    console.log(localStorage.getItem('jwt'))
-  }, [])
-
+  },[])
   return (
     <>
-      <Metadata title='Dashboard | THE PRO' />
+      <Metadata title='Dashboard | THE PRO TUTOR' />
 
       <Layout>
         <HeaderText>Dashboard</HeaderText>

@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import React from 'react'
 
 type Props = {
   title: string | null
@@ -12,6 +11,8 @@ const Metadata = ({ title, description }: Props) => {
       <title>{title}</title>
       <meta name='description' content={description} />
       <link rel='icon' href='./favicon.ico' />
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:image" content="./thumbnail.jpg" />
     </Head>
   )
 }

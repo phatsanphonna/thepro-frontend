@@ -1,5 +1,3 @@
-import React from 'react'
-
 type Props = {
   type?: 'primary' | 'outline-primary' | 'secondary' | 'black' | 'outline-black',
   onClick?: React.MouseEventHandler<HTMLButtonElement>
