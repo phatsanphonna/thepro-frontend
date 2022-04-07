@@ -7,6 +7,7 @@ import Footer from '@/components/Footer/Footer.component'
 import Title from '@/components/IndexPage/Title/Title.component'
 import GoogleMap from '@/components/IndexPage/GoogleMap/GoogleMap.component'
 import IndexCourseCard from '@/components/IndexPage/CourseCard/CourseCard.component'
+import { useEffect, useLayoutEffect, useState } from 'react'
 
 const courseList = [
   { title: 'คณิตศาสตร์', slug: 'math' },
@@ -39,20 +40,32 @@ const HomePage: NextPage = () => {
   )
 }
 
-const Header: React.FC = () => (
-  <div className={styles.header}
-    style={{
-      backgroundImage: (
-        'linear-gradient(to bottom,#000000e6,#000000e6), url("./thepro_pv.webp")'
-      )
-    }}
-  >
-    <div>
-      <h1>THE PRO TUTOR</h1>
-      <p>&quot;ความรู้คือพลัง สู่อนาคตที่ยั่งยืน&quot;</p>
+const Header: React.FC = () => {
+  const [bgURL, setBgURL] = useState<string>('')
+
+  useLayoutEffect(() => {
+    if (window.innerWidth > 768) {
+      setBgURL("./thepro_pv.webp")
+    } else {
+      setBgURL('./thepro_header.jpg')
+    }
+  }, [])
+
+  return (
+    <div className={styles.header}
+      style={{
+        backgroundImage: (
+          `linear-gradient(to bottom,#000000e6,#000000e6), url(${bgURL})`
+        )
+      }}
+    >
+      <div>
+        <h1>THE PRO TUTOR</h1>
+        <p>&quot;ความรู้คือพลัง สู่อนาคตที่ยั่งยืน&quot;</p>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 const Course: React.FC = () => (
   <div className={styles.course}>

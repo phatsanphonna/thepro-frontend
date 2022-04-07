@@ -35,7 +35,7 @@
 }
 
 .address p {
-    @apply text-sm;
+    @apply text-base;
 }
 
 .sitemap_grid {
