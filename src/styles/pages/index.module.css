@@ -13,11 +13,11 @@
 }
 
 .header h1 {
-    @apply font-bold text-3xl md:text-5xl;
+    @apply font-bold text-3xl md:text-5xl lg:text-7xl;
 }
 
 .header p {
-    @apply font-normal text-xl md:text-3xl;
+    @apply font-normal text-xl md:text-3xl lg:text-5xl;
 }
 
 .wrapper {

@@ -10,5 +10,8 @@
     @apply rounded;
     @apply shadow;
 
+    @apply hover:border-2 hover:border-golden-tainoi;
+    @apply hover:bg-white;
+
     @apply hover:-translate-y-2;
 }

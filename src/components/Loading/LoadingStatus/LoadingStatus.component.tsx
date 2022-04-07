@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import LoadingIcon from '../Icons/LoadingIcon'
+import LoadingIcon from '../../Icons/LoadingIcon'
 import styles from './LoadingStatus.component.module.css'
 
 type Props = {}

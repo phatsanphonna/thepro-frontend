@@ -12,7 +12,7 @@ const IndexCourseCard: React.FC<Props> = ({ title, slug }) => {
       href={{
         pathname: '/course',
         query: {
-          category: slug
+          category: encodeURIComponent(slug)
         }
       }}
       passHref

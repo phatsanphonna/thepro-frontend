@@ -1,4 +1,4 @@
-import { useStorage } from "@/libs/storage/storage.lib"
+import { useLocalStorage } from "@/libs/storage/localStorage.lib"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
@@ -10,8 +10,8 @@ const initialState = {
 
 const fetchUserAuth = createAsyncThunk(
   'authUser/fetchUserAuth', async (thunkAPI) => {
-    const { getStorageItem } = useStorage()
-    return getStorageItem('jwt')
+    const { getLocalStorageItem } = useLocalStorage()
+    return getLocalStorageItem('jwt')
   }
 )
 
@@ -24,9 +24,9 @@ const authUserSlice = createSlice({
     },
     getLocalUserAuth: (state) => {
       //eslint-disable-next-line
-      const { getStorageItem } = useStorage()
+      const { getLocalStorageItem } = useLocalStorage()
 
-      const localAuthUser = getStorageItem('localAuthUser')
+      const localAuthUser = getLocalStorageItem('localAuthUser')
 
       if (localAuthUser) {
         const parsedLocalAuthUser = JSON.parse(localAuthUser)

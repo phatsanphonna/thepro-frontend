@@ -1,0 +1,7 @@
+.root {
+    height: calc(100vh - 4rem);
+    @apply grid place-items-center;
+
+    @apply bg-white;
+    @apply text-black;
+}

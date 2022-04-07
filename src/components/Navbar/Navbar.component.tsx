@@ -31,12 +31,14 @@ const Navbar: React.FC = () => {
     }
   }, [])
 
+  const checkResponsiveNavbar = screenWidth > mobileBreakpoint
+
   useEffect(() => {
     if (setIsHamburgerClicked) {
       setIsHamburgerClicked(false)
     }
 
-  }, [screenWidth > mobileBreakpoint])
+  }, [checkResponsiveNavbar])
 
   return (
     <>
@@ -55,6 +57,8 @@ const Navbar: React.FC = () => {
                     alt='THE PRO LOGO'
                     width={40} height={40}
                     quality={100}
+                    loading='eager'
+
                   />
                 )}
                 <h1>THE PRO TUTOR</h1>
@@ -62,7 +66,7 @@ const Navbar: React.FC = () => {
             </Link>
           </div>
 
-          {screenWidth > mobileBreakpoint ? (
+          {checkResponsiveNavbar ? (
             <ul className={styles.navlinks}>
               <li>
                 <Link href='/course' passHref>
@@ -85,26 +89,24 @@ const Navbar: React.FC = () => {
                   </a>
                 </Link>
               </li>
-              {
-                authUser.isAuthenticated ? (
-                  <li>
-                    <Link href='/dashboard' passHref>
-                      <a className='font-medium inline-flex gap-1 items-center justify-center'>
-                        <UserCircleIcon width={20} height={20} />
-                        สวัสดีน้อง{authUser.user.name}
-                      </a>
-                    </Link>
-                  </li>
-                ) : (
-                  <li>
-                    <Link href='/signin' passHref>
-                      <a>
-                        เข้าสู่ระบบ
-                      </a>
-                    </Link>
-                  </li>
-                )
-              }
+              {authUser.isAuthenticated ? (
+                <li>
+                  <Link href='/dashboard' passHref>
+                    <a className='font-medium inline-flex gap-1 items-center justify-center'>
+                      <UserCircleIcon width={20} height={20} />
+                      สวัสดีน้อง{authUser.user.name}
+                    </a>
+                  </Link>
+                </li>
+              ) : (
+                <li>
+                  <Link href='/signin' passHref>
+                    <a>
+                      เข้าสู่ระบบ
+                    </a>
+                  </Link>
+                </li>
+              )}
             </ul>
           ) : (
             <>

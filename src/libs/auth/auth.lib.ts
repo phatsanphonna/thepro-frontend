@@ -1,23 +1,26 @@
 import axios from 'axios'
 
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import type { NextRouter } from 'next/router'
 
 import { useDispatch } from 'react-redux'
 import { setLoading } from '@/redux/features/loading.feature'
 
-import { useStorage } from '../storage/storage.lib'
+import { useLocalStorage } from '../storage'
+import { clearTimeout } from 'timers'
 
 export const useAuth = (router: NextRouter) => {
   const dispatch = useDispatch()
 
   const {
-    getStorageItem,
-    setStorageItem,
-    removeStorageItem
-  } = useStorage()
+    getLocalStorageItem,
+    setLocalStorageItem,
+    removeLocalStorageItem
+  } = useLocalStorage()
 
-  return useEffect(() => {
+  return useLayoutEffect(() => {
+    let isSuccess = false
+
     const fetchOnlineUserData = async () => {
 
     }
@@ -44,14 +47,21 @@ export const useAuth = (router: NextRouter) => {
     //   removeStorageItem('accessToken')
     //   removeStorageItem('refreshToken')
 
-    //   router.push('/signin')
     // }
 
 
 
-    setTimeout(() => dispatch(setLoading(false)), 5000)
+    const timeout = setTimeout(() => {
+      dispatch(setLoading(false))
+      isSuccess = true
+    }, 5000)
+
+
 
     return () => {
+      if (!isSuccess) {
+        window.clearTimeout(timeout)
+      }
       dispatch(setLoading(false))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
