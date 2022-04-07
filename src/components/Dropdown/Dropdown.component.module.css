@@ -1,0 +1,6 @@
+.select {
+    @apply h-10 px-2;
+    @apply rounded;
+    @apply border-2 border-black;
+    @apply focus:ring ring-black ring-opacity-25;
+}

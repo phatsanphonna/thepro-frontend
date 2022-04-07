@@ -5,3 +5,20 @@
 
     @apply my-4 mx-auto;
 }
+
+.hr {
+    @apply border-black my-4 w-full;
+}
+
+.option {
+    @apply w-full;
+    @apply flex flex-col md:flex-row items-center justify-between;
+}
+
+.option p {
+    @apply text-lg font-medium;
+}
+
+.subject {
+    @apply inline-flex items-center gap-2;
+}

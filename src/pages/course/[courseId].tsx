@@ -8,6 +8,9 @@ import Metadata from '@/components/Metadata.component'
 import Button from '@/components/Button/Button.component'
 import { ClockIcon } from '@heroicons/react/solid'
 
+import axios from 'axios'
+import { useEffect } from 'react'
+
 type Props = {
   course: {
     title: string
@@ -21,19 +24,21 @@ type Props = {
     lessons: [
       {
         title: string,
-        content?: [
-          {
-            title: string
-            type: 'video' | 'file'
-            contentURL: string
-          }
-        ]
       }
     ]
   }
 }
 
 const CourseIdPage: NextPage<Props> = ({ course }: Props) => {
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch('http://localhost:5000/api/content')
+      console.log(res)
+    }
+
+    fetchData()
+  }, [])
   return (
     <>
       <Metadata title={`${course.title} | THE PRO TUTOR`} />
@@ -85,6 +90,9 @@ const CourseIdPage: NextPage<Props> = ({ course }: Props) => {
 export default CourseIdPage
 
 export const getServerSideProps: GetServerSideProps = async (_ctx) => {
+  const res = await fetch('http://localhost:5000/api/hello')
+  console.log(res)
+
   return {
     props: {
       course: {
@@ -111,13 +119,6 @@ export const getServerSideProps: GetServerSideProps = async (_ctx) => {
           },
           {
             title: 'ฟังก์ชั่น',
-            content: [
-              {
-                title: 'ฟังก์ชั่น EP.1',
-                type: 'video',
-                contentURL: 'https:'
-              }
-            ]
           },
           {
             title: 'จำนวนจริง'

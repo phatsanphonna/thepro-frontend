@@ -1,11 +1,11 @@
+import Link from 'next/link'
 import styles from './ProductCard.component.module.css'
 
-import Button from '../../Button/Button.component'
-import Link from 'next/link'
+import Button from '@/components/Button/Button.component'
 
 type Props = {
   title: string
-  shortDescription: string
+  shortDescription?: string
   price: number
   slug: string
 }

@@ -1,18 +1,21 @@
 .productCard {
+    @apply transition-all;
     @apply bg-white rounded border shadow-md;
 
     @apply w-full h-60;
     @apply p-4;
 
     @apply flex flex-col items-start;
+
+    @apply hover:-translate-y-2;
 }
 
 .productCard__header {
-    @apply font-semibold text-xl hover:underline;
+    @apply font-semibold text-base hover:underline;
 }
 
 .productCard__footer {
-    @apply mt-auto w-full; 
+    @apply mt-auto w-full;
 
     @apply flex flex-row justify-between items-baseline;
 }
