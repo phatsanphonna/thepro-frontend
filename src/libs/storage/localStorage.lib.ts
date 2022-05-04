@@ -1,4 +1,10 @@
-export const useLocalStorage = () => {
+export interface LocalStorageItem {
+    getLocalStorageItem: (key: string) => string | null;
+    setLocalStorageItem: (key: string, value: string) => void;
+    removeLocalStorageItem: (key: string) => void;
+}
+
+export const useLocalStorage = (): LocalStorageItem => {
     const getLocalStorageItem = (key: string) => {
         return localStorage.getItem(key)
     }

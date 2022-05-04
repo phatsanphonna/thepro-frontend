@@ -1,58 +1,70 @@
-import { useState } from 'react'
-import type { NextPage } from 'next'
-import styles from '@/styles/pages/signin.module.css'
+import Layout from '@/components/Layout/Layout.component';
+import Metadata from '@/components/Metadata.component';
+import { signIn, SignInRouteGuard } from '@/libs/auth';
+import { useLocalStorage } from '@/libs/storage';
+import styles from '@/styles/pages/signin.module.css';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Layout from '@/components/Layout/Layout.component'
-import Button from '@/components/Button/Button.component'
-import Metadata from '@/components/Metadata.component'
+import type { NextPage } from 'next'
+import { disableError, setError } from '@/redux/features/loading.feature';
 
 const SignInPage: NextPage = () => {
-  const [username, setUsername] = useState('')
+  const dispatch = useDispatch()
+  const router = useRouter()
+
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(username, password);
 
+    dispatch(disableError())
+    await signIn(dispatch, router, { email, password })
   }
 
   return (
     <>
-      <Metadata title='เข้าสู่ระบบ | THE PRO TUTOR' />
-      <Layout>
-        <div className={styles.root}>
-          <div className={styles.wrapper}>
-            <h1 className={styles.title}>เข้าสู่ระบบ</h1>
+      <Metadata title='เข้าสู่ระบบ | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR' />
 
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="email">อีเมล</label>
-                <br />
-                <input
-                  type="email" id='email' required
-                  placeholder='elonmusk@spacex.org'
-                  onChange={e => setUsername(e.target.value)}
-                  value={username}
-                />
-              </div>
-              <div>
-                <label htmlFor="password">รหัสผ่าน</label>
-                <br />
-                <input
-                  type="password" id='password' required
-                  placeholder='รหัสผ่านที่ลับที่สุด'
-                  onChange={e => setPassword(e.target.value)}
-                  value={password} />
-              </div>
-              <button className='w-full' type='submit'>
-                <Button width='w-full' type='primary'>เข้าสู่ระบบ</Button>
-              </button>
-            </form>
-            <p className='select-none'>- หรือ -</p>
-            <Button width='w-full' type='outline-black' onClick={() => { }}>ลงทะเบียน / สมัครเรียน</Button>
+      <SignInRouteGuard>
+        <Layout>
+          <div className={styles.root}>
+            <div className={styles.wrapper}>
+              <h1 className={styles.title}>เข้าสู่ระบบ</h1>
+              <button onClick={() => dispatch(disableError())}></button>
+
+              <form className={styles.form} onSubmit={handleSubmit}>
+                <div>
+                  <label htmlFor="email">อีเมล</label>
+                  <br />
+                  <input
+                    type="email" id='email' required
+                    placeholder='elonmusk@spacex.org'
+                    onChange={e => setEmail(e.target.value)}
+                    value={email}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="password">รหัสผ่าน</label>
+                  <br />
+                  <input
+                    type="password" id='password' required
+                    placeholder='รหัสผ่านที่ลับที่สุด'
+                    onChange={e => setPassword(e.target.value)}
+                    value={password} />
+                </div>
+                <button className='w-full btn btn-primary' type='submit'>เข้าสู่ระบบ</button>
+              </form>
+              <p className='select-none'>- หรือ -</p>
+              <button
+                className='w-full btn btn-outline-black'
+                onClick={() => { }}>ลงทะเบียน / สมัครเรียน</button>
+            </div>
           </div>
-        </div>
-      </Layout>
+        </Layout>
+      </SignInRouteGuard>
     </>
   )
 }

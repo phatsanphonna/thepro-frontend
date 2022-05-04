@@ -1,6 +1,6 @@
 .root {
     @apply w-full h-1;
-    @apply absolute top-0 z-50;
+    @apply fixed top-0 z-50;
 
     @apply bg-yellow-500;
 
@@ -9,14 +9,14 @@
 
 @keyframes bgColor {
     0% {
-        @apply bg-yellow-500
+        @apply bg-yellow-500;
     }
 
     50% {
-        @apply bg-yellow-600
+        @apply bg-yellow-600;
     }
 
     100% {
-        @apply bg-yellow-500
+        @apply bg-yellow-500;
     }
 }

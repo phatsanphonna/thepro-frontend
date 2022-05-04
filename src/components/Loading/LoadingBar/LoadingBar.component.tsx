@@ -1,8 +1,12 @@
 import styles from './LoadingBar.component.module.css'
 
-const LoadingBar: React.FC = () => {
+type Props = {
+  style?: React.CSSProperties
+}
+
+const LoadingBar: React.FC<Props> = ({ style }: Props) => {
   return (
-    <div className={styles.root} />
+    <div className={styles.root} style={{}} />
   )
 }
 

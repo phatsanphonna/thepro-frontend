@@ -1,4 +1,7 @@
 .nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
     @apply bg-thepro-gray h-16 z-50;
 }
 
@@ -30,6 +33,7 @@
 
 .navlinks li {
     @apply hover:underline;
+    @apply select-none;
 }
 
 .hamburger {

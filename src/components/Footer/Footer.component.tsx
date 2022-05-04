@@ -57,26 +57,29 @@ const Footer: React.FC = () => {
             <h3>แผนผังเว็บไซต์</h3>
             <ul className={styles.sitemap_grid}>
               {siteMap.map((sm, index) => (
-                <div key={index}>
-                  <li >
-                    <LinkIcon height={16} width={16} />
-                    <span>
-                      <Link href={sm.slug} passHref>
-                        <a className={styles.link}>
-                          {sm.name}
-                        </a>
-                      </Link>
-                    </span>
-                  </li>
-                </div>
+                <li key={index}>
+                  <LinkIcon height={16} width={16} />
+                  <span>
+                    <Link href={sm.slug} passHref>
+                      <a className={styles.link}>
+                        {sm.name}
+                      </a>
+                    </Link>
+                  </span>
+                </li>
               ))}
             </ul>
           </div>
-
         </div>
         <div className={styles.copyright}>
           <hr className={styles.hr} />
-
+          <p>
+            <Link href='terms/privacy' passHref>
+              <a>
+                Privacy Policy
+              </a>
+            </Link>
+          </p>
           <p>© 2022 THE PRO TUTOR, All rights reserved. Made by{' '}
             <a
               href='https://github.com/phatsanphonna'

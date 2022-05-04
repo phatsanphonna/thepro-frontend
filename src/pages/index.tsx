@@ -1,15 +1,15 @@
-import type { NextPage } from 'next'
-import Image from 'next/image'
-import styles from '@/styles/pages/index.module.css'
+import Footer from '@/components/Footer/Footer.component';
+import IndexCourseCard from '@/components/IndexPage/CourseCard/CourseCard.component';
+import GoogleMap from '@/components/IndexPage/GoogleMap/GoogleMap.component';
+import Title from '@/components/IndexPage/Title/Title.component';
+import Metadata from '@/components/Metadata.component';
+import Navbar from '@/components/Navbar/Navbar.component';
+import styles from '@/styles/pages/index.module.css';
+import { ChevronDownIcon } from '@heroicons/react/solid';
+import Image from 'next/image';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
-import Metadata from '@/components/Metadata.component'
-import Navbar from '@/components/Navbar/Navbar.component'
-import Footer from '@/components/Footer/Footer.component'
-import Title from '@/components/IndexPage/Title/Title.component'
-import GoogleMap from '@/components/IndexPage/GoogleMap/GoogleMap.component'
-import IndexCourseCard from '@/components/IndexPage/CourseCard/CourseCard.component'
-import { useEffect, useLayoutEffect, useState } from 'react'
-import { ChevronDownIcon } from '@heroicons/react/solid'
+import type { NextPage } from 'next'
 
 const courseList = [
   { title: 'คณิตศาสตร์', slug: 'math' },
@@ -32,7 +32,7 @@ const reviewList = [
 const HomePage: NextPage = () => {
   return (
     <>
-      <Metadata title='หน้าหลัก | THE PRO TUTOR' />
+      <Metadata title='สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR' />
 
       <Navbar />
 
@@ -95,6 +95,16 @@ const Course: React.FC = () => (
 const Review: React.FC = () => {
   const [isMoreInfoShown, setIsMoreInfoShown] = useState(false)
 
+  const [width, setWidth] = useState(768)
+
+  useEffect(() => {
+    setWidth(window.innerWidth)
+
+    if (window.innerWidth > 768) {
+      setIsMoreInfoShown(true)
+    }
+  }, [])
+
   return (
     <div className={styles.review}>
       <div className={[styles.wrapper, styles.review__layout].join(' ')}>
@@ -102,7 +112,7 @@ const Review: React.FC = () => {
 
         <div className={styles.review_grid}>
           {reviewList.map((review, index) => {
-            if (isMoreInfoShown) {
+            if (isMoreInfoShown || width > 768) {
               return (
                 <div className={styles.review_pics} key={index}>
                   <Image
@@ -131,7 +141,7 @@ const Review: React.FC = () => {
             }
           })}
         </div>
-        {!isMoreInfoShown && (
+        {(!isMoreInfoShown) && (
           <div className={styles.chevron}>
             <ChevronDownIcon
               width={40}

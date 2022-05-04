@@ -21,8 +21,8 @@ type Lesson = {
 
 type LessonContent = {
   title: string
-  type: 'video' | 'file'
-  contentURL: string
+  type: 'VIDEO' | 'FILE'
+  fileAccessId: string
 }
 
 const CourseSectionWatchPage = ({ lesson, index, setCurrentContent }: Props) => {
@@ -56,11 +56,11 @@ const CourseSectionWatchPage = ({ lesson, index, setCurrentContent }: Props) => 
         <div className={styles.content}>
           {lesson.content.map((c, index) => {
             switch (c.type) {
-              case 'file':
+              case 'FILE':
                 return (
                   <a
                     key={index}
-                    href={c.contentURL}
+                    href={c.fileAccessId}
                     target="_blank"
                     rel="noreferrer"
                     className={styles.link}
@@ -68,7 +68,7 @@ const CourseSectionWatchPage = ({ lesson, index, setCurrentContent }: Props) => 
                     <p><DocumentIcon className={styles.statusicon} /> {c.title}</p>
                   </a>
                 )
-              case 'video':
+              case 'VIDEO':
                 return (
                   <a
                     key={index}

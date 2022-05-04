@@ -2,12 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .btn {
+    @apply transition-all ease-in-out duration-200;
+    @apply select-none;
+    @apply h-12 w-24;
+    @apply rounded;
+    @apply font-normal;
+
+    @apply disabled:bg-gray-700 disabled:text-gray-400 disabled:ring-0;
+  }
+
+  .btn-primary {
+    @apply bg-mantis border-0 text-white hover:ring-4 hover:ring-mantis-200;
+  }
+
+  .btn-outline-primary {
+    @apply bg-transparent border border-mantis text-mantis hover:bg-mantis hover:text-white;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-500 border-0 text-white hover:ring-4 hover:ring-gray-200;
+  }
+
+  .btn-black {
+    @apply bg-black border-0 text-white hover:ring-4 hover:ring-gray-200;
+  }
+
+  .btn-outline-black {
+    @apply bg-transparent border border-black text-black hover:border-0 hover:bg-black hover:text-white;
+  }
+
+  .btn-danger {
+    @apply bg-red-500 border-0 text-white hover:ring-4 hover:ring-red-200;
+  }
+
+  .btn-outline-danger {
+    @apply bg-transparent border border-red-500 text-red-500 hover:border-0 hover:bg-red-500 hover:text-white;
+  }
+
+  .btn-warning {
+    @apply bg-yellow-500 border-0 text-white hover:ring-4 hover:ring-yellow-200;
+  }
+
+  .btn-outline-warning {
+    @apply bg-transparent border border-yellow-500
+    text-yellow-500 hover:border-0 hover:bg-yellow-500
+    hover:text-white;
+  }
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: "Prompt", sans-serif;
-
 }
 
 a {

@@ -1,13 +1,24 @@
+.container {
+    @apply fixed top-0 left-0;
+    z-index: 10;
+
+    @apply w-full min-h-full;
+    @apply bg-black bg-opacity-80;
+
+    @apply flex flex-col justify-center items-center gap-4;
+    @apply p-4;
+}
+
 .box {
-    @apply absolute;
-    @apply top-10 right-10;
-    @apply w-12 h-12;
-    z-index: 9999999;
+    @apply w-24 h-24;
 
-    @apply bg-black;
+    @apply bg-white;
 
-    @apply rounded;
+    @apply rounded-md;
     @apply flex items-center justify-center;
+}
 
-    @apply transition-all ease-in-out duration-300;
+.status_message {
+    @apply drop-shadow;
+    @apply text-white text-lg;
 }

@@ -22,3 +22,105 @@
 .subject {
     @apply inline-flex items-center gap-2;
 }
+
+.select {
+    @apply h-10 px-2;
+    @apply rounded;
+    @apply border-2 border-black;
+    @apply focus:ring ring-black ring-opacity-25;
+}
+
+.select .option {
+    @apply h-10 px-2;
+}
+
+.course {
+    @apply w-full;
+    @apply m-4;
+}
+
+.course h3 {
+    @apply font-bold text-2xl;
+    @apply mb-2;
+}
+
+.course_section_title {
+    @apply bg-golden-tainoi-500;
+    @apply p-2;
+    @apply border-b border-black;
+}
+
+.course_section_title__second_line {
+    @apply w-full;
+    @apply -mt-2;
+    @apply inline-flex flex-col md:flex-row justify-between md:items-center;
+}
+
+.course_section_title__second_line span {
+    @apply inline-flex gap-1;
+}
+
+.course_section_title h4 {
+    @apply text-base md:text-lg font-semibold;
+}
+
+.course_section_title p {
+    @apply text-sm;
+}
+
+.course_section_title span {
+    @apply text-sm md:text-base font-medium;
+}
+
+.section {
+    @apply w-full;
+    @apply my-2;
+    @apply border border-black;
+    @apply rounded-md;
+}
+
+.section .grade {
+    @apply w-full;
+    @apply p-2;
+    @apply text-xs md:text-base;
+    @apply inline-flex flex-row justify-between;
+}
+
+.section .grade p {
+    @apply underline;
+}
+
+.section .grade ul {
+    @apply w-full;
+}
+
+.section .grade li {
+    @apply w-full;
+    @apply text-sm md:text-base;
+    @apply inline-flex flex-row justify-between;
+}
+
+.grade__time {
+    @apply w-full;
+    @apply px-2;
+    @apply mb-2;
+}
+
+.grade__time p {
+    @apply underline font-medium text-sm;
+}
+
+.grade__time ul {
+    @apply w-full;
+}
+
+.grade__time li {
+    @apply w-full;
+    @apply px-2;
+    @apply text-sm;
+    @apply inline-flex flex-col md:flex-row justify-between;
+}
+
+.grade__time li span span {
+    @apply font-medium;
+}

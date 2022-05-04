@@ -1,0 +1,50 @@
+.wrapper {
+    @apply w-full;
+}
+
+.wrapper h3 {
+    @apply text-lg md:text-xl font-semibold underline;
+}
+
+.info_wrapper {
+    @apply w-full md:w-11/12;
+    @apply grid grid-cols-1 md:grid-cols-2 place-items-center;
+    @apply gap-y-4;
+    @apply my-2 mx-auto;
+}
+
+.password_container {
+    @apply w-full md:w-10/12;
+    @apply flex flex-col justify-center items-center;
+    @apply mx-auto;
+}
+
+.password_wrapper {
+    @apply w-full;
+    @apply flex flex-col md:flex-row justify-center items-center md:justify-between;
+    @apply my-2 mx-auto;
+}
+
+.confirm_password_wrapper {
+    @apply w-full;
+    @apply flex flex-col md:flex-row justify-center items-center md:justify-between;
+    @apply my-2 mx-auto;
+}
+
+.password_info {
+    @apply w-full;
+}
+
+.password_info h6 {
+    @apply font-normal underline;
+}
+
+.password_info p {
+    @apply text-sm text-gray-600;
+}
+
+.btn_wrapper {
+    @apply w-full;
+    @apply my-2;
+    @apply flex flex-row justify-between items-center;
+}

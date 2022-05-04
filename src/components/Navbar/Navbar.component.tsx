@@ -1,21 +1,24 @@
+import { getLocalUserAuth } from '@/redux/features/userAuth.feature'
 import { MenuIcon, UserCircleIcon } from '@heroicons/react/solid'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useLayoutEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import LoadingIcon from '../Icons/LoadingIcon'
+import { useDispatch, useSelector } from 'react-redux'
 import styles from './Navbar.component.module.css'
 
-
-
 const Navbar: React.FC = () => {
-  const authUser = useSelector((state: any) => state.authUser)
-  const globalLoading = useSelector((state: any) => state.loading.globalLoading)
+  const dispatch = useDispatch()
+
+  const userAuth = useSelector((state: any) => state.userAuth)
 
   const mobileBreakpoint = 768
   const [screenWidth, setScreenWidth] = useState(mobileBreakpoint)
 
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
+
+  useLayoutEffect(() => {
+    dispatch(getLocalUserAuth())
+  }, [])
 
   useLayoutEffect(() => {
     const changeWidth = () => {
@@ -49,18 +52,14 @@ const Navbar: React.FC = () => {
           <div className={styles.logo}>
             <Link href='/' passHref>
               <a>
-                {globalLoading ? (
-                  <LoadingIcon wh={30} />
-                ) : (
-                  <Image
-                    src='/theprologo.png'
-                    alt='THE PRO LOGO'
-                    width={40} height={40}
-                    quality={100}
-                    loading='eager'
-
-                  />
-                )}
+                <Image
+                  src='/theprologo.png'
+                  alt='THE PRO LOGO'
+                  width={40} height={40}
+                  quality={100}
+                  loading='eager'
+                  priority={true}
+                />
                 <h1>THE PRO TUTOR</h1>
               </a>
             </Link>
@@ -70,42 +69,37 @@ const Navbar: React.FC = () => {
             <ul className={styles.navlinks}>
               <li>
                 <Link href='/course' passHref>
-                  <a>
-                    คอร์สเรียน
-                  </a>
+                  <a>คอร์สเรียน</a>
                 </Link>
               </li>
               <li>
                 <Link href='/about' passHref>
-                  <a>
-                    เกี่ยวกับเรา
-                  </a>
+                  <a>เกี่ยวกับเรา</a>
                 </Link>
               </li>
               <li>
                 <Link href='/review' passHref>
-                  <a>
-                    รีวิว
-                  </a>
+                  <a>รีวิว</a>
                 </Link>
               </li>
-              {authUser.isAuthenticated ? (
+              {userAuth.isAuthenticated ? (
                 <li>
                   <Link href='/dashboard' passHref>
                     <a className='font-medium inline-flex gap-1 items-center justify-center'>
                       <UserCircleIcon width={20} height={20} />
-                      สวัสดีน้อง{authUser.user.name}
+                      {userAuth.user?.email.split('@')[0]}
                     </a>
                   </Link>
+
                 </li>
               ) : (
-                <li>
-                  <Link href='/signin' passHref>
-                    <a>
-                      เข้าสู่ระบบ
-                    </a>
-                  </Link>
-                </li>
+                <>
+                  <li>
+                    <Link href='/signin' passHref>
+                      <a>เข้าสู่ระบบ</a>
+                    </Link>
+                  </li>
+                </>
               )}
             </ul>
           ) : (
@@ -116,8 +110,7 @@ const Navbar: React.FC = () => {
                 className={styles.hamburger}
                 onClick={() => {
                   setIsHamburgerClicked(!isHamburgerClicked)
-                }
-                }
+                }}
                 style={{
                   color: isHamburgerClicked ? 'black' : 'white',
                   backgroundColor: isHamburgerClicked ? 'white' : '',
@@ -135,41 +128,33 @@ const Navbar: React.FC = () => {
             <ul className={styles.hamburger_tab_list}>
               <li>
                 <Link href='/course' passHref>
-                  <a>
-                    คอร์สเรียน
-                  </a>
+                  <a>คอร์สเรียน</a>
                 </Link>
               </li>
               <li>
                 <Link href='/about' passHref>
-                  <a>
-                    เกี่ยวกับเรา
-                  </a>
+                  <a>เกี่ยวกับเรา</a>
                 </Link>
               </li>
               <li>
                 <Link href='/review' passHref>
-                  <a>
-                    รีวิว
-                  </a>
+                  <a>รีวิว</a>
                 </Link>
               </li>
               {
-                authUser.isAuthenticated ? (
+                userAuth.isAuthenticated ? (
                   <li>
                     <Link href='/dashboard' passHref>
                       <a className='font-medium inline-flex gap-1 items-center justify-center'>
                         <UserCircleIcon width={20} height={20} />
-                        สวัสดีน้อง{authUser.user.name}
+                        {userAuth.user?.email.split('@')[0]}
                       </a>
                     </Link>
                   </li>
                 ) : (
                   <li>
                     <Link href='/signin' passHref>
-                      <a>
-                        เข้าสู่ระบบ
-                      </a>
+                      <a>เข้าสู่ระบบ</a>
                     </Link>
                   </li>
                 )

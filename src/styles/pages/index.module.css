@@ -1,5 +1,5 @@
 .header {
-    height: calc(100vh - 64px);
+    height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

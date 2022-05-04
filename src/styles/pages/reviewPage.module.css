@@ -1,0 +1,24 @@
+.review {
+    @apply h-auto p-4;
+}
+
+.review .chevron {
+    @apply transition-all;
+    @apply w-full p-5;
+    @apply grid place-items-center;
+    @apply animate-bounce;
+}
+
+.review_grid {
+    @apply mt-4;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+}
+
+.review_pics {
+    @apply transition-all;
+    @apply relative w-56 h-56 m-2;
+    @apply select-none;
+
+    @apply hover:-translate-y-2;
+    @apply hover:shadow-lg;
+}

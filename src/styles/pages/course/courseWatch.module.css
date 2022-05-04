@@ -4,6 +4,7 @@
 }
 
 .main {
+    @apply mt-16;
     @apply w-full;
     @apply flex lg:inline-flex flex-col lg:flex-row;
 }
@@ -14,6 +15,7 @@
 
 .content {
     @apply w-full lg:w-3/4;
+    @apply mb-4 lg:mb-0;
 }
 
 .content_info {
@@ -23,6 +25,27 @@
 .content_info_title {
     @apply inline-flex flex-row gap-2 justify-center items-center;
     @apply font-medium text-xl;
+}
+
+.course_info_wrapper {
+    @apply px-4;
+}
+
+.course_info {
+    @apply grid grid-cols-1;
+    @apply gap-2;
+}
+
+.course_info h2 {
+    @apply text-2xl font-bold;
+}
+
+.content_info_teacher {
+    @apply text-lg font-medium;
+}
+
+.course_info_description {
+    @apply text-base font-light;
 }
 
 .course_sidebar {

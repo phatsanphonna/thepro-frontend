@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react'
+import '../styles/globals.css';
+
+import ErrorBox from '@/components/Loading/ErrorBox/ErrorBox.component';
+import LoadingBar from '@/components/Loading/LoadingBar/LoadingBar.component';
+import LoadingStatus from '@/components/Loading/LoadingStatus/LoadingStatus.component';
+import { useRouter } from 'next/router';
+import { useEffect, useLayoutEffect, useState } from 'react';
+import { Provider, useDispatch } from 'react-redux';
+
+import { store } from '../redux/store';
+
 import type { AppProps } from 'next/app'
-import '../styles/globals.css'
-
-import { useRouter } from 'next/router'
-import { Provider } from 'react-redux'
-import { store } from '../redux/store'
-
-import LoadingBar from '@/components/Loading/LoadingBar/LoadingBar.component'
+import Navbar from '@/components/Navbar/Navbar.component';
+import { getLocalUserAuth } from '@/redux/features/userAuth.feature';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -14,27 +19,22 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [isPageLoading, setIsPageLoading] = useState(false)
 
   useEffect(() => {
-    router.events.on("routeChangeError", (e) => {
-      console.log(1);
-      
-      setIsPageLoading(true)});
-    router.events.on("routeChangeStart", (e) => {
-      console.log(2);
-      setIsPageLoading(true)});
-    router.events.on("routeChangeComplete", (e) => {
-      console.log(3);
-      setIsPageLoading(false)});
+    router.events.on("routeChangeError", () => setIsPageLoading(true));
+    router.events.on("routeChangeStart", () => setIsPageLoading(true));
+    router.events.on("routeChangeComplete", () => setIsPageLoading(false));
 
     return () => {
-      router.events.off("routeChangeError", (e) => setIsPageLoading(true));
-      router.events.off("routeChangeStart", (e) => setIsPageLoading(true));
-      router.events.off("routeChangeComplete", (e) => setIsPageLoading(false));
+      router.events.off("routeChangeError", () => setIsPageLoading(true));
+      router.events.off("routeChangeStart", () => setIsPageLoading(true));
+      router.events.off("routeChangeComplete", () => setIsPageLoading(false));
     };
   }, [router.events]);
 
   return (
     <Provider store={store}>
       {isPageLoading && <LoadingBar />}
+      <LoadingStatus />
+      <ErrorBox />
       <Component {...pageProps} />
     </Provider>
   )

@@ -1,110 +1,248 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import HeaderText from '@/components/HeaderText/HeaderText.component';
+import Layout from '@/components/Layout/Layout.component';
+import Metadata from '@/components/Metadata.component';
+import { courseList } from '@/libs/courseList.lib';
+import styles from '@/styles/pages/course/coursePage.module.css';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+
 import type { NextPage } from 'next'
-import styles from '@/styles/pages/course/coursePage.module.css'
-
-import Layout from '@/components/Layout/Layout.component'
-import HeaderText from '@/components/HeaderText/HeaderText.component'
-import Metadata from '@/components/Metadata.component'
-import ProductCard from '@/components/course/ProductCard/ProductCard.component'
-import Dropdown from '@/components/Dropdown/Dropdown.component'
-
-type CourseCategory = {
-  name: string
-  value: string
+type Grade = {
+  name: string;
+  value: string;
 }
 
-type CourseSlug = {
-  name: string
-  slug: string
-}
-
-const courseCategory: CourseCategory[] = [
+const gradeCategory: Grade[] = [
   {
     name: 'ทั้งหมด',
-    value: JSON.stringify({ name: 'ทั้งหมด', slug: 'all' })
+    value: 'all'
   },
   {
-    name: 'คณิตศาสตร์',
-    value: JSON.stringify({ name: 'คณิตศาสตร์', slug: 'math' })
+    name: 'ประถม',
+    value: 'primary'
   },
   {
-    name: 'ภาษาอังกฤษ',
-    value: JSON.stringify({ name: 'ภาษาอังกฤษ', slug: 'english' })
+    name: 'มัธยมต้น',
+    value: 'secondary'
   },
   {
-    name: 'วิทยาศาสตร์ ม.ต้น',
-    value: JSON.stringify({ name: 'วิทยาศาสตร์ ม.ต้น', slug: 'secondary-school-science' })
-  },
-  {
-    name: 'วิทยาศาสตร์ ม.ปลาย',
-    value: JSON.stringify({ name: 'วิทยาศาสตร์ ม.ปลาย', slug: 'high-school-science' })
+    name: 'มัธยมปลาย',
+    value: 'high'
   }
 ]
 
-type Props = {}
+const compareGrade = (grade: string) => {
+  switch (grade) {
+    case 'primary':
+      return gradeCategory[1]
+    case 'secondary':
+      return gradeCategory[2]
+    case 'high':
+      return gradeCategory[3]
+    case 'all':
+      return gradeCategory[0]
+    default:
+      return gradeCategory[0]
+  }
+}
 
-const CoursePage: NextPage = (props: Props) => {
-  const [
-    courseSlug, setCourseSlug
-  ] = useState<CourseSlug>({ name: 'ทั้งหมด', slug: 'all' })
-  const [isFetching, setIsFetching] = useState(false)
-
+const CoursePage: NextPage = () => {
   const router = useRouter()
 
-  const fetchData = async (courseSlug: CourseSlug) => {
-    setIsFetching(true)
+  const [grade, setGrade] = useState<Grade>(
+    router.query.grade
+      ? compareGrade(router.query.grade as string)!
+      : gradeCategory[0]
+  )
 
-    setCourseSlug(courseSlug)
-    console.log(courseSlug);
+  const handleChangeGrade = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const currentGrade = compareGrade(e.target.value)
+    setGrade(currentGrade!)
+  }
 
-    router.replace({
+  useEffect(() => {
+    const { query, pathname } = router
+
+    router.push({
+      pathname,
       query: {
-        category: courseSlug.slug
-      }
-    }, undefined, {
-      shallow: true
+        ...query,
+        grade: grade.value
+      },
     })
-
-    setIsFetching(false)
-  }
-
-  const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value)
-    await fetchData(JSON.parse(e.target.value))
-  }
+  }, [grade])
 
   return (
     <>
-      <Metadata title='คอร์สเรียน | THE PRO TUTOR' />
-      <Layout>
+      <Metadata title={
+        grade.value !== 'all'
+          ? `คอร์สเรียนระดับชั้น${grade.name} | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR`
+          : `คอร์สเรียนทั้งหมด | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR`
+      }
+      />
 
-        <HeaderText>คอร์สเรียน{courseSlug.name}</HeaderText>
+      <Layout>
+        <HeaderText>
+          คอร์สเรียน{
+            grade.value !== 'all'
+              ? `ระดับชั้น${grade.name}`
+              : `ทั้งหมด`
+          }
+        </HeaderText>
 
         <div className={styles.option}>
           <div className={styles.subject}>
-            <p>วิชา :</p>
-            <Dropdown
-              valueList={courseCategory}
-              onChange={handleChange}
-              disabled={isFetching}
-            />
+            <p>ระดับชั้น :</p>
+            <select
+              defaultValue={grade.name}
+              onChange={handleChangeGrade}
+              className={styles.select}
+            >
+              {gradeCategory.map((value, index) => (
+                <option
+                  key={index}
+                  value={value.value}
+                  className={styles.option}
+                >
+                  {value.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
+
         <hr className={styles.hr} />
 
-        <div className={styles.grid}>
-          <ProductCard
-            title='TP001 | PROMATH TCAS65 ติวสอบวิชา PAT 1 คณิตศาสตร์ วิชาสามัญ คณิตศาสตร์ 1'
-            shortDescription='คำอธิบายแบบสั้น ๆ'
-            price={500}
-            slug='TP001'
-          />
-          <ProductCard title='ไตเติ้ล' shortDescription='คำอธิบายแบบสั้น ๆ' price={500} slug='TP001' />
-          <ProductCard title='ไตเติ้ล' shortDescription='คำอธิบายแบบสั้น ๆ' price={500} slug='TP001' />
-          <ProductCard title='ไตเติ้ล' shortDescription='คำอธิบายแบบสั้น ๆ' price={500} slug='TP001' />
-          <ProductCard title='ไตเติ้ล' shortDescription='คำอธิบายแบบสั้น ๆ' price={500} slug='TP001' />
-        </div>
+        {(grade.value === 'primary' || grade.value === 'all') && (
+          <div className={styles.course}>
+            <h3>PRO KIDS</h3>
+            {courseList.kids.map((c, index) => {
+              return (
+                <section
+                  className={styles.section}
+                  key={index}
+                >
+                  <div className={styles.course_section_title}>
+                    <h4>{c.name}</h4>
+                    <div className={styles.course_section_title__second_line}>
+                      <p>{c.subject}</p>
+                      <span>{c.time}</span>
+                    </div>
+                  </div>
+
+                  <div className={styles.grade}>
+                    <p>{c.grade}</p><span>{c.price.toLocaleString()} บาท/เดือน</span>
+                  </div>
+
+                  {c.specialTime && (
+                    <div className={styles.grade__time}>
+                      <p>เลือกเรียนได้ตามเวลาดังนี้</p>
+                      <ul>
+                        <li>
+                          <span>- <span>คอร์ส A</span>: เลือกได้ 2 วัน (จันทร์ - ศุกร์)</span>
+                          <span>15.00 น. - 18.00 น.</span>
+                        </li>
+                        <li>
+                          <span>- <span>คอร์ส B</span>: วันเสาร์ (ช่วงเช้า)</span>
+                          <span>9.00 น. - 13.00 น.</span>
+                        </li>
+                        <li>
+                          <span>- <span>คอร์ส C</span>: วันเสาร์ (ช่วงบ่าย)</span>
+                          <span>13.00 น. - 17.00 น.</span>
+                        </li>
+                        <li>
+                          <span>- <span>คอร์ส D</span>: วันอาทิตย์ (ช่วงเช้า)</span>
+                          <span>9.00 น. - 13.00 น.</span>
+                        </li>
+                        <li>
+                          <span>- <span>คอร์ส E</span>: วันอาทิตย์ (ช่วงบ่าย)</span>
+                          <span>13.00 น. - 17.00 น.</span>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </section>
+              )
+            })}
+          </div>
+        )}
+
+        {(grade.value === 'secondary' || grade.value === 'all') && (
+          <div className={styles.course}>
+            <h3>PRO TEEN</h3>
+            {courseList.teen.map((c, index) => {
+              return (
+                <section
+                  className={styles.section}
+                  key={index}
+                >
+                  <div className={styles.course_section_title}>
+                    <h4>{c.name}</h4>
+                    <div className={styles.course_section_title__second_line}>
+                      <p>{c.subject}</p>
+                      <span>{c.time}</span>
+                    </div>
+                  </div>
+
+                  <div className={styles.grade}>
+                    <ul>
+                      {c.grade.map((g, index) => (
+                        <li key={index}>
+                          <p>{g.name}</p><span>{g.price.toLocaleString()} บาท/เดือน</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </section>
+              )
+            })}
+          </div>
+        )}
+
+        {(grade.value === 'high' || grade.value === 'all') && (
+          <div className={styles.course}>
+            <h3>PRO HIGH</h3>
+            {courseList.high.map((c, index) => {
+              return (
+                <section
+                  className={styles.section}
+                  key={index}
+                >
+                  <div className={styles.course_section_title}>
+                    <h4>{c.name}</h4>
+                    <div className={styles.course_section_title__second_line}>
+                      <p>{c.subject}</p>
+                      <span>{c.time}</span>
+                    </div>
+                  </div>
+
+                  {c.name === 'PRO PHY, PRO CHEM, PRO BIO' ? (
+                    <div className={styles.grade}>
+                      <ul>
+                        {c.grade.map((g, index) => (
+                          <li key={index}>
+                            <p>{g.name}</p><span>วิชาละ {g.price.toLocaleString()} บาท/เดือน</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <div className={styles.grade}>
+                      <ul>
+                        {c.grade.map((g, index) => (
+                          <li key={index}>
+                            <p>{g.name}</p><span>{g.price.toLocaleString()} บาท/เดือน</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                </section>
+              )
+            })}
+          </div>
+        )}
       </Layout>
     </>
   )

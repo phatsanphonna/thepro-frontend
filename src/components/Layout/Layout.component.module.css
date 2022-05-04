@@ -1,15 +1,14 @@
 .root {
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: 1fr auto;
 
     min-height: 100vh;
 }
 
 .wrapper {
-    @apply container mt-10 mx-auto my-10;
-
+    @apply container mx-auto my-10 w-full mt-24;
 }
 
 .main {
-    @apply flex flex-col items-center h-full mx-auto w-9/12 md:w-4/5 xl:w-3/5; 
+    @apply flex flex-col items-center h-full mx-auto w-9/12 md:w-4/5 xl:w-3/5;
 }

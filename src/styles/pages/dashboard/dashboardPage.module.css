@@ -1,0 +1,44 @@
+.header {
+    @apply w-full;
+    @apply flex flex-col justify-between items-center;
+    @apply md:flex-row gap-y-4;
+}
+
+.header_info {
+    @apply w-full;
+}
+
+.header_info h1 {
+    @apply font-semibold text-3xl;
+}
+
+.header_info p {
+    @apply font-normal text-lg;
+}
+
+.header_button {
+    @apply w-full md:w-auto;
+    @apply grid;
+    grid-template-columns: 1fr 1fr;
+    @apply gap-2;
+}
+
+.course {
+    @apply w-full;
+    @apply flex flex-col gap-4;
+}
+
+.course h3 {
+    @apply font-bold text-3xl text-left;
+}
+
+.course_list_wrapper {
+    @apply grid place-items-center mx-auto;
+}
+
+.course_list {
+    @apply w-full;
+    @apply mx-auto;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+    @apply gap-4;
+}

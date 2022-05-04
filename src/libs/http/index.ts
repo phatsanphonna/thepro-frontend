@@ -1,1 +1,1 @@
-export { useGetHttp, usePostHttp } from './http.lib'
+export { httpGet, httpPost } from './http.lib'

@@ -1,5 +1,6 @@
 export type Course = {
   title: string
+  slug: string
   description: string
   price: number
   studyHours: string

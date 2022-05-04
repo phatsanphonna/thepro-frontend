@@ -1,29 +1,57 @@
 import { useSelector } from 'react-redux'
-import LoadingIcon from '../../Icons/LoadingIcon'
+import { AnimatePresence, motion } from 'framer-motion'
+import LoadingIcon from '@/components/Icons/LoadingIcon'
+
 import styles from './LoadingStatus.component.module.css'
 
-type Props = {}
+const containerVariants = {
+  visible: { backgroundColor: 'rgba(0, 0, 0, 0.9)' },
+  hidden: { backgroundColor: 'rgba(0, 0, 0, 0)' },
+}
 
-const LoadingStatus: React.FC = (props: Props) => {
-  const globalLoading = useSelector((state: any) => state.loading.globalLoading)
+const boxVariants = {
+  visible: { scale: 1 },
+  hidden: { scale: 0 },
+}
+
+const LoadingStatus: React.FC = () => {
+  const { globalLoading, statusMessage } = useSelector((state: any) => state.loading)
 
   return (
     <>
-      {
-        // globalLoading && (
-        <div
-          className={styles.box}
-          style={{
-            opacity: globalLoading ? 100 : 0,
-            transform: globalLoading ? 'translateY(0%)' : 'translateY(20%)'
-          }}
+      <AnimatePresence>
+        {globalLoading && (
+          <motion.div
+            className={styles.container}
+            initial='hidden'
+            animate='visible'
+            variants={containerVariants}
+            exit='hidden'
+            transition={{ duration: 0.5, type: 'spring' }}
           >
-          <div className={styles.icon}>
-            <LoadingIcon wh={30} />
-          </div>
-        </div>
-        // )
-      }
+            <motion.div
+              className={styles.box}
+              initial='hidden'
+              animate='visible'
+              variants={boxVariants}
+              exit='hidden'
+              transition={{ duration: 0.5, type: 'spring' }}
+            >
+              <LoadingIcon wh={64} color='#000' />
+            </motion.div>
+            <motion.p
+              className={styles.status_message}
+              initial='hidden'
+              animate='visible'
+              variants={boxVariants}
+              exit='hidden'
+              transition={{ duration: 0.5, type: 'spring' }}
+            >
+              {statusMessage}
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }

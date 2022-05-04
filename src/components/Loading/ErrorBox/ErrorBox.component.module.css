@@ -1,0 +1,18 @@
+.root {
+    @apply fixed bottom-0;
+    @apply w-full;
+    @apply p-4;
+}
+
+.box {
+    @apply h-auto;
+    @apply rounded;
+
+    @apply text-white;
+    @apply text-xs md:text-base;
+
+    @apply bg-red-500;
+
+    @apply p-2;
+    @apply flex flex-row justify-between items-center gap-2;
+}
