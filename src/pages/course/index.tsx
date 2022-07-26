@@ -6,7 +6,7 @@ import styles from '@/styles/pages/course/coursePage.module.css';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 type Grade = {
   name: string;
   value: string;
@@ -61,7 +61,17 @@ const CoursePage: NextPage = () => {
   }
 
   useEffect(() => {
-    const { query, pathname } = router
+    const { query } = router
+    
+    if (query.grade) {
+      setGrade(compareGrade(query.grade as string))
+    }
+  }, [])
+
+  useEffect(() => {
+    const { query, pathname, isReady } = router
+
+    if (!isReady) return
 
     router.push({
       pathname,
@@ -72,6 +82,7 @@ const CoursePage: NextPage = () => {
     })
   }, [grade])
 
+  
   return (
     <>
       <Metadata title={

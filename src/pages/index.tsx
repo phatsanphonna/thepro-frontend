@@ -74,12 +74,18 @@ const Header: React.FC = () => {
         <h1>THE PRO TUTOR</h1>
         <p>&quot;ความรู้คือพลัง สู่อนาคตที่ยั่งยืน&quot;</p>
       </div>
+
+      <div className={styles.header__chevron}>
+        <a href="#course">
+          <ChevronDownIcon />
+        </a>
+      </div>
     </div>
   )
 }
 
 const Course: React.FC = () => (
-  <div className={styles.course}>
+  <div className={styles.course} id='course'>
     <div className={[styles.wrapper, styles.course__layout].join(' ')}>
       <Title text='คอร์สเรียนของเรา' />
 
@@ -120,12 +126,13 @@ const Review: React.FC = () => {
                     alt='PM Review'
                     layout='fill'
                     objectFit='cover'
+                    quality={75}
                     src={review}
                   />
                 </div>
               )
             } else {
-              if (index >= 3) { return }
+              if (index >= 3) return
 
               return (
                 <div className={styles.review_pics} key={index}>
@@ -134,6 +141,7 @@ const Review: React.FC = () => {
                     alt='PM Review'
                     layout='fill'
                     objectFit='cover'
+                    quality={75}
                     src={review}
                   />
                 </div>

@@ -29,7 +29,10 @@ const Footer: React.FC = () => {
           <div className={styles.address}>
             <h3>ที่อยู่</h3>
             <p>
-              559/3
+              <span className='text-lg'>
+                สถาบันกวดวิชาเดอะโปร
+              </span>
+              <br />559/3
               <br />ซอยพหลโยธิน 58 แยก 31
               <br />แขวงสายไหม เขตสายไหม
               <br />กรุงเทพมหานคร

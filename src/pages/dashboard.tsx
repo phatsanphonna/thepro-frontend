@@ -2,13 +2,15 @@ import Layout from '@/components/Layout/Layout.component';
 import Metadata from '@/components/Metadata.component';
 import { RouteGuard } from '@/libs/auth';
 import {
+  disableError,
   setLoading,
-  setStatusMessage
+  setStatusMessage,
+  setSuccess
 } from '@/redux/features/loading.feature';
 import styles from '@/styles/pages/dashboard/dashboardPage.module.css';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import type { NextPage } from 'next';
 import Hr from '@/components/Hr.component';
@@ -16,6 +18,7 @@ import CourseCard from '@/components/Dashboard/CourseCard/CourseCard.component';
 import { fetchUser } from '@/libs/user';
 import { signOut } from '@/libs/auth/signout.lib';
 import Link from 'next/link';
+import { setLocalUser } from '@/redux/features/userAuth.feature';
 
 type User = {
   id: string
@@ -25,15 +28,19 @@ type User = {
   lastname: string
   nickname: string
   accessCourse: any[]
+  studentId: number
 }
 
 const DashboardPage: NextPage = () => {
   const router = useRouter()
   const dispatch = useDispatch()
 
+  const user = useSelector((state: any) => state.userAuth.user)
+
   const [firstname, setFirstname] = useState<string>()
   const [lastname, setLastname] = useState<string>()
   const [nickname, setNickname] = useState<string>()
+  const [studentId, setStudentId] = useState<number>()
   const [accessCourses, setAccessCourses] = useState<any[]>()
 
   const handleSignOut = async () => {
@@ -42,30 +49,59 @@ const DashboardPage: NextPage = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const user: User = await fetchUser()
+      if (user) {
+        setFirstname(user.firstname)
+        setLastname(user.lastname)
+        setNickname(user.nickname)
+        setStudentId(user.studentId)
+        setAccessCourses(user.accessCourse)
 
-      if (!user) {
+        return user
+      }
+
+      const fetchedUser: User = await fetchUser()
+
+      if (fetchedUser === undefined) {
+        return await handleSignOut()
+      }
+
+      if (!fetchedUser) {
         return router.push('/me')
       }
 
-      setFirstname(user.firstname)
-      setLastname(user.lastname)
-      setNickname(user.nickname)
-      setAccessCourses(user.accessCourse)
+      dispatch(setLocalUser(fetchedUser))
+
+      setFirstname(fetchedUser.firstname)
+      setLastname(fetchedUser.lastname)
+      setNickname(fetchedUser.nickname)
+      setStudentId(fetchedUser.studentId)
+      setAccessCourses(fetchedUser.accessCourse)
+
+      return fetchedUser
     }
 
+    const handleNotification = (user: User) => {
+      dispatch(
+        setSuccess({
+          errorMessage: `ยินดีต้อนรับ น้อง${user.nickname}`,
+        }))
+    }
 
     dispatch(setLoading(true))
     dispatch(setStatusMessage('ค้นหาข้อมูล...'))
 
     getUser()
-      .then(() => {
+      .then((user) => {
         dispatch(setLoading(false))
         dispatch(setStatusMessage(null))
+
+        if (user) {
+          handleNotification(user as User)
+        }
       })
 
-
     return () => {
+      dispatch(disableError())
       dispatch(setLoading(false))
       dispatch(setStatusMessage(null))
     }
@@ -79,8 +115,8 @@ const DashboardPage: NextPage = () => {
         <Layout>
           <header className={styles.header}>
             <div className={styles.header_info}>
-              <h1>{nickname}</h1>
-              <p>{firstname} {lastname}</p>
+              <h1>{studentId}</h1>
+              <p>{firstname} {lastname} {nickname && `(${nickname})`}</p>
             </div>
 
             <div className={styles.header_button}>

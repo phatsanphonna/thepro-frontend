@@ -1,5 +1,6 @@
 .root {
     @apply fixed bottom-0;
+    @apply z-30;
     @apply w-full;
     @apply p-4;
 }
@@ -11,8 +12,14 @@
     @apply text-white;
     @apply text-xs md:text-base;
 
-    @apply bg-red-500;
-
     @apply p-2;
     @apply flex flex-row justify-between items-center gap-2;
+}
+
+.bg_error {
+    @apply bg-red-500;
+}
+
+.bg_success {
+    @apply bg-green-500;
 }

@@ -12,6 +12,8 @@ import styles from '@/styles/pages/mePage.module.css'
 import Hr from '@/components/Hr.component'
 import Metadata from '@/components/Metadata.component'
 import { useRouter } from 'next/router'
+import { setLocalUser } from '@/redux/features/userAuth.feature'
+import { signOut } from '@/libs/auth/signout.lib'
 
 type User = {
   id: string
@@ -37,7 +39,8 @@ const NON_CAPITAL_LETTER = 'abcdefghijklmnopqrstuvwxyz'
 const MePage: NextPage = () => {
   const router = useRouter()
   const dispatch = useDispatch()
-  const localUserAuth = useSelector((state: any) => state.userAuth.user)
+
+  const user = useSelector((state: any) => state.userAuth.user)
 
   const [firstname, setFirstname] = useState<string>('')
   const [lastname, setLastname] = useState<string>('')
@@ -61,9 +64,11 @@ const MePage: NextPage = () => {
     dispatch(setLoading(true))
     dispatch(setStatusMessage('กำลังอัพเดทข้อมูล...'))
 
-    await addOrUpdateUser({
+    const updatedUser = await addOrUpdateUser({
       firstname, lastname, email, nickname
     })
+
+    dispatch(setLocalUser(updatedUser))
 
     dispatch(setStatusMessage('อัพเดทข้อมูลสำเร็จ'))
 
@@ -116,18 +121,40 @@ const MePage: NextPage = () => {
       }
     }
   }
+
+  const handleSignOut = async () => {
+    await signOut(dispatch, router)
+  }
+  
   useEffect(() => {
     const getUser = async () => {
-      const user: User = await fetchUser()
-
       if (user) {
         setFirstname(user.firstname)
         setLastname(user.lastname)
         setNickname(user.nickname)
         setEmail(user.email)
-      } else {
-        setEmail(localUserAuth.email)
+
+        return user
       }
+
+      const fetchedUser: User = await fetchUser()
+
+      if (fetchedUser === undefined) {
+        return await handleSignOut()
+      }
+
+      if (!fetchedUser) {
+        return router.push('/me')
+      }
+
+      dispatch(setLocalUser(fetchedUser))
+      
+      setEmail(fetchedUser.email)
+      setFirstname(fetchedUser.firstname)
+      setLastname(fetchedUser.lastname)
+      setNickname(fetchedUser.nickname)
+
+      return fetchedUser
     }
 
     dispatch(setLoading(true))

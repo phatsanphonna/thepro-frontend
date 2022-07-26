@@ -1,19 +1,17 @@
-import Footer from '@/components/Footer/Footer.component'
+import Footer from '@/components/Footer/Footer.component';
 import Metadata from '@/components/Metadata.component';
-import Navbar from '@/components/Navbar/Navbar.component';
 import VideoPlayer from '@/components/VideoPlayer/VideoPlayer.component';
 import CourseSectionWatchPage from '@/components/WatchPage/CourseSection/CourseSection.component';
-import { RouteGuard } from '@/libs/auth';
+import WatchNavbar from '@/components/WatchPage/WatchNavbar/WatchNavbar.component';
+import { getAccessToken, RouteGuard } from '@/libs/auth';
+import { signOut } from '@/libs/auth/signout.lib';
+import { httpGet } from '@/libs/http';
+import { setDefaultLoading, setLoading, setStatusMessage } from '@/redux/features/loading.feature';
 import styles from '@/styles/pages/course/courseWatch.module.css';
 import { VideoCameraIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { setError, setLoading, setStatusMessage, setDefaultLoading } from '@/redux/features/loading.feature'
-
-import { httpGet } from '@/libs/http'
 import { useDispatch } from 'react-redux';
-import Hr from '@/components/Hr.component';
-import Image from 'next/image';
 
 
 type Course = {
@@ -44,29 +42,37 @@ const DashboardCourseViewPage = () => {
   const [fetchedCourse, setFetchCourse] = useState<Course>()
   const [currentContent, setCurrentContent] = useState<LessonContent>()
 
+  const [notFound, setNotFound] = useState(false)
+
+  const [navbarBelowCourse, setNavbarBelowCourse] = useState(true)
+
   useEffect(() => {
     if (!router.isReady) return
 
     const courseId = router.query.courseId
 
     const handleNotFound = (errorCode: number) => {
-      dispatch(setError({
-        errorMessage: 'ไม่พบคอร์สนี้',
-        errorCode: errorCode
-      }))
+      setNotFound(true)
       router.push('/dashboard')
     }
 
+    const handleSignOut = async () => {
+      await signOut(dispatch, router)
+    }
+
     const fetchData = async () => {
-      const { data } = await httpGet(`/course/watch?courseId=${courseId}`)
+      const { status, data } = await httpGet(
+        `/course/watch?courseId=${courseId}`, {
+        headers: {
+          Authorization: `Bearer ${getAccessToken()}`
+        }
+      })
 
-      console.log(data);
-
-      if (!data.data) {
-        return handleNotFound(data.code)
+      if (status === 403) {
+        return handleSignOut()
       }
 
-      setFetchCourse(data.data)
+      setFetchCourse(data)
     }
 
     dispatch(setLoading(true))
@@ -81,6 +87,22 @@ const DashboardCourseViewPage = () => {
     }
   }, [router.query.courseId])
 
+  useEffect(() => {
+    const handleChange = () => {
+      if (window.innerWidth > 1024) {
+        setNavbarBelowCourse(true)
+      } else {
+        setNavbarBelowCourse(false)
+      }
+    }
+
+    handleChange()
+
+    window.addEventListener('resize', handleChange)
+
+    return () => window.removeEventListener('resize', handleChange)
+  }, [])
+
   return (
     <>
       <Metadata
@@ -89,10 +111,9 @@ const DashboardCourseViewPage = () => {
 
       <RouteGuard>
         <div className={styles.root}>
-          <Navbar />
-
           <main className={styles.main}>
             <div className={styles.content}>
+              <WatchNavbar />
               <div>
                 <VideoPlayer source={currentContent?.fileAccessId} />
               </div>
@@ -104,17 +125,14 @@ const DashboardCourseViewPage = () => {
                       {currentContent?.title}
                     </h2>
 
-                    <Hr />
+                    <hr className='w-full border-black my-2' />
                   </div>
                 </>
               )}
               <div
                 className={styles.course_info_wrapper}
-                style={{
-                  marginTop: currentContent ? '-0.5rem' : '1rem'
-                }}
+                style={{ marginTop: currentContent ? '0rem' : '1rem' }}
               >
-
                 <div className={styles.course_info}>
                   <h2>
                     {fetchedCourse?.title}
@@ -127,8 +145,12 @@ const DashboardCourseViewPage = () => {
                   </p>
                 </div>
               </div>
+              {navbarBelowCourse && <Footer />}
             </div>
-            <div className={styles.course_sidebar}>
+
+            <div
+              className={styles.course_sidebar}
+            >
               <section className={styles.course_section}>
                 <div className={styles.course_sidebar_title}>
                   <h3>เนื้อหาคอร์สเรียน</h3>
@@ -149,8 +171,7 @@ const DashboardCourseViewPage = () => {
               </section>
             </div>
           </main>
-
-          <Footer />
+          {!navbarBelowCourse && <Footer />}
         </div>
       </RouteGuard>
     </>

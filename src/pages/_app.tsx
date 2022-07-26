@@ -5,14 +5,11 @@ import LoadingBar from '@/components/Loading/LoadingBar/LoadingBar.component';
 import LoadingStatus from '@/components/Loading/LoadingStatus/LoadingStatus.component';
 import { useRouter } from 'next/router';
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { Provider, useDispatch } from 'react-redux';
+import { Provider } from 'react-redux';
 
 import { store } from '../redux/store';
 
 import type { AppProps } from 'next/app'
-import Navbar from '@/components/Navbar/Navbar.component';
-import { getLocalUserAuth } from '@/redux/features/userAuth.feature';
-
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
 

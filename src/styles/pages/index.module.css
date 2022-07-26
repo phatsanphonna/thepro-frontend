@@ -20,6 +20,13 @@
     @apply font-normal text-xl md:text-3xl lg:text-5xl;
 }
 
+.header .header__chevron {
+    @apply transition-all;
+    @apply animate-bounce;
+    @apply absolute bottom-20;
+    @apply w-10 md:w-14;
+}
+
 .wrapper {
     @apply container;
     @apply flex flex-col items-center justify-center;

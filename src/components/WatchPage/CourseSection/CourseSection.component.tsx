@@ -7,6 +7,8 @@ import {
   DocumentIcon,
   VideoCameraIcon
 } from '@heroicons/react/solid'
+import { httpGet } from '@/libs/http'
+import { getAccessToken } from '@/libs/auth'
 
 type Props = {
   index: number
@@ -30,6 +32,33 @@ const CourseSectionWatchPage = ({ lesson, index, setCurrentContent }: Props) => 
 
   const toggleInfoShown = () => {
     setIsInfoShown(!isInfoShown)
+  }
+
+  const downloadFile = async (fileAccessId: string) => {
+    try {
+      const response = await httpGet(`/file/${fileAccessId}`, {
+        headers: {
+          Authorization: `Bearer ${getAccessToken()}`,
+          // responseType: 'blob'
+        }
+      })
+
+      window.open(response.data.signedUrl, '_blank')
+
+      // const filename = response.headers['content-disposition'].split(';')[1].split('=')[1];
+
+      // const url = window.URL.createObjectURL(new Blob([response.data]))
+
+      // const link = document.createElement('a')
+      // link.href = url
+      // link.setAttribute('download', filename)
+
+      // document.body.appendChild(link);
+
+      // link.click()
+    } catch (e) {
+      throw e
+    }
   }
 
   return (
@@ -60,7 +89,7 @@ const CourseSectionWatchPage = ({ lesson, index, setCurrentContent }: Props) => 
                 return (
                   <a
                     key={index}
-                    href={c.fileAccessId}
+                    onClick={() => downloadFile(c.fileAccessId)}
                     target="_blank"
                     rel="noreferrer"
                     className={styles.link}
