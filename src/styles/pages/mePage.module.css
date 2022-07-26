@@ -7,7 +7,7 @@
 }
 
 .info_wrapper {
-    @apply w-full md:w-11/12;
+    @apply w-full;
     @apply grid grid-cols-1 md:grid-cols-2 place-items-center;
     @apply gap-y-4;
     @apply my-2 mx-auto;

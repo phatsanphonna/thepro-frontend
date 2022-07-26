@@ -12,7 +12,6 @@
 }
 
 .root h4 {
-    @apply w-full;
     @apply font-medium;
     @apply text-left;
 

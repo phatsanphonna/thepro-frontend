@@ -1,20 +1,21 @@
-import { setLoading, setStatusMessage } from "@/redux/features/loading.feature";
-import { getLocalUserAuth } from "@/redux/features/userAuth.feature";
+import { disableError, setLoading, setStatusMessage } from "@/redux/features/loading.feature";
+import { clearLocalUser, getLocalUserAuth } from "@/redux/features/userAuth.feature";
 import { NextRouter } from "next/router";
 import { httpGet } from "../http";
-import { getAccessToken, getRefreshToken, removeLocalUserCredential } from "./auth.lib";
+import { getAccessToken, removeLocalUserCredential } from "./auth.lib";
 
 export const signOut = async (
   dispatch: any,
   router: NextRouter
 ) => {
+  dispatch(disableError())
+  
   dispatch(setLoading(true))
   dispatch(setStatusMessage('กำลังออกจากระบบ...'))
 
   await httpGet('/auth/signout', {
     headers: {
       'Authorization': `Bearer ${getAccessToken()}`,
-      refresh_token: getRefreshToken() as string
     }
   })
 
@@ -22,10 +23,11 @@ export const signOut = async (
   sessionStorage.clear()
 
   dispatch(getLocalUserAuth())
+  dispatch(clearLocalUser())
 
   dispatch(setStatusMessage('ออกจากระบบแล้ว'))
 
-  router.push('/signin')
+  await router.push('/signin')
 
   dispatch(setLoading(false))
   dispatch(setStatusMessage(null))

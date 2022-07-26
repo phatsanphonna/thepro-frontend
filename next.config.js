@@ -1,9 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  images: {
-    domains: ['pic-bstarstatic.akamaized.net'],
+  rewrites: async () => {
+    return [
+      {
+        source: '/sh/:path*',
+        destination: `${process.env.NEXT_PUBLIC_API_URL}/sh/:path*`,
+      }
+    ]
   },
 }
 
-module.exports = nextConfig
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
+module.exports = withBundleAnalyzer(nextConfig)

@@ -4,9 +4,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styles from './Navbar.component.module.css'
+import styles from './WatchNavbar.component.module.css'
 
-const Navbar: React.FC = () => {
+const WatchNavbar: React.FC = () => {
   const dispatch = useDispatch()
 
   const userAuth = useSelector((state: any) => state.userAuth)
@@ -87,7 +87,7 @@ const Navbar: React.FC = () => {
                   <Link href='/dashboard' passHref>
                     <a className='font-medium inline-flex gap-1 items-center justify-center'>
                       <UserCircleIcon width={20} height={20} />
-                      {userAuth.userAuth.email.split('@')[0]}
+                      {userAuth.userAuth?.email.split('@')[0]}
                     </a>
                   </Link>
 
@@ -147,7 +147,7 @@ const Navbar: React.FC = () => {
                     <Link href='/dashboard' passHref>
                       <a className='font-medium inline-flex gap-1 items-center justify-center'>
                         <UserCircleIcon width={20} height={20} />
-                        {userAuth.userAuth.email.split('@')[0]}
+                        {userAuth.userAuth?.email.split('@')[0]}
                       </a>
                     </Link>
                   </li>
@@ -171,4 +171,4 @@ const Navbar: React.FC = () => {
   )
 }
 
-export default Navbar
+export default WatchNavbar

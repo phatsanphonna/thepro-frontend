@@ -8,9 +8,20 @@ type UserAuth = {
   email: string
 }
 
+type User = {
+  id: string
+  userAuthId: string
+  email: string
+  firstname: string
+  lastname: string
+  nickname: string
+  accessCourse: any[]
+}
+
 const initialState = {
   isAuthenticated: false,
-  user: null as UserAuth | null
+  userAuth: null as UserAuth | null,
+  user: null as User | null
 }
 
 const fetchUser = createAsyncThunk(
@@ -41,20 +52,26 @@ const userAuthSlice = createSlice({
 
       if (localUserAuth) {
         state.isAuthenticated = true
-        state.user = JSON.parse(localUserAuth)
+        state.userAuth = JSON.parse(localUserAuth)
       } else {
         state.isAuthenticated = false
-        state.user = null
+        state.userAuth = null
       }
-    }
+    },
+    clearLocalUser: (state) => {
+      state.user = null
+    },
+    setLocalUser: (state, action) => {
+      state.user = action.payload
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUser.fulfilled, (state, action) => {
-      state.user = action.payload
+      state.userAuth = action.payload
     })
   }
 })
 
 export default userAuthSlice.reducer
 
-export const { setAuthStatus, getLocalUserAuth } = userAuthSlice.actions
+export const { setAuthStatus, getLocalUserAuth, setLocalUser, clearLocalUser } = userAuthSlice.actions

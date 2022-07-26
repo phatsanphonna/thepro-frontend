@@ -1,12 +1,11 @@
-import HeaderText from '@/components/HeaderText/HeaderText.component'
-import Layout from '@/components/Layout/Layout.component'
-import Metadata from '@/components/Metadata.component'
-import { ChevronDownIcon } from '@heroicons/react/solid'
-import { NextPage } from 'next'
-import styles from '@/styles/pages/reviewPage.module.css'
-import { useEffect, useState } from 'react'
-import Title from '@/components/IndexPage/Title/Title.component'
-import Image from 'next/image'
+import HeaderText from '@/components/HeaderText/HeaderText.component';
+import Layout from '@/components/Layout/Layout.component';
+import Metadata from '@/components/Metadata.component';
+import styles from '@/styles/pages/reviewPage.module.css';
+import { ChevronDownIcon } from '@heroicons/react/solid';
+import { NextPage } from 'next';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 const reviewList = [
   '/promotion_pictures/pm_review_64_1.jpg',

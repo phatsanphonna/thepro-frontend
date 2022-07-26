@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+type NotificationState = 'error' | 'success' | 'idle'
+
 const initialState = {
   globalLoading: false,
   statusMessage: null as string | null,
-  error: false,
+  error: 'idle' as NotificationState,
   errorCode: null as number | null
 }
 
@@ -23,13 +25,18 @@ const loadingSlice = createSlice({
     },
     setError: (state, { payload }) => {
       state.globalLoading = false
-      state.error = true
+      state.error = 'error'
       state.statusMessage = payload.errorMessage
       state.errorCode = payload.errorCode
-
+    },
+    setSuccess: (state, { payload }) => {
+      state.globalLoading = false
+      state.error = 'success'
+      state.statusMessage = payload.errorMessage
+      state.errorCode = null
     },
     disableError: (state) => {
-      state.error = false
+      state.error = 'idle'
       state.statusMessage = null
       state.errorCode = null
     }
@@ -38,4 +45,4 @@ const loadingSlice = createSlice({
 
 export default loadingSlice.reducer
 
-export const { setLoading, setStatusMessage, setDefaultLoading, setError, disableError } = loadingSlice.actions
+export const { setLoading, setStatusMessage, setDefaultLoading, setError, setSuccess, disableError } = loadingSlice.actions

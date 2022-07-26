@@ -57,6 +57,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Prompt", sans-serif;
+  scroll-behavior: smooth;
 }
 
 a {
@@ -66,14 +67,6 @@ a {
 
 * {
   box-sizing: border-box;
-}
-
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
