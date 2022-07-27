@@ -79,6 +79,9 @@ const Header: React.FC = () => {
         <a href="#course">
           <ChevronDownIcon />
         </a>
+        <a href="#course">
+          <span>เลื่อนลง</span>
+        </a>
       </div>
     </div>
   )
@@ -172,9 +175,9 @@ const Study: React.FC = () => (
 
         <p>
           มีทั้งสอนแบบออนไลน์และเรียนที่สถาบัน
-        </p>
-        <p>
           มาเรียนกับเราได้ตามนี้เลย
+          เรายินดีต้อนรับทุกคน
+          ทั้งคนที่มีพื้นฐาน และ ไม่มีพื้นฐาน
         </p>
       </div>
       <GoogleMap className={styles.map} />

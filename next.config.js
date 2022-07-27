@@ -3,10 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   rewrites: async () => {
     return [
-      {
-        source: '/sh/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL}/sh/:path*`,
-      }
+      
     ]
   },
 }

@@ -21,10 +21,16 @@
 }
 
 .header .header__chevron {
+    @apply w-full;
+    @apply absolute bottom-20;
+    
+    @apply flex flex-col justify-center items-center;
+}
+
+.header__chevron svg {
+    @apply w-10 md:w-14;
     @apply transition-all;
     @apply animate-bounce;
-    @apply absolute bottom-20;
-    @apply w-10 md:w-14;
 }
 
 .wrapper {
@@ -76,6 +82,10 @@
     @apply bg-white;
     @apply h-auto p-4 py-24;
     @apply text-center lg:text-left;
+}
+
+.study .content {
+    @apply w-full lg:w-3/5;
 }
 
 .study .map {
