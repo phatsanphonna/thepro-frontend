@@ -2,7 +2,11 @@ import Footer from '../Footer/Footer.component'
 import Navbar from '../Navbar/Navbar.component'
 import styles from './Layout.component.module.css'
 
-const Layout: React.FC = ({ children }) => {
+type Props = {
+  children: React.ReactNode
+}
+
+const Layout: React.FC<Props> = ({ children }) => {
 
   return (
     <div className={styles.root}>

@@ -1,8 +1,10 @@
 import styles from './HeaderText.component.module.css'
 
-type Props = {}
+type Props = {
+  children: React.ReactNode
+}
 
-const HeaderText: React.FC = ({ children }) => {
+const HeaderText: React.FC<Props> = ({ children }) => {
   return (
     <header>
       <h1 className={styles.header}>

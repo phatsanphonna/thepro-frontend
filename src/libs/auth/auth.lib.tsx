@@ -6,8 +6,11 @@ import { httpGet } from '../http';
 
 import { useLocalStorage } from '../storage';
 
+type Props = {
+  children: React.ReactNode
+}
 
-const RouteGuard: React.FC = ({ children }) => {
+const RouteGuard: React.FC<Props> = ({ children }) => {
   const router = useRouter()
   const dispatch = useDispatch()
   const { getLocalStorageItem } = useLocalStorage()
@@ -56,7 +59,7 @@ const RouteGuard: React.FC = ({ children }) => {
   return (userAuth.isAuthenticated && children)
 }
 
-export const SignInRouteGuard: React.FC = ({ children }) => {
+export const SignInRouteGuard: React.FC<Props> = ({ children }) => {
   const router = useRouter()
   const dispatch = useDispatch()
   const { getLocalStorageItem } = useLocalStorage()
