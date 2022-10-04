@@ -4,13 +4,13 @@ import ErrorBox from '@/components/Loading/ErrorBox/ErrorBox.component';
 import LoadingBar from '@/components/Loading/LoadingBar/LoadingBar.component';
 import LoadingStatus from '@/components/Loading/LoadingStatus/LoadingStatus.component';
 import { useRouter } from 'next/router';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
-
 import { store } from '../redux/store';
 
 import type { AppProps } from 'next/app'
-function MyApp({ Component, pageProps }: AppProps) {
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
 
   const [isPageLoading, setIsPageLoading] = useState(false)
