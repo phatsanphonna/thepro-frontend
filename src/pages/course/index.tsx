@@ -46,27 +46,19 @@ const compareGrade = (grade: string) => {
   }
 }
 
-const CoursePage: NextPage = () => {
+type Props = {
+  grade: string
+}
+
+const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
   const router = useRouter()
 
-  const [grade, setGrade] = useState<Grade>(
-    router.query.grade
-      ? compareGrade(router.query.grade as string)!
-      : gradeCategory[0]
-  )
+  const [grade, setGrade] = useState<Grade>(compareGrade(queryGrade))
 
   const handleChangeGrade = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const currentGrade = compareGrade(e.target.value)
     setGrade(currentGrade!)
   }
-
-  useEffect(() => {
-    const { query } = router
-    
-    if (query.grade) {
-      setGrade(compareGrade(query.grade as string))
-    }
-  }, [])
 
   useEffect(() => {
     const { query, pathname, isReady } = router
@@ -82,7 +74,7 @@ const CoursePage: NextPage = () => {
     })
   }, [grade])
 
-  
+
   return (
     <>
       <Metadata title={
@@ -248,7 +240,6 @@ const CoursePage: NextPage = () => {
                       </ul>
                     </div>
                   )}
-
                 </section>
               )
             })}
@@ -257,6 +248,14 @@ const CoursePage: NextPage = () => {
       </Layout>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  return {
+    props: {
+      grade: query.grade ? query.grade : 'all'
+    }
+  }
 }
 
 export default CoursePage
