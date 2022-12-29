@@ -48,6 +48,7 @@
     @apply bg-golden-tainoi-500;
     @apply p-2;
     @apply border-b border-black;
+    @apply rounded-t;
 }
 
 .course_section_title__second_line {
@@ -123,4 +124,22 @@
 
 .grade__time li span span {
     @apply font-medium;
+}
+
+.description {
+    @apply w-full;
+}
+
+.description h3 {
+    @apply text-left text-xl;
+    @apply underline font-medium;
+}
+
+.description ul {
+    list-style-type: '- ';
+    @apply ml-4;
+}
+
+.description li {
+    @apply text-sm md:text-base;
 }

@@ -12,6 +12,13 @@ type Grade = {
   value: string;
 }
 
+const descriptionList = [
+  'สอนสดที่ THE PRO เท่านั้น',
+  'รับนักเรียนจำนวนจำกัด',
+  'ทุกคอร์สหยุดเทศกาล สงกรานต์ และ ปีใหม่',
+  'หากมีการขาดเรียน การขอชดเชย (ตามดุลยพินิจของผู้สอน)'
+]
+
 const gradeCategory: Grade[] = [
   {
     name: 'ทั้งหมด',
@@ -112,6 +119,17 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
               ))}
             </select>
           </div>
+        </div>
+
+        <hr className={styles.hr} />
+
+        <div className={styles.description}>
+          <h3>รายละเอียด</h3>
+          <ul>
+            {descriptionList.map((desc, index) => (
+              <li key={index}>{desc}</li>
+            ))}
+          </ul>
         </div>
 
         <hr className={styles.hr} />
