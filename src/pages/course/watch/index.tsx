@@ -35,7 +35,7 @@ type LessonContent = {
   fileAccessId: string
 }
 
-const DashboardCourseViewPage = () => {
+const CourseWatchPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
 
@@ -178,4 +178,4 @@ const DashboardCourseViewPage = () => {
   )
 }
 
-export default DashboardCourseViewPage
+export default CourseWatchPage
