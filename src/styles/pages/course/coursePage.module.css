@@ -84,7 +84,18 @@
     @apply w-full;
     @apply p-2;
     @apply text-xs md:text-base;
-    @apply inline-flex flex-row justify-between;
+    @apply flex flex-row justify-between;
+}
+
+.section .remarks {
+    @apply w-full;
+    @apply p-2;
+    @apply text-xs md:text-base;
+    @apply flex flex-col justify-start;
+}
+
+.section .remarks small {
+    @apply italic font-semibold;
 }
 
 .section .grade p {
@@ -98,7 +109,7 @@
 .section .grade li {
     @apply w-full;
     @apply text-sm md:text-base;
-    @apply inline-flex flex-row justify-between;
+    @apply inline-flex flex-col md:flex-row justify-between;
 }
 
 .grade__time {
@@ -128,6 +139,8 @@
 
 .description {
     @apply w-full;
+    @apply bg-golden-tainoi-300;
+    @apply p-4 rounded;
 }
 
 .description h3 {
@@ -138,8 +151,4 @@
 .description ul {
     list-style-type: '- ';
     @apply ml-4;
-}
-
-.description li {
-    @apply text-sm md:text-base;
 }

@@ -132,60 +132,105 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
           </ul>
         </div>
 
-        <hr className={styles.hr} />
-
         {(grade.value === 'primary' || grade.value === 'all') && (
-          <div className={styles.course}>
-            <h3>PRO KIDS</h3>
-            {courseList.kids.map((c, index) => {
-              return (
-                <section
-                  className={styles.section}
-                  key={index}
-                >
-                  <div className={styles.course_section_title}>
-                    <h4>{c.name}</h4>
-                    <div className={styles.course_section_title__second_line}>
-                      <p>{c.subject}</p>
-                      <span>{c.time}</span>
+          <>
+            <div className={styles.course}>
+              <h3>PRO KIDS</h3>
+
+              {courseList.kids.map((c, index) => {
+                return (
+                  <section
+                    className={styles.section}
+                    key={index}
+                  >
+                    <div className={styles.course_section_title}>
+                      <h4>{c.name}</h4>
+                      <div className={styles.course_section_title__second_line}>
+                        <p>{c.subject}</p>
+                        <span>{c.time}</span>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className={styles.grade}>
-                    <p>{c.grade}</p><span>{c.price.toLocaleString()} บาท/เดือน</span>
-                  </div>
+                    <div className={styles.grade}>
+                      <p>{c.grade}</p>
+                      <span className='md:text-lg'>{c.price.toLocaleString()} บาท/เดือน</span>
+                    </div>
 
-                  {c.specialTime && (
-                    <div className={styles.grade__time}>
-                      <p>เลือกเรียนได้ตามเวลาดังนี้</p>
+                    {c.specialTime && (
+                      <div className={styles.grade__time}>
+                        <p>เลือกเรียนได้ตามเวลาดังนี้</p>
+                        <ul>
+                          <li>
+                            <span>- <span>คอร์ส A</span>: เลือกได้ 2 วัน (จันทร์ - ศุกร์)</span>
+                            <span>15.00 น. - 18.00 น.</span>
+                          </li>
+                          <li>
+                            <span>- <span>คอร์ส B</span>: วันเสาร์ (ช่วงเช้า)</span>
+                            <span>9.00 น. - 13.00 น.</span>
+                          </li>
+                          <li>
+                            <span>- <span>คอร์ส C</span>: วันเสาร์ (ช่วงบ่าย)</span>
+                            <span>13.00 น. - 17.00 น.</span>
+                          </li>
+                          <li>
+                            <span>- <span>คอร์ส D</span>: วันอาทิตย์ (ช่วงเช้า)</span>
+                            <span>9.00 น. - 13.00 น.</span>
+                          </li>
+                          <li>
+                            <span>- <span>คอร์ส E</span>: วันอาทิตย์ (ช่วงบ่าย)</span>
+                            <span>13.00 น. - 17.00 น.</span>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                  </section>
+                )
+              })}
+            </div>
+
+            <div className={styles.course}>
+              <h3>PRE PRO</h3>
+
+              {courseList.prePro.map((c, index) => {
+                return (
+                  <section
+                    className={styles.section}
+                    key={index}
+                  >
+                    <div className={styles.course_section_title}>
+                      <h4>{c.name}</h4>
+                      <div className={styles.course_section_title__second_line}>
+                        <p>{c.description}</p>
+                        <span>{c.time}</span>
+                      </div>
+                    </div>
+
+                    <div className={styles.grade}>
+                      <p>{c.grade}</p>
+                      <span className='md:text-lg'>{c.price.toLocaleString()} บาท/เดือน</span>
+                    </div>
+
+                    <div className={styles.grade}>
                       <ul>
-                        <li>
-                          <span>- <span>คอร์ส A</span>: เลือกได้ 2 วัน (จันทร์ - ศุกร์)</span>
-                          <span>15.00 น. - 18.00 น.</span>
-                        </li>
-                        <li>
-                          <span>- <span>คอร์ส B</span>: วันเสาร์ (ช่วงเช้า)</span>
-                          <span>9.00 น. - 13.00 น.</span>
-                        </li>
-                        <li>
-                          <span>- <span>คอร์ส C</span>: วันเสาร์ (ช่วงบ่าย)</span>
-                          <span>13.00 น. - 17.00 น.</span>
-                        </li>
-                        <li>
-                          <span>- <span>คอร์ส D</span>: วันอาทิตย์ (ช่วงเช้า)</span>
-                          <span>9.00 น. - 13.00 น.</span>
-                        </li>
-                        <li>
-                          <span>- <span>คอร์ส E</span>: วันอาทิตย์ (ช่วงบ่าย)</span>
-                          <span>13.00 น. - 17.00 น.</span>
-                        </li>
+                        {c.subject.map((s, index) => (
+                          <li key={index}>
+                            <p>{s.name}</p>
+                            <span>{s.time}</span>
+                          </li>
+                        ))}
                       </ul>
                     </div>
-                  )}
-                </section>
-              )
-            })}
-          </div>
+
+                    <div className={styles.remarks}>
+                      {c.remarks.map((remark, index) => (
+                        <small key={index}>*{remark}*</small>
+                      ))}
+                    </div>
+                  </section>
+                )
+              })}
+            </div>
+          </>
         )}
 
         {(grade.value === 'secondary' || grade.value === 'all') && (
@@ -209,7 +254,8 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
                     <ul>
                       {c.grade.map((g, index) => (
                         <li key={index}>
-                          <p>{g.name}</p><span>{g.price.toLocaleString()} บาท/เดือน</span>
+                          <p>{g.name}</p>
+                          <span className='md:text-lg'>{g.price.toLocaleString()} บาท/เดือน</span>
                         </li>
                       ))}
                     </ul>
@@ -242,7 +288,8 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
                       <ul>
                         {c.grade.map((g, index) => (
                           <li key={index}>
-                            <p>{g.name}</p><span>วิชาละ {g.price.toLocaleString()} บาท/เดือน</span>
+                            <p>{g.name}</p>
+                            <span className='md:text-lg'>วิชาละ {g.price.toLocaleString()} บาท/เดือน</span>
                           </li>
                         ))}
                       </ul>
@@ -252,7 +299,8 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
                       <ul>
                         {c.grade.map((g, index) => (
                           <li key={index}>
-                            <p>{g.name}</p><span>{g.price.toLocaleString()} บาท/เดือน</span>
+                            <p>{g.name}</p>
+                            <span className='md:text-lg'>{g.price.toLocaleString()} บาท/เดือน</span>
                           </li>
                         ))}
                       </ul>
