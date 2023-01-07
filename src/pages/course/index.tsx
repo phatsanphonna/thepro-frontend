@@ -267,49 +267,104 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
         )}
 
         {(grade.value === 'high' || grade.value === 'all') && (
-          <div className={styles.course}>
-            <h3>PRO HIGH</h3>
-            {courseList.high.map((c, index) => {
-              return (
+          <>
+            <div className={styles.course}>
+              <h3>PRO HIGH</h3>
+              {courseList.high.map((c, index) => {
+                return (
+                  <section
+                    className={styles.section}
+                    key={index}
+                  >
+                    <div className={styles.course_section_title}>
+                      <h4>{c.name}</h4>
+                      <div className={styles.course_section_title__second_line}>
+                        <p>{c.subject}</p>
+                        <span>{c.time}</span>
+                      </div>
+                    </div>
+
+                    {c.name === 'PRO PHY, PRO CHEM, PRO BIO' ? (
+                      <div className={styles.grade}>
+                        <ul>
+                          {c.grade.map((g, index) => (
+                            <li key={index}>
+                              <p>{g.name}</p>
+                              <span className='md:text-lg'>วิชาละ {g.price.toLocaleString()} บาท/เดือน</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : (
+                      <div className={styles.grade}>
+                        <ul>
+                          {c.grade.map((g, index) => (
+                            <li key={index}>
+                              <p>{g.name}</p>
+                              <span className='md:text-lg'>{g.price.toLocaleString()} บาท/เดือน</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </section>
+                )
+              })}
+            </div>
+
+            <div className={styles.course}>
+              <h3>PRO TGAT (1,639 บาท/เดือน)</h3>
+              <p>เรียน 1 วัน / สัปดาห์ (วันละ 4 ชั่วโมง)</p>
+
+              {courseList.tgat.map((c, index) => (
                 <section
                   className={styles.section}
                   key={index}
                 >
                   <div className={styles.course_section_title}>
                     <h4>{c.name}</h4>
+
                     <div className={styles.course_section_title__second_line}>
                       <p>{c.subject}</p>
-                      <span>{c.time}</span>
                     </div>
                   </div>
-
-                  {c.name === 'PRO PHY, PRO CHEM, PRO BIO' ? (
-                    <div className={styles.grade}>
-                      <ul>
-                        {c.grade.map((g, index) => (
-                          <li key={index}>
-                            <p>{g.name}</p>
-                            <span className='md:text-lg'>วิชาละ {g.price.toLocaleString()} บาท/เดือน</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : (
-                    <div className={styles.grade}>
-                      <ul>
-                        {c.grade.map((g, index) => (
-                          <li key={index}>
-                            <p>{g.name}</p>
-                            <span className='md:text-lg'>{g.price.toLocaleString()} บาท/เดือน</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  <div className={styles.grade}>
+                    <ul>
+                      {c.desc.map((d, index) => (
+                        <li key={index}>
+                          <p>{d}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </section>
-              )
-            })}
-          </div>
+              ))}
+            </div>
+
+            <div className={styles.course}>
+              <h3>PRO TCAS</h3>
+              {courseList.tcas.map((c, index) => {
+                return (
+                  <section
+                    className={styles.section}
+                    key={index}
+                  >
+                    <div className={styles.course_section_title}>
+                      <h4>{c.name}</h4>
+                      <div className={styles.course_section_title__second_line}>
+                        <p>{c.subject}</p>
+                        <span>{c.time}</span>
+                      </div>
+                    </div>
+
+                    <div className='p-2 flex flex-col text-lg'>
+                      <span key={index}>{c.desc}</span>
+                    </div>
+                  </section>
+                )
+              })}
+            </div>
+          </>
         )}
       </Layout>
     </>
