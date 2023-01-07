@@ -12,7 +12,7 @@
 
 .option {
     @apply w-full;
-    @apply flex flex-col md:flex-row items-center justify-between;
+    @apply flex md:flex-row flex-col justify-between items-center gap-2;
 }
 
 .option p {
@@ -20,7 +20,7 @@
 }
 
 .subject {
-    @apply inline-flex items-center gap-2;
+    @apply flex flex-row items-center gap-2;
 }
 
 .select {

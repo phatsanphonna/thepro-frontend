@@ -275,7 +275,7 @@ export const courseList = {
       desc: [
         'สรุปโค้งสุดท้าย ทบทวนเนื้อหา',
         'Listening, Speaking, Reading & Writing',
-        'คะลุยโจทย์สามัญข้อสอบเก่า'
+        'ตะลุยโจทย์สามัญข้อสอบเก่า'
       ].join(' '),
     },
     {

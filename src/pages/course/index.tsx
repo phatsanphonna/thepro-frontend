@@ -119,6 +119,12 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
               ))}
             </select>
           </div>
+
+          <a href="https://lin.ee/BdFh3Km" target='_blank' rel="noreferrer" className='w-full md:w-28'>
+            <button className='btn btn-primary w-full'>
+              สมัครเรียน
+            </button>
+          </a>
         </div>
 
         <hr className={styles.hr} />
