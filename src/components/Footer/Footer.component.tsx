@@ -17,7 +17,7 @@ const siteMap = [
 const contacts = [
   { component: <PhoneIcon height={20} width={20} />, url: 'tel:0962239941', text: '096-223-9941' },
   { component: <FacebookIcon />, url: 'https://www.facebook.com/The-Pro-Tutor-104995751003126/', text: 'The Pro Tutor' },
-  { component: <LineIcon />, url: 'https://line.me/R/ti/p/@the-pro', text: '@the-pro (มีเครื่องหมาย @)' },
+  { component: <LineIcon />, url: 'https://lin.ee/BdFh3Km', text: '@the-pro (มีเครื่องหมาย @)' },
   { component: <InstagramIcon />, url: 'https://www.instagram.com/thepro_tutor/', text: 'thepro_tutor' }
 ]
 

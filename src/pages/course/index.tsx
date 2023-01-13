@@ -119,6 +119,12 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
               ))}
             </select>
           </div>
+
+          <a href="https://lin.ee/BdFh3Km" target='_blank' rel="noreferrer" className='w-full md:w-28'>
+            <button className='btn btn-primary w-full'>
+              สมัครเรียน
+            </button>
+          </a>
         </div>
 
         <hr className={styles.hr} />
@@ -250,16 +256,34 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
                     </div>
                   </div>
 
-                  <div className={styles.grade}>
-                    <ul>
-                      {c.grade.map((g, index) => (
-                        <li key={index}>
-                          <p>{g.name}</p>
-                          <span className='md:text-lg'>{g.price.toLocaleString()} บาท/เดือน</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {c.special ? (
+                    <>
+                      <div className={styles.grade}>
+                        <ul>
+                          {c.grade.map((g, index) => (
+                            <li key={index}>
+                              <p>{g.name}</p>
+                              {<span className='md:text-lg'>{g.time}</span>}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className={styles.remarks}>
+                        <small>*อาจมีการเรียนเกินเวลาถ้านักเรียนทำไม่เสร็จ</small>
+                      </div>
+                    </>
+                  ) : (
+                    <div className={styles.grade}>
+                      <ul>
+                        {c.grade.map((g, index) => (
+                          <li key={index}>
+                            <p>{g.name}</p>
+                            {<span className='md:text-lg'>{g.price.toLocaleString()} บาท/เดือน</span>}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </section>
               )
             })}
