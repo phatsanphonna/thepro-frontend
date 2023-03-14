@@ -1,4 +1,3 @@
-import { getAccessToken } from "../auth";
 import { httpGet, httpPost } from "../http";
 
 type User = {
@@ -7,12 +6,9 @@ type User = {
   nickname: string
   email: string
 }
+
 export const fetchUser = async () => {
-  const { status, data } = await httpGet('/user', {
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`
-    }
-  })
+  const { status, data } = await httpGet('/student')
 
   if (status === 403) return undefined
 
@@ -20,11 +16,7 @@ export const fetchUser = async () => {
 }
 
 export async function addOrUpdateUser(user: User) {
-  const { status, data } = await httpPost('/user', user, {
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`
-    }
-  })
+  const { status, data } = await httpPost('/student', user)
 
   if (status === 403) return undefined
 

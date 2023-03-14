@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NextPage } from 'next'
 import { addOrUpdateUser, fetchUser } from '@/libs/user'
 import { setLoading, setStatusMessage } from '@/redux/features/loading.feature'
-import { RouteGuard } from '@/libs/auth'
 import HeaderText from '@/components/HeaderText/HeaderText.component'
 import Input from '@/components/Input/Input.component'
 
@@ -176,7 +175,7 @@ const MePage: NextPage = () => {
   return (
     <>
       <Metadata title='ข้อมูลส่วนตัว | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR' />
-      <RouteGuard>
+
         <Layout>
           <HeaderText>ข้อมูลส่วนตัว</HeaderText>
           <Hr />
@@ -283,7 +282,7 @@ const MePage: NextPage = () => {
             </div>
           </div>
         </Layout>
-      </RouteGuard>
+
     </>
   )
 }

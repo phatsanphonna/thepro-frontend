@@ -1,10 +1,13 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig } from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL
+export const ClientAxios = axios.create({
+  baseURL: '/api',
+  responseType: 'json',
+})
 
-const service = axios.create({
-  baseURL: API_URL,
-  responseType: 'json'
+export const ServerAxios = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_URL + '/api',
+  responseType: 'json',
 })
 
 export const httpGet = async (
@@ -12,7 +15,7 @@ export const httpGet = async (
   config?: AxiosRequestConfig<any> | undefined
 ) => {
   try {
-    const response = await service.get(url, config)
+    const response = await ClientAxios.get(url, config)
     return response
   } catch (e: any) {
     console.error(e);
@@ -25,7 +28,7 @@ export const httpPost = async (
   config?: AxiosRequestConfig<any> | undefined
 ) => {
   try {
-    const response = await service.post(url, body, config)
+    const response = await ClientAxios.post(url, body, config)
     return response
   } catch (e: any) {
     console.error(e);

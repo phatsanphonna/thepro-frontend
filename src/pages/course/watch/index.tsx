@@ -3,7 +3,6 @@ import Metadata from '@/components/Metadata.component';
 import VideoPlayer from '@/components/VideoPlayer/VideoPlayer.component';
 import CourseSectionWatchPage from '@/components/WatchPage/CourseSection/CourseSection.component';
 import WatchNavbar from '@/components/WatchPage/WatchNavbar/WatchNavbar.component';
-import { getAccessToken, RouteGuard } from '@/libs/auth';
 import { signOut } from '@/libs/auth/signout.lib';
 import { httpGet } from '@/libs/http';
 import { setDefaultLoading, setLoading, setStatusMessage } from '@/redux/features/loading.feature';
@@ -61,12 +60,7 @@ const CourseWatchPage = () => {
     }
 
     const fetchData = async () => {
-      const { status, data } = await httpGet(
-        `/course/watch?courseId=${courseId}`, {
-        headers: {
-          Authorization: `Bearer ${getAccessToken()}`
-        }
-      })
+      const { status, data } = await httpGet(`/course/watch?courseId=${courseId}`)
 
       if (status === 403) {
         return handleSignOut()
@@ -109,71 +103,71 @@ const CourseWatchPage = () => {
         title={`${fetchedCourse?.title || 'Watch'} | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR`}
       />
 
-      <RouteGuard>
-        <div className={styles.root}>
-          <main className={styles.main}>
-            <div className={styles.content}>
-              <WatchNavbar />
-              <div>
-                <VideoPlayer source={currentContent?.fileAccessId} />
-              </div>
-              {currentContent && (
-                <>
-                  <div className={styles.content_info}>
-                    <h2 className={styles.content_info_title}>
-                      <VideoCameraIcon className={styles.statusicon} />
-                      {currentContent?.title}
-                    </h2>
 
-                    <hr className='w-full border-black my-2' />
-                  </div>
-                </>
-              )}
-              <div
-                className={styles.course_info_wrapper}
-                style={{ marginTop: currentContent ? '0rem' : '1rem' }}
-              >
-                <div className={styles.course_info}>
-                  <h2>
-                    {fetchedCourse?.title}
+      <div className={styles.root}>
+        <main className={styles.main}>
+          <div className={styles.content}>
+            <WatchNavbar />
+            <div>
+              <VideoPlayer source={currentContent?.fileAccessId} />
+            </div>
+            {currentContent && (
+              <>
+                <div className={styles.content_info}>
+                  <h2 className={styles.content_info_title}>
+                    <VideoCameraIcon className={styles.statusicon} />
+                    {currentContent?.title}
                   </h2>
-                  <h6 className={styles.course_info_teacher}>
-                    โดย {fetchedCourse?.teacher.name}
-                  </h6>
-                  <p className={styles.course_info_description}>
-                    {fetchedCourse?.description}
-                  </p>
+
+                  <hr className='w-full border-black my-2' />
+                </div>
+              </>
+            )}
+            <div
+              className={styles.course_info_wrapper}
+              style={{ marginTop: currentContent ? '0rem' : '1rem' }}
+            >
+              <div className={styles.course_info}>
+                <h2>
+                  {fetchedCourse?.title}
+                </h2>
+                <h6 className={styles.course_info_teacher}>
+                  โดย {fetchedCourse?.teacher.name}
+                </h6>
+                <p className={styles.course_info_description}>
+                  {fetchedCourse?.description}
+                </p>
+              </div>
+            </div>
+            {navbarBelowCourse && <Footer />}
+          </div>
+
+          <div
+            className={styles.course_sidebar}
+          >
+            <section className={styles.course_section}>
+              <div className={styles.course_sidebar_title}>
+                <h3>เนื้อหาคอร์สเรียน</h3>
+              </div>
+
+              <div className={styles.lessons_container}>
+                <div className={styles.lessons_container__content}>
+                  {fetchedCourse?.lessons.map((lesson, index) => (
+                    <CourseSectionWatchPage
+                      key={index} index={index + 1}
+                      lesson={lesson}
+                      setCurrentContent={setCurrentContent}
+                    />
+                  ))
+                  }
                 </div>
               </div>
-              {navbarBelowCourse && <Footer />}
-            </div>
+            </section>
+          </div>
+        </main>
+        {!navbarBelowCourse && <Footer />}
+      </div>
 
-            <div
-              className={styles.course_sidebar}
-            >
-              <section className={styles.course_section}>
-                <div className={styles.course_sidebar_title}>
-                  <h3>เนื้อหาคอร์สเรียน</h3>
-                </div>
-
-                <div className={styles.lessons_container}>
-                  <div className={styles.lessons_container__content}>
-                    {fetchedCourse?.lessons.map((lesson, index) => (
-                      <CourseSectionWatchPage
-                        key={index} index={index + 1}
-                        lesson={lesson}
-                        setCurrentContent={setCurrentContent}
-                      />
-                    ))
-                    }
-                  </div>
-                </div>
-              </section>
-            </div>
-          </main>
-          {!navbarBelowCourse && <Footer />}
-        </div>
-      </RouteGuard>
     </>
   )
 }

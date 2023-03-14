@@ -5,6 +5,7 @@ import { courseList } from '@/libs/courseList.lib';
 import styles from '@/styles/pages/course/coursePage.module.css';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 import type { GetServerSideProps, NextPage } from 'next'
 type Grade = {
@@ -39,28 +40,18 @@ const gradeCategory: Grade[] = [
 ]
 
 const compareGrade = (grade: string) => {
-  switch (grade) {
-    case 'primary':
-      return gradeCategory[1]
-    case 'secondary':
-      return gradeCategory[2]
-    case 'high':
-      return gradeCategory[3]
-    case 'all':
-      return gradeCategory[0]
-    default:
-      return gradeCategory[0]
-  }
+  const foundGrade = gradeCategory.find((g => g.value === grade))
+  return foundGrade || gradeCategory[0]
 }
 
 type Props = {
-  grade: string
+  grade: Grade
 }
 
 const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
   const router = useRouter()
 
-  const [grade, setGrade] = useState<Grade>(compareGrade(queryGrade))
+  const [grade, setGrade] = useState<Grade>(queryGrade)
 
   const handleChangeGrade = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const currentGrade = compareGrade(e.target.value)
@@ -120,11 +111,20 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
             </select>
           </div>
 
-          <a href="https://lin.ee/BdFh3Km" target='_blank' rel="noreferrer" className='w-full md:w-28'>
-            <button className='btn btn-primary w-full'>
-              สมัครเรียน
-            </button>
-          </a>
+          <div className='w-full md:w-1/3 flex flex-col md:flex-row justify-between items-center gap-2'>
+            <a href="https://lin.ee/BdFh3Km" target='_blank' rel="noreferrer" className='w-full'>
+              <button className='btn btn-primary w-full'>
+                สมัครเรียน
+              </button>
+            </a>
+            <Link href='/payment' passHref>
+              <a className='w-full'>
+                <button className='btn btn-pink w-full'>
+                  ชำระเงิน
+                </button>
+              </a>
+            </Link>
+          </div>
         </div>
 
         <hr className={styles.hr} />
@@ -396,9 +396,11 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const queryGrade = compareGrade(query.grade as string);
+
   return {
     props: {
-      grade: query.grade ? query.grade : 'all'
+      grade: queryGrade
     }
   }
 }

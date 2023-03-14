@@ -5,22 +5,28 @@ import Link from 'next/link'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './Navbar.component.module.css'
+import { fetchUser } from '@/libs/user'
 
 const Navbar: React.FC = () => {
-  const dispatch = useDispatch()
-
   const userAuth = useSelector((state: any) => state.userAuth)
+  const [user, setUser] = useState<any>()
 
   const mobileBreakpoint = 768
   const [screenWidth, setScreenWidth] = useState(mobileBreakpoint)
 
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
 
-  useLayoutEffect(() => {
-    dispatch(getLocalUserAuth())
+  useEffect(() => {
+    const getUser = async () => {
+      const user: any = await fetchUser()
+
+      setUser(user);
+    }
+
+    getUser()
   }, [])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const changeWidth = () => {
       setScreenWidth(window.innerWidth)
     }
@@ -82,12 +88,12 @@ const Navbar: React.FC = () => {
                   <a>รีวิว</a>
                 </Link>
               </li>
-              {userAuth.isAuthenticated ? (
+              {user ? (
                 <li>
                   <Link href='/dashboard' passHref>
                     <a className='font-medium inline-flex gap-1 items-center justify-center'>
                       <UserCircleIcon width={20} height={20} />
-                      {userAuth.userAuth.email.split('@')[0]}
+                      {user.firstname}
                     </a>
                   </Link>
 
@@ -142,12 +148,12 @@ const Navbar: React.FC = () => {
                 </Link>
               </li>
               {
-                userAuth.isAuthenticated ? (
+                user ? (
                   <li>
                     <Link href='/dashboard' passHref>
                       <a className='font-medium inline-flex gap-1 items-center justify-center'>
                         <UserCircleIcon width={20} height={20} />
-                        {userAuth.userAuth.email.split('@')[0]}
+                        {user.firstname}
                       </a>
                     </Link>
                   </li>

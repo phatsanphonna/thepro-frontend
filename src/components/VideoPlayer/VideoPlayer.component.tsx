@@ -1,8 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { httpGet } from '@/libs/http'
-import { getAccessToken } from '@/libs/auth';
-
-import ReactPlayer from 'react-player'
+import videojs from 'video.js';
+import 'video.js/dist/video-js.css';
 
 type Props = {
   source?: string
@@ -10,11 +9,6 @@ type Props = {
 
 type PlayerSettings = {
   volume: number
-}
-
-const playerConfig = {
-  controls: true,
-  pip: true
 }
 
 const VideoPlayer: React.FC<Props> = ({ source }) => {
@@ -25,41 +19,8 @@ const VideoPlayer: React.FC<Props> = ({ source }) => {
   const [playerSettings, setPlayerSettings] = useState<PlayerSettings>()
   const [contentURL, setContentURL] = useState('')
 
-  const getCurrentPlayerSettings = (): PlayerSettings => {
-    const playerSettings = localStorage.getItem('player')
-
-    if (playerSettings) {
-      return JSON.parse(playerSettings)
-    } else {
-      const defaultSettings = { volume: 1 }
-
-      localStorage.setItem('player', JSON.stringify(defaultSettings))
-
-      return defaultSettings
-    }
-  }
-
-  const fetchData = async () => {
-    const { data } = await httpGet(`/file/watch/${source}`, {
-      headers: {
-        Authorization: `Bearer ${getAccessToken()}`
-      }
-    })
-    return data
-  }
-
-  useEffect(() => {
-    if (!source) {
-      return
-    }
-
-    fetchData()
-      .then((data) => {
-        setPlayerSettings(getCurrentPlayerSettings())
-        setContentURL(`https://vimeo.com/${data.contentURL}`)
-        setVideoWatermark(true)
-      })
-  }, [source])
+  const videoReference = useRef(null);
+  const playerReference = useRef(null);
 
   useEffect(() => {
     const handleScreenshotKeyup = (e: KeyboardEvent) => {
@@ -92,6 +53,45 @@ const VideoPlayer: React.FC<Props> = ({ source }) => {
     }
   }, [])
 
+  useEffect(() => {
+    if (!source) return
+
+    // Initializing video.js player
+    if (!playerReference.current) {
+      const videoElement = videoReference.current;
+      if (!videoElement) return;
+
+      let playerRef = playerReference.current as any
+
+      playerRef = videojs(videoElement, options, () => {
+        videojs.log('Video player is ready');
+      });
+    }
+  }, [source, videoReference]);
+
+  useEffect(() => {
+    const player = playerReference.current as any;
+
+    return () => {
+      if (player) {
+        player.dispose();
+        playerReference.current = null;
+      }
+    };
+  }, [playerReference]);
+
+  const options = {
+    autoplay: true,
+    controls: true,
+    responsive: true,
+    fluid: true,
+    sources: [{
+      src: 'http://localhost:7802/api/file/640df14df0781c2c6c3369dc',
+      type: 'video/mp4'
+    }]
+  };
+
+
   useLayoutEffect(() => {
     const handleResize = () => setWidth(window.innerWidth)
 
@@ -120,12 +120,9 @@ const VideoPlayer: React.FC<Props> = ({ source }) => {
       >
         THE PRO TUTOR
       </i>
-      <ReactPlayer
-        url={contentURL}
-        {...playerConfig}
-        width='100%'
-        height='100%'
-      />
+      <div data-vjs-player>
+        <video ref={videoReference} className='video-js vjs-big-playcentered' />
+      </div>
     </div>
   )
 }

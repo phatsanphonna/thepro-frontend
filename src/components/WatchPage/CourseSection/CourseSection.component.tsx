@@ -8,7 +8,6 @@ import {
   VideoCameraIcon
 } from '@heroicons/react/solid'
 import { httpGet } from '@/libs/http'
-import { getAccessToken } from '@/libs/auth'
 
 type Props = {
   index: number
@@ -36,12 +35,7 @@ const CourseSectionWatchPage = ({ lesson, index, setCurrentContent }: Props) => 
 
   const downloadFile = async (fileAccessId: string) => {
     try {
-      const response = await httpGet(`/file/${fileAccessId}`, {
-        headers: {
-          Authorization: `Bearer ${getAccessToken()}`,
-          // responseType: 'blob'
-        }
-      })
+      const response = await httpGet(`/file/${fileAccessId}`)
 
       window.open(response.data.signedUrl, '_blank')
 
