@@ -23,7 +23,7 @@ const loadingSlice = createSlice({
       state.globalLoading = false
       state.statusMessage = null
     },
-    setError: (state, { payload }) => {
+    setError: (state, { payload }: { payload: { errorMessage: string, errorCode: number } }) => {
       state.globalLoading = false
       state.error = 'error'
       state.statusMessage = payload.errorMessage

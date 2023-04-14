@@ -1,18 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  rewrites: async () => {
-    return [
-      {
-        source: '/api/auth/:path*',
-        destination: 'http://localhost:7801/:path*'
-      },
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:7802/api/:path*'
-      },
-    ]
-  },
+  rewrites: async () => ([
+    {
+      source: '/api/auth/:path*',
+      destination: 'http://localhost:7801/:path*'
+    },
+    {
+      source: '/api/:path*',
+      destination: 'http://localhost:7802/api/:path*'
+    },
+  ])
 }
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({

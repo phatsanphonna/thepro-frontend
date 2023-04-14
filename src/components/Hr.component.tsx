@@ -1,8 +1,4 @@
-import React from 'react'
-
-type Props = {}
-
-const Hr = (props: Props) => {
+const Hr: React.FC = () => {
   return (
     <hr className='border-black my-4 w-full' />
   )

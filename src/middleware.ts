@@ -20,24 +20,24 @@ export async function middleware(request: NextRequest) {
 
   if (!accessToken) return await handleRedirect()
 
-  if (url.pathname === '/signin' && accessToken) {
-    url.pathname = '/dashboard'
-    return NextResponse.redirect(url)
-  }
-
   const response = await fetch(
     process.env.NEXT_PUBLIC_URL + '/api/auth/verify', {
+    method: 'POST',
     credentials: 'include',
     headers: {
       Cookie: cookie as string
     }
   })
-  const { result } = await response.json()
-
-  if (!result) return await handleRedirect()
+  const { status } = await response.json()
+  
+  if (!status) return await handleRedirect()
   else return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/dashboard', '/signin'],
+  matcher: [
+    '/dashboard',
+    '/assignment/:path*',
+    '/me'
+  ],
 }

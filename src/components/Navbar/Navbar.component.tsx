@@ -1,14 +1,11 @@
-import { getLocalUserAuth } from '@/redux/features/userAuth.feature'
-import { MenuIcon, UserCircleIcon } from '@heroicons/react/solid'
+import { fetchUser } from '@/libs/user'
+import { Bars3Icon, UserCircleIcon } from '@heroicons/react/20/solid'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useLayoutEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import styles from './Navbar.component.module.css'
-import { fetchUser } from '@/libs/user'
 
 const Navbar: React.FC = () => {
-  const userAuth = useSelector((state: any) => state.userAuth)
   const [user, setUser] = useState<any>()
 
   const mobileBreakpoint = 768
@@ -16,10 +13,9 @@ const Navbar: React.FC = () => {
 
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getUser = async () => {
       const user: any = await fetchUser()
-
       setUser(user);
     }
 
@@ -43,7 +39,7 @@ const Navbar: React.FC = () => {
   const checkResponsiveNavbar = screenWidth > mobileBreakpoint
 
   useEffect(() => {
-    if (setIsHamburgerClicked) {
+    if (isHamburgerClicked) {
       setIsHamburgerClicked(false)
     }
 
@@ -51,9 +47,7 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <nav
-        className={styles.nav}
-      >
+      <nav className={styles.nav}>
         <div className={styles.wrapper}>
           <div className={styles.logo}>
             <Link href='/' passHref>
@@ -96,39 +90,33 @@ const Navbar: React.FC = () => {
                       {user.firstname}
                     </a>
                   </Link>
-
                 </li>
               ) : (
-                <>
-                  <li>
-                    <Link href='/signin' passHref>
-                      <a>เข้าสู่ระบบ</a>
-                    </Link>
-                  </li>
-                </>
+                <li>
+                  <Link href='/signin' passHref>
+                    <a>เข้าสู่ระบบ</a>
+                  </Link>
+                </li>
               )}
             </ul>
           ) : (
-            <>
-              <MenuIcon
-                width={20}
-                height={20}
-                className={styles.hamburger}
-                onClick={() => {
-                  setIsHamburgerClicked(!isHamburgerClicked)
-                }}
-                style={{
-                  color: isHamburgerClicked ? 'black' : 'white',
-                  backgroundColor: isHamburgerClicked ? 'white' : '',
-                  padding: isHamburgerClicked ? 1 : 0,
-                }}
-              />
-
-            </>
+            <Bars3Icon
+              width={20}
+              height={20}
+              className={styles.hamburger}
+              onClick={() => {
+                setIsHamburgerClicked(!isHamburgerClicked)
+              }}
+              style={{
+                color: isHamburgerClicked ? 'black' : 'white',
+                backgroundColor: isHamburgerClicked ? 'white' : '',
+                padding: isHamburgerClicked ? 1 : 0,
+              }}
+            />
           )}
         </div>
       </nav>
-      {(screenWidth < mobileBreakpoint) && (isHamburgerClicked) && (
+      {!checkResponsiveNavbar && isHamburgerClicked && (
         <>
           <div className={styles.hamburger_tab}>
             <ul className={styles.hamburger_tab_list}>
@@ -147,24 +135,22 @@ const Navbar: React.FC = () => {
                   <a>รีวิว</a>
                 </Link>
               </li>
-              {
-                user ? (
-                  <li>
-                    <Link href='/dashboard' passHref>
-                      <a className='font-medium inline-flex gap-1 items-center justify-center'>
-                        <UserCircleIcon width={20} height={20} />
-                        {user.firstname}
-                      </a>
-                    </Link>
-                  </li>
-                ) : (
-                  <li>
-                    <Link href='/signin' passHref>
-                      <a>เข้าสู่ระบบ</a>
-                    </Link>
-                  </li>
-                )
-              }
+              {user ? (
+                <li>
+                  <Link href='/dashboard' passHref>
+                    <a className='font-medium inline-flex gap-1 items-center justify-center'>
+                      <UserCircleIcon width={20} height={20} />
+                      {user.firstname}
+                    </a>
+                  </Link>
+                </li>
+              ) : (
+                <li>
+                  <Link href='/signin' passHref>
+                    <a>เข้าสู่ระบบ</a>
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
           <div

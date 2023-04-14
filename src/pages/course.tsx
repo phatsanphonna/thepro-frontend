@@ -3,11 +3,11 @@ import Layout from '@/components/Layout/Layout.component';
 import Metadata from '@/components/Metadata.component';
 import { courseList } from '@/libs/courseList.lib';
 import styles from '@/styles/pages/course/coursePage.module.css';
+import type { GetServerSideProps, NextPage } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 
-import type { GetServerSideProps, NextPage } from 'next'
 type Grade = {
   name: string;
   value: string;

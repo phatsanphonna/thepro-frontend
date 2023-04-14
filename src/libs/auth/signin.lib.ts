@@ -15,12 +15,12 @@ export const signIn = async (
   dispatch(setLoading(true))
   dispatch(setStatusMessage('กำลังเข้าสู่ระบบ...'))
 
-  const { status, data } = await httpPost('/auth/signin', payload)
-  
-  if (status === 400 || status === 403 || status === 404) {
+  const { status } = await httpPost('/auth/signin', payload)
+
+  if (status === 401) {
     return dispatch(setError({
-      errorMessage: 'อีเมล หรือ รหัสผ่านไม่ถูกต้อง',
-      errorCode: data.code
+      errorMessage: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง',
+      errorCode: status
     }))
   }
 

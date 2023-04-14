@@ -1,13 +1,12 @@
-import { useState } from 'react'
-import styles from './CourseSection.component.module.css'
-
+import { httpGet } from '@/libs/http'
 import {
   ChevronDownIcon,
   ChevronUpIcon,
   DocumentIcon,
   VideoCameraIcon
-} from '@heroicons/react/solid'
-import { httpGet } from '@/libs/http'
+} from '@heroicons/react/20/solid'
+import { useState } from 'react'
+import styles from './CourseSection.component.module.css'
 
 type Props = {
   index: number

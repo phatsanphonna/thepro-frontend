@@ -2,7 +2,7 @@ import HeaderText from '@/components/HeaderText/HeaderText.component';
 import Layout from '@/components/Layout/Layout.component';
 import Metadata from '@/components/Metadata.component';
 import styles from '@/styles/pages/reviewPage.module.css';
-import { ChevronDownIcon } from '@heroicons/react/solid';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';

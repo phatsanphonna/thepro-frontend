@@ -1,11 +1,13 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 export const ClientAxios = axios.create({
+  withCredentials: true,
   baseURL: '/api',
   responseType: 'json',
 })
 
 export const ServerAxios = axios.create({
+  withCredentials: true,
   baseURL: process.env.NEXT_PUBLIC_URL + '/api',
   responseType: 'json',
 })

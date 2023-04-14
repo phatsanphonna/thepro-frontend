@@ -4,7 +4,7 @@
 
 @layer components {
   .btn {
-    @apply transition-all ease-in-out duration-200;
+    @apply transition-shadow ease-in-out duration-200;
     @apply select-none;
     @apply h-12 w-24;
     @apply rounded;
@@ -79,4 +79,14 @@ a {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.player-wrapper {
+  position: relative;
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
 }

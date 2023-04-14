@@ -8,7 +8,6 @@ module.exports = {
       colors: {
         'golden-tainoi': {
           DEFAULT: '#FFCD64',
-          '50': '#FFFFFF',
           '100': '#FFFFFF',
           '200': '#FFF4DE',
           '300': '#FFE7B6',
@@ -21,7 +20,6 @@ module.exports = {
         },
         'mantis': {
           DEFAULT: '#86C556',
-          '50': '#E8F4DF',
           '100': '#DDEFD0',
           '200': '#C7E4B1',
           '300': '#B1DA93',
@@ -36,5 +34,7 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography')
+  ],
 }

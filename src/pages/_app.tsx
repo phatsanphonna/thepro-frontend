@@ -1,14 +1,12 @@
-import '../styles/globals.css';
-
 import ErrorBox from '@/components/Loading/ErrorBox/ErrorBox.component';
 import LoadingBar from '@/components/Loading/LoadingBar/LoadingBar.component';
 import LoadingStatus from '@/components/Loading/LoadingStatus/LoadingStatus.component';
+import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
-
-import type { AppProps } from 'next/app'
+import '@/styles/globals.css';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()

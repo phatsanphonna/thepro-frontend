@@ -1,5 +1,5 @@
 import { getLocalUserAuth } from '@/redux/features/userAuth.feature'
-import { MenuIcon, UserCircleIcon } from '@heroicons/react/solid'
+import { Bars3Icon, UserCircleIcon } from '@heroicons/react/20/solid'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useLayoutEffect, useState } from 'react'
@@ -90,21 +90,18 @@ const WatchNavbar: React.FC = () => {
                       {userAuth.userAuth?.email.split('@')[0]}
                     </a>
                   </Link>
-
                 </li>
               ) : (
-                <>
-                  <li>
-                    <Link href='/signin' passHref>
-                      <a>เข้าสู่ระบบ</a>
-                    </Link>
-                  </li>
-                </>
+                <li>
+                  <Link href='/signin' passHref>
+                    <a>เข้าสู่ระบบ</a>
+                  </Link>
+                </li>
               )}
             </ul>
           ) : (
             <>
-              <MenuIcon
+              <Bars3Icon
                 width={20}
                 height={20}
                 className={styles.hamburger}
@@ -162,7 +159,7 @@ const WatchNavbar: React.FC = () => {
             </ul>
           </div>
           <div
-            className='w-full h-screen bg-transparent opacity-0 absolute top-0 z-10'
+            className='w-full h-screen bg-black opacity-50 absolute top-0 z-10'
             onClick={() => setIsHamburgerClicked(false)}
           />
         </>

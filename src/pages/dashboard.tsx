@@ -1,26 +1,14 @@
+import CourseCard from '@/components/Dashboard/CourseCard/CourseCard.component';
+import Hr from '@/components/Hr.component';
 import Layout from '@/components/Layout/Layout.component';
 import Metadata from '@/components/Metadata.component';
-
-import {
-  disableError,
-  setLoading,
-  setStatusMessage,
-  setSuccess
-} from '@/redux/features/loading.feature';
-import styles from '@/styles/pages/dashboard/dashboardPage.module.css';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import type { GetServerSideProps, NextPage } from 'next';
-import Hr from '@/components/Hr.component';
-import CourseCard from '@/components/Dashboard/CourseCard/CourseCard.component';
-import { fetchUser } from '@/libs/user';
 import { signOut } from '@/libs/auth/signout.lib';
+import { ServerAxios } from '@/libs/http';
+import styles from '@/styles/pages/dashboard.module.css';
+import type { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
-import { setLocalUser } from '@/redux/features/userAuth.feature';
-import { ServerAxios, httpGet } from '@/libs/http';
-import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 
 type User = {
   id: string
@@ -29,17 +17,25 @@ type User = {
   lastname: string
   nickname: string
   assignment: any[]
+  studentId: string
 }
 
 const DashboardPage: NextPage<{ user: User }> = ({ user }) => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const { firstname, lastname, nickname, assignment } = user;
+  const { firstname, lastname, nickname, assignment, studentId } = user;
 
   const handleSignOut = async () => {
     await signOut(dispatch, router)
   }
+
+  const todoAssignment = assignment.filter((
+    a) => new Date().getTime() < new Date(a.expireDate).getTime()
+  )
+  const expiredAssignment = assignment.filter(
+    (a) => new Date().getTime() >= new Date(a.expireDate).getTime()
+  )
 
   return (
     <>
@@ -48,8 +44,8 @@ const DashboardPage: NextPage<{ user: User }> = ({ user }) => {
       <Layout>
         <header className={styles.header}>
           <div className={styles.header_info}>
-            <h1>{nickname}</h1>
-            <p>{firstname} {lastname}</p>
+            <h1>{studentId}</h1>
+            <p>{firstname} {lastname} ({nickname})</p>
           </div>
 
           <div className={styles.header_button}>
@@ -73,31 +69,64 @@ const DashboardPage: NextPage<{ user: User }> = ({ user }) => {
 
         <Hr />
 
-        <div className={styles.course}>
-          <div>
+        <div className='w-full flex flex-col gap-8'>
+          <div className={styles.course}>
             <h3>งานที่ต้องทำ</h3>
-          </div>
 
-          <div className={styles.course_list_wrapper}>
-            <div className={styles.course_list}>
-              {assignment && (assignment!.map((asm, index) => (
-                <CourseCard
-                  key={index}
-                  name={asm.title}
-                  courseAccessId={asm.id} />
-              )))}
-
+            <div className={styles.course_list_wrapper}>
+              <div className={styles.course_list}>
+                {todoAssignment.length !== 0 ? (
+                  todoAssignment.map((asm, index) => (
+                    <CourseCard
+                      isFinished={asm.isFinished}
+                      expireDate={asm.expireDate}
+                      assignDate={asm.assignDate}
+                      key={index}
+                      name={asm.lesson.title}
+                      materialsCount={asm.lesson.materialsId.length}
+                      assignmentId={asm.id}
+                    />
+                  ))) : (
+                  <div className='w-full min-h-[3rem] rounded-lg shadow-sm bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 grid place-items-center'>
+                    <p className='text-center text-lg md:text-xl font-medium text-white'>คุณทำงานเสร็จหมดแล้ว</p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
 
+          {expiredAssignment.length !== 0 && (
+            <div className={styles.course}>
+              <h3>งานที่หมดอายุ</h3>
+
+              <div className={styles.course_list_wrapper}>
+                <div className={styles.course_list}>
+                  {assignment && (
+                    expiredAssignment
+                      .map((asm, index) => (
+                        <CourseCard
+                          isFinished={asm.isFinished}
+                          expireDate={asm.expireDate}
+                          assignDate={asm.assignDate}
+                          key={index}
+                          name={asm.lesson.title}
+                          materialsCount={asm.lesson.materialsId.length}
+                          assignmentId={asm.id}
+                        />
+                      )))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </Layout>
     </>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const { data } = await ServerAxios.get('/student', {
+  const { data } = await ServerAxios.get(
+    '/student', {
     withCredentials: true,
     headers: {
       Cookie: req.headers.cookie
