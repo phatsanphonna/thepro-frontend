@@ -14,6 +14,13 @@ const SignInPage: NextPage = () => {
   const router = useRouter()
 
   const calculateDistance = () => {
+    if (!navigator.geolocation) {
+      return dispatch(setError({
+        errorMessage: 'โปรดเปิดใช้งานการอนุญาตตำแหน่งในเบราว์เซอร์',
+        errorCode: 971
+      }))
+    }
+
     let result: boolean = false
   
     navigator.geolocation.getCurrentPosition(position => {
@@ -57,7 +64,7 @@ const SignInPage: NextPage = () => {
               }}
 
               onSubmit={async (values, { setSubmitting, setStatus }) => {
-                // if (!calculateDistance()) {
+                // if (!calculateDistance() && process.env.NODE_ENV !== 'development') {
                 //   return dispatch(setError({
                 //     errorMessage: 'โปรดเข้าใกล้ที่เรียนมากกว่านี้',
                 //     errorCode: 970
