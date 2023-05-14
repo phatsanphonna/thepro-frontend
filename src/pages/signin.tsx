@@ -15,6 +15,13 @@ const SignInPage: NextPage = () => {
   const router = useRouter()
 
   const calculateDistance = () => {
+    if (!navigator.geolocation) {
+      return dispatch(setError({
+        errorMessage: 'โปรดเปิดใช้งานการอนุญาตตำแหน่งในเบราว์เซอร์',
+        errorCode: 971
+      }))
+    }
+
     let result: boolean = false
 
     navigator.geolocation.getCurrentPosition(position => {

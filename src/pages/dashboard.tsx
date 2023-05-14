@@ -31,10 +31,13 @@ const DashboardPage: NextPage<{ user: User }> = ({ user }) => {
   }
 
   const todoAssignment = assignment.filter(
-    (a) => new Date().getTime() < new Date(a.expireDate).getTime()
+    (a) => (new Date().getTime() < new Date(a.expireDate).getTime()
+      || !a.expireDate)
   )
+
   const expiredAssignment = assignment.filter(
-    (a) => new Date().getTime() >= new Date(a.expireDate).getTime() && a.expireDate !== null
+    (a) => new Date().getTime() >= new Date(a.expireDate).getTime()
+      && a.expireDate
   )
 
   return (
