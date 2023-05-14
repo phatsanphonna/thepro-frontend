@@ -206,15 +206,15 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
 
                     <div className={c.name != 'PRE PRO 3' ? styles.grade : styles.grade_special}>
                       <p>{c.grade}</p>
-                      {c.name == 'PRE PRO 3' ? (
+                      {c.name == 'PRE PRO 3' || c.name == 'PRE PRO 1' ? (
                         <span className='md:text-lg flex flex-col text-right'>{
                           (c.price as string[]).map((info, index) => (
                             <span key={index}>{info}</span>
                           ))}</span>
-                      ) : c.name == 'PRE PRO 2' ? (
-                        <span key={index}>{c.price}</span>
-                      ) : (
+                      ) : c.name.includes('PRE PRO 2') ? (
                         <span className='md:text-lg'>{c.price.toLocaleString()} บาท/เดือน</span>
+                      ) : (
+                        <span key={index}>{c.price} บาท/เดือน</span>
                       )}
                     </div>
 
