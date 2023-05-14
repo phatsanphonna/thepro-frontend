@@ -1,0 +1,11 @@
+.layout {
+  display: grid;
+  grid-template-rows: auto 1fr;
+
+  min-height: 100vh;
+  @apply bg-[#121212];
+}
+
+.root {
+  min-height: calc(100vh - 19rem);
+}

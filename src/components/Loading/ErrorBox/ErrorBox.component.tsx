@@ -2,7 +2,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import styles from './ErrorBox.component.module.css'
-import { CheckCircleIcon, ExclamationCircleIcon, XIcon } from '@heroicons/react/solid'
+import { CheckCircleIcon, ExclamationCircleIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon } from '@heroicons/react/20/solid'
 import { disableError } from '@/redux/features/loading.feature'
 import { useEffect } from 'react'
 
@@ -61,7 +62,7 @@ const ErrorBox: React.FC = () => {
                 {loading.errorCode && ` (${loading.errorCode})`}
               </p>
             </div>
-            <XIcon
+            <XMarkIcon
               width={28}
               onClick={() => dispatch(disableError())}
             />

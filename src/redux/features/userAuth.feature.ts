@@ -1,4 +1,4 @@
-import { getAccessToken } from "@/libs/auth/auth.lib"
+
 import { httpGet } from "@/libs/http"
 import { useLocalStorage } from "@/libs/storage/localStorage.lib"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
@@ -27,11 +27,7 @@ const initialState = {
 const fetchUser = createAsyncThunk(
   'userAuth/fetchUser', async (userId: string, thunkAPI) => {
 
-    const response = await httpGet('/user', {
-      headers: {
-        'Authorization': `Bearer ${getAccessToken()}`
-      }
-    })
+    const response = await httpGet('/user')
 
     return response.data
   }
@@ -46,17 +42,6 @@ const userAuthSlice = createSlice({
     },
     getLocalUserAuth: (state) => {
       //eslint-disable-next-line
-      const { getLocalStorageItem } = useLocalStorage()
-
-      const localUserAuth = getLocalStorageItem('localUserAuth')
-
-      if (localUserAuth) {
-        state.isAuthenticated = true
-        state.userAuth = JSON.parse(localUserAuth)
-      } else {
-        state.isAuthenticated = false
-        state.userAuth = null
-      }
     },
     clearLocalUser: (state) => {
       state.user = null

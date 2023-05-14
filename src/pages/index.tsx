@@ -5,11 +5,10 @@ import Title from '@/components/IndexPage/Title/Title.component';
 import Metadata from '@/components/Metadata.component';
 import Navbar from '@/components/Navbar/Navbar.component';
 import styles from '@/styles/pages/index.module.css';
-import { ChevronDownIcon } from '@heroicons/react/solid';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import type { NextPage } from 'next';
 import Image from 'next/image';
 import { useEffect, useLayoutEffect, useState } from 'react';
-
-import type { NextPage } from 'next'
 
 const courseList = [
   { title: 'คณิตศาสตร์', slug: 'math' },
@@ -162,6 +161,11 @@ const Review: React.FC = () => {
       </div>
     </div>
   )
+}
+
+const playerConfig = {
+  controls: true,
+  pip: true
 }
 
 const Study: React.FC = () => (

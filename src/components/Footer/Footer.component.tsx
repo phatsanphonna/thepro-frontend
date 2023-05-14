@@ -1,10 +1,9 @@
+import { LinkIcon, PhoneIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
-import styles from './Footer.component.module.css'
-
-import { LinkIcon, PhoneIcon } from '@heroicons/react/solid'
 import FacebookIcon from '../Icons/FacebookIcon'
-import LineIcon from '../Icons/LineIcon'
 import InstagramIcon from '../Icons/InstagramIcon'
+import LineIcon from '../Icons/LineIcon'
+import styles from './Footer.component.module.css'
 
 const siteMap = [
   { name: 'หน้าหลัก', slug: '/' },
@@ -83,7 +82,7 @@ const Footer: React.FC = () => {
               </a>
             </Link>
           </p>
-          <p>© 2022 THE PRO TUTOR, All rights reserved. Made by{' '}
+          <p>© 2023 THE PRO TUTOR, All rights reserved. Made by{' '}
             <a
               href='https://github.com/phatsanphonna'
               target="_blank"

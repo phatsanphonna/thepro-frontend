@@ -1,24 +1,23 @@
-import { useEffect, useState } from 'react'
+import HeaderText from '@/components/HeaderText/HeaderText.component'
+import Hr from '@/components/Hr.component'
+import Input from '@/components/Input/Input.component'
 import Layout from '@/components/Layout/Layout.component'
-import { useDispatch, useSelector } from 'react-redux'
-import { NextPage } from 'next'
+import Metadata from '@/components/Metadata.component'
+import { signOut } from '@/libs/auth/signout.lib'
 import { addOrUpdateUser, fetchUser } from '@/libs/user'
 import { setLoading, setStatusMessage } from '@/redux/features/loading.feature'
-import { RouteGuard } from '@/libs/auth'
-import HeaderText from '@/components/HeaderText/HeaderText.component'
-import Input from '@/components/Input/Input.component'
-
-import styles from '@/styles/pages/mePage.module.css'
-import Hr from '@/components/Hr.component'
-import Metadata from '@/components/Metadata.component'
-import { useRouter } from 'next/router'
 import { setLocalUser } from '@/redux/features/userAuth.feature'
-import { signOut } from '@/libs/auth/signout.lib'
+import styles from '@/styles/pages/mePage.module.css'
+import { NextPage } from 'next'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 type User = {
   id: string
-  userAuthId: string
-  email: string
+  userAuth: {
+    email: string
+  }
   firstname: string
   lastname: string
   nickname: string
@@ -149,7 +148,7 @@ const MePage: NextPage = () => {
 
       dispatch(setLocalUser(fetchedUser))
       
-      setEmail(fetchedUser.email)
+      setEmail(fetchedUser.userAuth.email)
       setFirstname(fetchedUser.firstname)
       setLastname(fetchedUser.lastname)
       setNickname(fetchedUser.nickname)
@@ -176,7 +175,7 @@ const MePage: NextPage = () => {
   return (
     <>
       <Metadata title='ข้อมูลส่วนตัว | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR' />
-      <RouteGuard>
+
         <Layout>
           <HeaderText>ข้อมูลส่วนตัว</HeaderText>
           <Hr />
@@ -283,7 +282,6 @@ const MePage: NextPage = () => {
             </div>
           </div>
         </Layout>
-      </RouteGuard>
     </>
   )
 }

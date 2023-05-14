@@ -3,10 +3,11 @@ import Layout from '@/components/Layout/Layout.component';
 import Metadata from '@/components/Metadata.component';
 import { courseList } from '@/libs/courseList.lib';
 import styles from '@/styles/pages/course/coursePage.module.css';
+import type { GetServerSideProps, NextPage } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import type { GetServerSideProps, NextPage } from 'next'
 type Grade = {
   name: string;
   value: string;
@@ -16,7 +17,7 @@ const descriptionList = [
   'สอนสดที่ THE PRO เท่านั้น',
   'รับนักเรียนจำนวนจำกัด',
   'ทุกคอร์สหยุดเทศกาล สงกรานต์ และ ปีใหม่',
-  'หากมีการขาดเรียน การขอชดเชย (ตามดุลยพินิจของผู้สอน)'
+  'การขอชดเชย จะเป็นการชดเชยด้วยคลิปวิดีโอสอน ในวันที่ขาดเรียน'
 ]
 
 const gradeCategory: Grade[] = [
@@ -39,28 +40,18 @@ const gradeCategory: Grade[] = [
 ]
 
 const compareGrade = (grade: string) => {
-  switch (grade) {
-    case 'primary':
-      return gradeCategory[1]
-    case 'secondary':
-      return gradeCategory[2]
-    case 'high':
-      return gradeCategory[3]
-    case 'all':
-      return gradeCategory[0]
-    default:
-      return gradeCategory[0]
-  }
+  const foundGrade = gradeCategory.find((g => g.value === grade))
+  return foundGrade || gradeCategory[0]
 }
 
 type Props = {
-  grade: string
+  grade: Grade
 }
 
 const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
   const router = useRouter()
 
-  const [grade, setGrade] = useState<Grade>(compareGrade(queryGrade))
+  const [grade, setGrade] = useState<Grade>(queryGrade)
 
   const handleChangeGrade = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const currentGrade = compareGrade(e.target.value)
@@ -120,11 +111,13 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
             </select>
           </div>
 
-          <a href="https://lin.ee/BdFh3Km" target='_blank' rel="noreferrer" className='w-full md:w-28'>
-            <button className='btn btn-primary w-full'>
-              สมัครเรียน
-            </button>
-          </a>
+          <div className='w-full md:w-1/6 flex flex-col md:flex-row justify-between items-center gap-2'>
+            <a href="https://lin.ee/BdFh3Km" target='_blank' rel="noreferrer" className='w-full'>
+              <button className='btn btn-primary w-full'>
+                สมัครเรียน
+              </button>
+            </a>
+          </div>
         </div>
 
         <hr className={styles.hr} />
@@ -211,9 +204,18 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
                       </div>
                     </div>
 
-                    <div className={styles.grade}>
+                    <div className={c.name != 'PRE PRO 3' ? styles.grade : styles.grade_special}>
                       <p>{c.grade}</p>
-                      <span className='md:text-lg'>{c.price.toLocaleString()} บาท/เดือน</span>
+                      {c.name == 'PRE PRO 3' ? (
+                        <span className='md:text-lg flex flex-col text-right'>{
+                          (c.price as string[]).map((info, index) => (
+                            <span key={index}>{info}</span>
+                          ))}</span>
+                      ) : c.name == 'PRE PRO 2' ? (
+                        <span key={index}>{c.price}</span>
+                      ) : (
+                        <span className='md:text-lg'>{c.price.toLocaleString()} บาท/เดือน</span>
+                      )}
                     </div>
 
                     <div className={styles.grade}>
@@ -256,34 +258,17 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
                     </div>
                   </div>
 
-                  {c.special ? (
-                    <>
-                      <div className={styles.grade}>
-                        <ul>
-                          {c.grade.map((g, index) => (
-                            <li key={index}>
-                              <p>{g.name}</p>
-                              {<span className='md:text-lg'>{g.time}</span>}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className={styles.remarks}>
-                        <small>*อาจมีการเรียนเกินเวลาถ้านักเรียนทำไม่เสร็จ</small>
-                      </div>
-                    </>
-                  ) : (
-                    <div className={styles.grade}>
-                      <ul>
-                        {c.grade.map((g, index) => (
-                          <li key={index}>
-                            <p>{g.name}</p>
-                            {<span className='md:text-lg'>{g.price.toLocaleString()} บาท/เดือน</span>}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  <div className={styles.grade}>
+                    <ul>
+                      {c.grade.map((g, index) => (
+                        <li key={index}>
+                          <p>{g.name}</p>
+                          {<span className='md:text-lg'>{g.price.toLocaleString()} บาท/เดือน</span>}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
                 </section>
               )
             })}
@@ -294,6 +279,7 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
           <>
             <div className={styles.course}>
               <h3>PRO HIGH</h3>
+
               {courseList.high.map((c, index) => {
                 return (
                   <section
@@ -337,10 +323,34 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
             </div>
 
             <div className={styles.course}>
-              <h3>PRO TGAT (1,639 บาท/เดือน)</h3>
-              <p>เรียน 1 วัน / สัปดาห์ (วันละ 4 ชั่วโมง)</p>
+              <h3>PRO TGAT 1-3 (1,800 บาท/เดือน)</h3>
+              <p>เรียน 1 วัน / สัปดาห์ (วันละ 2 ชั่วโมง)</p>
 
               {courseList.tgat.map((c, index) => (
+                <section
+                  className={styles.section}
+                  key={index}
+                >
+                  <div className={styles.course_section_title}>
+                    <h4>{c.name}</h4>
+
+                    <div className={styles.course_section_title__second_line}>
+                      <p>{c.subject}</p>
+                    </div>
+                  </div>
+                  <div className={styles.grade}>
+                    <ul>
+                      {c.desc.map((d, index) => (
+                        <li key={index}>
+                          <p>{d}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </section>
+              ))}
+
+              {courseList.tgat23.map((c, index) => (
                 <section
                   className={styles.section}
                   key={index}
@@ -390,15 +400,17 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
             </div>
           </>
         )}
-      </Layout>
+      </Layout >
     </>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const queryGrade = compareGrade(query.grade as string);
+
   return {
     props: {
-      grade: query.grade ? query.grade : 'all'
+      grade: queryGrade
     }
   }
 }

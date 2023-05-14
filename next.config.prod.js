@@ -4,11 +4,11 @@ const nextConfig = {
   rewrites: async () => ([
     {
       source: '/api/auth/:path*',
-      destination: 'http://localhost:7801/:path*'
+      destination: 'http://auth.theprotutor.net/:path*'
     },
     {
       source: '/api/:path*',
-      destination: 'http://localhost:7802/api/:path*'
+      destination: 'http://apiv2.theprotutor.net/api/:path*'
     },
   ])
 }

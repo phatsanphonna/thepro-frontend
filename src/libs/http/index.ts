@@ -1,1 +1,1 @@
-export { httpGet, httpPost } from './http.lib'
+export { httpGet, httpPost, ServerAxios, ClientAxios } from './http.lib'
