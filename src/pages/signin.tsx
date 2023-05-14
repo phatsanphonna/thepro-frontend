@@ -6,6 +6,7 @@ import { disableError, setError } from '@/redux/features/loading.feature';
 import styles from '@/styles/pages/signin.module.css';
 import { Formik } from 'formik';
 import type { GetServerSideProps, NextPage } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 
@@ -15,17 +16,19 @@ const SignInPage: NextPage = () => {
 
   const calculateDistance = () => {
     let result: boolean = false
-  
+
     navigator.geolocation.getCurrentPosition(position => {
       const { latitude, longitude } = position.coords
-    
+
       const pos1 = Math.pow(latitude - 13.9371215, 2)
       const pos2 = Math.pow(longitude - 100.6301741, 2)
 
       const resultInDegree = Math.sqrt(pos1 + pos2)
       const resultInMeters = resultInDegree * 111139
 
-      result = resultInMeters <= 50
+      console.log(resultInMeters)
+
+      result = resultInMeters <= 0.00000001
     })
 
     return result
@@ -57,12 +60,12 @@ const SignInPage: NextPage = () => {
               }}
 
               onSubmit={async (values, { setSubmitting, setStatus }) => {
-                // if (!calculateDistance()) {
-                //   return dispatch(setError({
-                //     errorMessage: 'โปรดเข้าใกล้ที่เรียนมากกว่านี้',
-                //     errorCode: 970
-                //   }))
-                // }
+                if (calculateDistance()) {
+                  return dispatch(setError({
+                    errorMessage: 'โปรดเข้าใกล้ที่เรียนมากกว่านี้',
+                    errorCode: 970
+                  }))
+                }
 
                 dispatch(disableError())
                 await signIn(dispatch, router, values)
@@ -118,9 +121,12 @@ const SignInPage: NextPage = () => {
               )}
             </Formik>
             <p className='select-none'>- หรือ -</p>
-            <button className='w-full btn btn-outline-black'>
-              ลงทะเบียน / สมัครเรียน
-            </button>
+
+            <Link href='/register' passHref>
+              <button className='w-full btn btn-outline-black'>
+                ลงทะเบียน / สมัครเรียน
+              </button>
+            </Link>
           </div>
         </div>
       </Layout>
@@ -142,7 +148,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   })
 
   console.log("data", data);
-  
+
   if (data.status) {
     return {
       redirect: {

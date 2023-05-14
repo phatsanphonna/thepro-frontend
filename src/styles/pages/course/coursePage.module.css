@@ -81,11 +81,19 @@
     @apply rounded-md;
 }
 
-.section .grade {
+.section .grade,
+.section .subject_grade {
     @apply w-full;
     @apply p-2;
     @apply text-xs md:text-base;
     @apply flex flex-row justify-between;
+}
+
+.section .grade_special {
+    @apply w-full;
+    @apply p-2;
+    @apply text-xs md:text-base;
+    @apply flex flex-col md:flex-row justify-between;
 }
 
 .section .remarks {
@@ -99,6 +107,20 @@
     @apply italic font-semibold;
 }
 
+.section .subject_grade p {
+    @apply no-underline;
+}
+
+.section .subject_grade ul {
+    @apply w-full;
+}
+
+.section .subject_grade li {
+    @apply w-full;
+    @apply text-sm md:text-base;
+    @apply inline-flex flex-col md:flex-row justify-between;
+}
+
 .section .grade p {
     @apply underline;
 }
@@ -108,6 +130,20 @@
 }
 
 .section .grade li {
+    @apply w-full;
+    @apply text-sm md:text-base;
+    @apply inline-flex flex-col md:flex-row justify-between;
+}
+
+.section .grade_special p {
+    @apply underline;
+}
+
+.section .grade_special ul {
+    @apply w-full;
+}
+
+.section .grade_special li {
     @apply w-full;
     @apply text-sm md:text-base;
     @apply inline-flex flex-col md:flex-row justify-between;
@@ -150,6 +186,6 @@
 }
 
 .description ul {
-    list-style-type: '- ';
+    list-style-type: "- ";
     @apply ml-4;
 }

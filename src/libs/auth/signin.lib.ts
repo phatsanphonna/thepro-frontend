@@ -17,7 +17,7 @@ export const signIn = async (
 
   const { status } = await httpPost('/auth/signin', payload)
 
-  if (status === 401) {
+  if ([401, 404].includes(status)) {
     return dispatch(setError({
       errorMessage: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง',
       errorCode: status

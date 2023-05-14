@@ -30,11 +30,11 @@ const DashboardPage: NextPage<{ user: User }> = ({ user }) => {
     await signOut(dispatch, router)
   }
 
-  const todoAssignment = assignment.filter((
-    a) => new Date().getTime() < new Date(a.expireDate).getTime()
+  const todoAssignment = assignment.filter(
+    (a) => new Date().getTime() < new Date(a.expireDate).getTime()
   )
   const expiredAssignment = assignment.filter(
-    (a) => new Date().getTime() >= new Date(a.expireDate).getTime()
+    (a) => new Date().getTime() >= new Date(a.expireDate).getTime() && a.expireDate !== null
   )
 
   return (

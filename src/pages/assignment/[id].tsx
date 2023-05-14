@@ -48,8 +48,8 @@ type Props = {
 }
 
 const CourseWatchPage: NextPage<Props> = ({ assignment }) => {
-  const [currentVideo, setCurrentVideo] = useState<string>(
-    assignment.lesson.materials.find((m) => m.type === 'VIDEO')!.location
+  const [currentVideo, setCurrentVideo] = useState<string | null>(
+    assignment.lesson.materials.find((m) => m.type === 'VIDEO')?.location || null
   )
 
   const formatLastUpdated = new Intl.DateTimeFormat('th-TH', {
@@ -81,7 +81,7 @@ const CourseWatchPage: NextPage<Props> = ({ assignment }) => {
 
               <div className='grid grid-cols-1 lg:grid-cols-2 gap-1 md:gap-2 px-4 md:px-0 h-full'>
                 <div className='w-full h-full aspect-video'>
-                  <VideoPlayer source={currentVideo} />
+                  <VideoPlayer source={currentVideo || ''} />
                 </div>
                 <section className='lg:px-8 py-4 lg:py-2 text-white flex flex-col gap-4 w-full'>
                   <div className='bg-white text-black p-4 rounded flex flex-row items-center gap-2'>
