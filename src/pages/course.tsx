@@ -17,7 +17,8 @@ const descriptionList = [
   'สอนสดที่ THE PRO เท่านั้น',
   'รับนักเรียนจำนวนจำกัด',
   'ทุกคอร์สหยุดเทศกาล สงกรานต์ และ ปีใหม่',
-  'การขอชดเชย จะเป็นการชดเชยด้วยคลิปวิดีโอสอน ในวันที่ขาดเรียน'
+  'การขอชดเชย จะเป็นการชดเชยด้วยคลิปวิดีโอสอน ในวันที่ขาดเรียน ' +
+  '(กรุณาแจ้งครูผู้สอน เพื่อขอชดเชย ทุกครั้งที่ขาด)'
 ]
 
 const gradeCategory: Grade[] = [
@@ -152,35 +153,51 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
 
                     <div className={styles.grade}>
                       <p>{c.grade}</p>
-                      <span className='md:text-lg'>{c.price.toLocaleString()} บาท/เดือน</span>
+                      {c.name === 'PRO MATH + PRO ENG' ? (
+                        <span className='md:text-lg flex flex-col text-right'>{
+                          (c.price as string[]).map((info, index) => (
+                            <span key={index}>{info}</span>
+                          ))}
+                        </span>
+                      ) : (
+                        <span className='md:text-lg'>{c.price.toLocaleString()} บาท/เดือน</span>
+                      )}
                     </div>
 
                     {c.specialTime && (
-                      <div className={styles.grade__time}>
-                        <p>เลือกเรียนได้ตามเวลาดังนี้</p>
-                        <ul>
-                          <li>
-                            <span>- <span>คอร์ส A</span>: เลือกได้ 2 วัน (จันทร์ - ศุกร์)</span>
-                            <span>15.00 น. - 18.00 น.</span>
-                          </li>
-                          <li>
-                            <span>- <span>คอร์ส B</span>: วันเสาร์ (ช่วงเช้า)</span>
-                            <span>9.00 น. - 13.00 น.</span>
-                          </li>
-                          <li>
-                            <span>- <span>คอร์ส C</span>: วันเสาร์ (ช่วงบ่าย)</span>
-                            <span>13.00 น. - 17.00 น.</span>
-                          </li>
-                          <li>
-                            <span>- <span>คอร์ส D</span>: วันอาทิตย์ (ช่วงเช้า)</span>
-                            <span>9.00 น. - 13.00 น.</span>
-                          </li>
-                          <li>
-                            <span>- <span>คอร์ส E</span>: วันอาทิตย์ (ช่วงบ่าย)</span>
-                            <span>13.00 น. - 17.00 น.</span>
-                          </li>
-                        </ul>
-                      </div>
+                      <>
+                        <div className={styles.grade__time}>
+                          <p>เลือกเรียนได้ตามเวลาดังนี้</p>
+                          <ul>
+                            <li>
+                              <span>- <span>คอร์ส A</span>: เลือกได้ 2 วัน (จันทร์ - ศุกร์)</span>
+                              <span>วันละ 2 ชั่วโมง (2 วัน/สัปดาห์)</span>
+                            </li>
+                            <li>
+                              <span>- <span>คอร์ส B</span>: วันเสาร์ (ช่วงเช้า)</span>
+                              <span>วันละ 4 ชั่วโมง (1 วัน/สัปดาห์)</span>
+                            </li>
+                            <li>
+                              <span>- <span>คอร์ส C</span>: วันเสาร์ (ช่วงบ่าย)</span>
+                              <span>วันละ 4 ชั่วโมง (1 วัน/สัปดาห์)</span>
+                            </li>
+                            <li>
+                              <span>- <span>คอร์ส D</span>: วันอาทิตย์ (ช่วงเช้า)</span>
+                              <span>วันละ 4 ชั่วโมง (1 วัน/สัปดาห์)</span>
+                            </li>
+                            <li>
+                              <span>- <span>คอร์ส E</span>: วันอาทิตย์ (ช่วงบ่าย)</span>
+                              <span>วันละ 4 ชั่วโมง (1 วัน/สัปดาห์)</span>
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div className={styles.remarks}>
+                          {c.remarks.map((remark, index) => (
+                            <small key={index}>*{remark}*</small>
+                          ))}
+                        </div>
+                      </>
                     )}
                   </section>
                 )
