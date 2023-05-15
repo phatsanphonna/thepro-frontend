@@ -341,7 +341,8 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
 
             <div className={styles.course}>
               <h3>PRO TGAT 1-3 (1,800 บาท/เดือน)</h3>
-              <p>เรียน 1 วัน / สัปดาห์ (วันละ 2 ชั่วโมง)</p>
+              <p>เรียน 1 วัน / สัปดาห์ (วันละ 4 ชั่วโมง)</p>
+              <span className='font-medium'>*TGAT 1-3 จะเรียนในวันเดียวกัน</span>
 
               {courseList.tgat.map((c, index) => (
                 <section
@@ -353,6 +354,7 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
 
                     <div className={styles.course_section_title__second_line}>
                       <p>{c.subject}</p>
+                      <span>{c.time}</span>
                     </div>
                   </div>
                   <div className={styles.grade}>
@@ -377,6 +379,7 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
 
                     <div className={styles.course_section_title__second_line}>
                       <p>{c.subject}</p>
+                      <span>{c.time}</span>
                     </div>
                   </div>
                   <div className={styles.grade}>
