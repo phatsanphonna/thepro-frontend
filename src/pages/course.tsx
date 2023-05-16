@@ -153,7 +153,7 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
 
                     <div className={styles.grade}>
                       <p>{c.grade}</p>
-                      {c.name === 'PRO MATH + PRO ENG' ? (
+                      {c.name === 'PRO KIDS 2' ? (
                         <span className='md:text-lg flex flex-col text-right'>{
                           (c.price as string[]).map((info, index) => (
                             <span key={index}>{info}</span>
