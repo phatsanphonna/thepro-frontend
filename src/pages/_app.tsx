@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { store } from '../redux/store';
 import '@/styles/globals.css';
 import NextNProgress from 'nextjs-progressbar'
+import Analytics from '@vercel/analytics/react'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
@@ -33,6 +34,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <LoadingStatus />
       <ErrorBox />
       <Component {...pageProps} />
+      <Analytics />
     </Provider>
   )
 }
