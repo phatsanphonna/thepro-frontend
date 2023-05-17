@@ -5,7 +5,7 @@
   "target": "esnext",
   "module": "commonjs",
   "scripts": {
-    "dev": "cp ./next.config.dev.js ./next.config.js && next dev -p 5001",
+    "dev": "next dev -p 5001",
     "build": "cp ./next.config.prod.js ./next.config.js && next build",
     "start": "next start",
     "lint": "next lint",
