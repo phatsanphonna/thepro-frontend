@@ -169,7 +169,11 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
                         {c.subjects?.map((subject, index) => (
                           <li key={index}>
                             <p>{subject.name}</p>
-                            <span>{subject.time}</span>
+                            <span className='flex flex-col items-end'>
+                              {Array.isArray(subject.time) ? (
+                                subject.time.map((t, index) => <span key={index}>{t}</span>)
+                              ) : subject.time}
+                            </span>
                           </li>
                         ))}
                       </ul>
@@ -248,10 +252,14 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
 
                     <div className={styles.grade}>
                       <ul>
-                        {c.subject.map((s, index) => (
+                        {c.subjects?.map((subject, index) => (
                           <li key={index}>
-                            <p>{s.name}</p>
-                            <span>{s.time}</span>
+                            <p>{subject.name}</p>
+                            <span className='flex flex-col lg:items-end'>
+                              {Array.isArray(subject.time) ? (
+                                subject.time.map((t, index) => <span key={index} className=''>{t}</span>)
+                              ) : subject.time}
+                            </span>
                           </li>
                         ))}
                       </ul>

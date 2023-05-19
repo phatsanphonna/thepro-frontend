@@ -99,7 +99,7 @@
 .section .remarks {
     @apply w-full;
     @apply p-2;
-    @apply text-xs md:text-base;
+    @apply text-base md:text-base;
     @apply flex flex-col justify-start;
 }
 
