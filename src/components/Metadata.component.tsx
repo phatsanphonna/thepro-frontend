@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 type Props = {
-  title: string | null
+  title: string
   description?: string
 }
 
@@ -16,6 +16,10 @@ const Metadata = ({ title, description = defaultDescription }: Props) => {
     <Head>
       <title>{title}</title>
       <meta name='description' content={description} />
+      <meta name='og:title' content={title} />
+      <meta name='og:description' content={description} />
+      <meta name='twitter:title' content={title} />
+      <meta name='twitter:description' content={description} />
     </Head>
   )
 }

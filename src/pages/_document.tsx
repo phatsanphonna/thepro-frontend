@@ -16,6 +16,7 @@ class MyDocument extends Document {
           <meta property="twitter:card" content="summary_large_image" />
           <meta property="twitter:image" content="./thumbnail.jpg" />
           <meta property="og:image" content="./thumbnail.jpg" />
+          <meta name='og:url' content='https://theprotutor.net' />
         </Head>
         <body>
           <Main />
