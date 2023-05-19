@@ -17,7 +17,7 @@ const TutorsPage: NextPage = () => {
           {tutorProfiles.map((profile, index) => (
             <div key={index} className='w-56 flex flex-col justify-start items-center'>
               <div className='transition-all relative w-56 h-80 m-2 select-none hover:shadow-lg hover:-translate-y-2'>
-                <Image src={profile.pictures} alt={profile.name} layout='fill' className='rounded' loading='lazy' />
+                <Image src={profile.pictures} alt={profile.name} layout='fill' className='rounded' loading='lazy' quality={60} />
               </div>
 
               <div className='text-center w-full flex flex-col justify-center items-center'>
