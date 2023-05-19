@@ -146,7 +146,7 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
                     <div className={styles.course_section_title}>
                       <h4>{c.name}</h4>
                       <div className={styles.course_section_title__second_line}>
-                        <p>{c.subject}</p>
+                        <p>{c.description}</p>
                         <span>{c.time}</span>
                       </div>
                     </div>
@@ -162,6 +162,17 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
                       ) : (
                         <span className='md:text-lg'>{c.price.toLocaleString()} บาท/เดือน</span>
                       )}
+                    </div>
+
+                    <div className={styles.grade}>
+                      <ul>
+                        {c.subjects?.map((subject, index) => (
+                          <li key={index}>
+                            <p>{subject.name}</p>
+                            <span>{subject.time}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
 
                     {c.specialTime && (
