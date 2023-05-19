@@ -67,36 +67,36 @@ const Navbar: React.FC = () => {
 
           {checkResponsiveNavbar ? (
             <ul className={styles.navlinks}>
-              <li>
-                <Link href='/course' passHref>
-                  <a>คอร์สเรียน</a>
-                </Link>
-              </li>
-              <li>
-                <Link href='/tutors' passHref>
-                  <a>ติวเตอร์ประจำสถาบัน</a>
-                </Link>
-              </li>
-              <li>
-                <Link href='/review' passHref>
-                  <a>รีวิว</a>
-                </Link>
-              </li>
-              {user ? (
+              <Link href='/course' passHref>
                 <li>
-                  <Link href='/dashboard' passHref>
+                  <a>คอร์สเรียน</a>
+                </li>
+              </Link>
+              <Link href='/tutors' passHref>
+                <li>
+                  <a>ติวเตอร์ประจำสถาบัน</a>
+                </li>
+              </Link>
+              <Link href='/review' passHref>
+                <li>
+                  <a>รีวิว</a>
+                </li>
+              </Link>
+              {user ? (
+                <Link href='/dashboard' passHref>
+                  <li>
                     <a className='font-medium inline-flex gap-1 items-center justify-center'>
                       <UserCircleIcon width={20} height={20} />
                       {user.firstname}
                     </a>
-                  </Link>
-                </li>
+                  </li>
+                </Link>
               ) : (
-                <li>
-                  <Link href='/signin' passHref>
+                <Link href='/signin' passHref>
+                  <li>
                     <a>เข้าสู่ระบบ</a>
-                  </Link>
-                </li>
+                  </li>
+                </Link>
               )}
             </ul>
           ) : (
