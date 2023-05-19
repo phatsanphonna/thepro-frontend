@@ -6,7 +6,7 @@ export const tutorProfiles = [
   },
   {
     name: 'ครูนาย',
-    subject: 'เคมี',
+    subject: 'เคมี, สอบแข่งขัน, สอวน., โอลิมปิกวิชาการ, วิทยาศาสตร์, คณิตศาสตร์, ภาษาอังกฤษ',
     pictures: '/tutor_profiles/kru_nine.jpg',
   },
   {
@@ -30,7 +30,7 @@ export const tutorProfiles = [
     pictures: '/tutor_profiles/kru_dew.jpg',
   },
   {
-    name: 'ครูบู๋น',
+    name: 'ครูบุ๋น',
     subject: 'วิทยาศาสตร์, คณิตศาสตร์, ภาษาอังกฤษ, ความถนัดแพทย์',
     pictures: '/tutor_profiles/kru_boon.jpg',
   },
