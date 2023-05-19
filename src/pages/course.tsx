@@ -112,7 +112,14 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
             </select>
           </div>
 
-          <div className='w-full md:w-1/6 flex flex-col md:flex-row justify-between items-center gap-2'>
+          <div className='w-full md:grid md:w-2/6 flex flex-row justify-between items-center gap-2 grid-cols-2'>
+            <Link href='/payment' passHref className='w-full'>
+              <a className='w-full'>
+                <button className='btn btn-pink w-full'>
+                  ชำระเงิน
+                </button>
+              </a>
+            </Link>
             <a href="https://lin.ee/BdFh3Km" target='_blank' rel="noreferrer" className='w-full'>
               <button className='btn btn-primary w-full'>
                 สมัครเรียน
