@@ -1,14 +1,13 @@
 import ErrorBox from '@/components/Loading/ErrorBox/ErrorBox.component';
-import LoadingBar from '@/components/Loading/LoadingBar/LoadingBar.component';
 import LoadingStatus from '@/components/Loading/LoadingStatus/LoadingStatus.component';
+import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
+import NextNProgress from 'nextjs-progressbar';
 import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
-import '@/styles/globals.css';
-import NextNProgress from 'nextjs-progressbar'
-import Script from 'next/script';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()

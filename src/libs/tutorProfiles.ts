@@ -1,12 +1,12 @@
 export const tutorProfiles = [
   {
-    name: 'ครูปุ๊กโปรแมท',
-    subject: 'คณิตศาสตร์',
+    name: 'ครูปุ๊ก PRO MATH',
+    subject: 'คณิตศาสตร์ ทุกระดับชั้น, สอบเข้า, สอบเข่งขัน, TCAS, A-LEVEL, วิชาสามัญ',
     pictures: '/tutor_profiles/kru_pook.jpg',
   },
   {
     name: 'ครูนาย',
-    subject: 'เคมี',
+    subject: 'เคมี, สอบแข่งขัน, สอวน., โอลิมปิกวิชาการ, วิทยาศาสตร์, คณิตศาสตร์, ภาษาอังกฤษ',
     pictures: '/tutor_profiles/kru_nine.jpg',
   },
   {
@@ -30,7 +30,7 @@ export const tutorProfiles = [
     pictures: '/tutor_profiles/kru_dew.jpg',
   },
   {
-    name: 'ครูบู๋น',
+    name: 'ครูบุ๋น',
     subject: 'วิทยาศาสตร์, คณิตศาสตร์, ภาษาอังกฤษ, ความถนัดแพทย์',
     pictures: '/tutor_profiles/kru_boon.jpg',
   },
