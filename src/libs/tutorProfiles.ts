@@ -1,7 +1,7 @@
 export const tutorProfiles = [
   {
-    name: 'ครูปุ๊กโปรแมท',
-    subject: 'คณิตศาสตร์',
+    name: 'ครูปุ๊ก PRO MATH',
+    subject: 'คณิตศาสตร์ ทุกระดับชั้น, สอบเข้า, สอบเข่งขัน, TCAS, A-LEVEL, วิชาสามัญ',
     pictures: '/tutor_profiles/kru_pook.jpg',
   },
   {
