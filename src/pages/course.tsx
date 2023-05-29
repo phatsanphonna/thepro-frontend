@@ -6,6 +6,7 @@ import styles from '@/styles/pages/course/coursePage.module.css';
 import type { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 type Grade = {
   name: string;
@@ -445,7 +446,7 @@ const CoursePage: NextPage<Props> = ({ grade: queryGrade }) => {
             </div>
           </>
         )}
-      </Layout >
+      </Layout>
     </>
   )
 }
