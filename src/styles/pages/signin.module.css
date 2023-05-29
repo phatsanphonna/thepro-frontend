@@ -1,9 +1,9 @@
 .root {
-    @apply items-center h-full;
+    @apply items-center h-full w-full;
 }
 
 .wrapper {
-    @apply flex flex-col justify-center items-center gap-5;
+    @apply flex flex-col justify-center items-center gap-5 h-full;
 }
 
 .title {

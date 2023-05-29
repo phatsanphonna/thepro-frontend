@@ -6,12 +6,17 @@ import { signOut } from '@/libs/auth/signout.lib';
 import { ServerAxios } from '@/libs/http';
 import styles from '@/styles/pages/dashboard.module.css';
 import type { GetServerSideProps, NextPage } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 
 type User = {
   id: string
+  userAuth: {
+    email: string,
+    profilePicture: string
+  }
   userAuthId: string
   firstname: string
   lastname: string
@@ -24,7 +29,7 @@ const DashboardPage: NextPage<{ user: User }> = ({ user }) => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const { firstname, lastname, nickname, assignment, studentId } = user;
+  const { firstname, lastname, nickname, assignment, studentId, userAuth } = user;
 
   const handleSignOut = async () => {
     await signOut(dispatch, router)
@@ -46,9 +51,20 @@ const DashboardPage: NextPage<{ user: User }> = ({ user }) => {
 
       <Layout>
         <header className={styles.header}>
-          <div className={styles.header_info}>
-            <h1>{studentId}</h1>
-            <p>{firstname} {lastname} ({nickname})</p>
+          <div className='flex flex-row gap-2 items-center'>
+            <Image
+              src={userAuth.profilePicture}
+              alt={`${firstname} ${lastname}'s profile picture.`}
+              width={66}
+              height={66}
+              loading='eager'
+              quality={100}
+              className='rounded-full'
+            />
+            <div className={styles.header_info}>
+              <h1>{studentId}</h1>
+              <p>{firstname} {lastname} ({nickname})</p>
+            </div>
           </div>
 
           <div className={styles.header_button}>
@@ -135,6 +151,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       Cookie: req.headers.cookie
     }
   })
+
+  console.log(data)
 
   return {
     props: {

@@ -10,7 +10,10 @@ const nextConfig = {
       source: '/api/:path*',
       destination: 'http://localhost:7802/api/:path*'
     },
-  ])
+  ]),
+  images: {
+    domains: ['lh3.googleusercontent.com']
+  }
 }
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
