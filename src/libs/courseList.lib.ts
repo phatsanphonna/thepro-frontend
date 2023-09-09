@@ -355,8 +355,8 @@ export const courseList = {
       ].join(' '),
     },
     {
-      name: 'PRO CHEM TCAS (1,441 บาท/เดือน)',
-      subject: 'A-LEVEL เคมี',
+      name: 'PRO SCI TCAS (1,441 บาท/เดือน)',
+      subject: 'A-LEVEL วิทยาศาสตร์ประยุกต์ (สายศิลป์)',
       time: 'วันและเวลาตามตารางของที่เรียน',
       desc: [
         'ติวเนื้อหา สรุป วิทยาศาสตร์ มัธยมศึกษาชั้นปีที่ 4-6',
