@@ -35,15 +35,20 @@ const DashboardPage: NextPage<{ user: User }> = ({ user }) => {
     await signOut(dispatch, router)
   }
 
-  const todoAssignment = assignment.filter(
-    (a) => (new Date().getTime() < new Date(a.expireDate).getTime()
-      || !a.expireDate)
-  )
+  let todoAssignment: Array<any> = []
+  let expiredAssignment: Array<any> = []
 
-  const expiredAssignment = assignment.filter(
-    (a) => new Date().getTime() >= new Date(a.expireDate).getTime()
-      && a.expireDate
-  )
+  if (assignment) {
+    todoAssignment = assignment.filter(
+      (a) => (new Date().getTime() < new Date(a.expireDate).getTime()
+        || !a.expireDate)
+    )
+
+    expiredAssignment = assignment.filter(
+      (a) => new Date().getTime() >= new Date(a.expireDate).getTime()
+        && a.expireDate
+    )
+  }
 
   return (
     <>
@@ -152,7 +157,18 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     }
   })
 
-  console.log(data)
+  console.log('Data', data)
+
+  if (data == '') {
+    return {
+      redirect: {
+        destination: '/create-profile',
+      },
+      props: {
+        user: null
+      }
+    }
+  }
 
   return {
     props: {

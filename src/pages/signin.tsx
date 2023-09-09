@@ -1,56 +1,13 @@
 import Layout from '@/components/Layout/Layout.component';
 import Metadata from '@/components/Metadata.component';
-import { signIn } from '@/libs/auth';
 import { ServerAxios } from '@/libs/http';
-import { disableError, setError } from '@/redux/features/loading.feature';
 import styles from '@/styles/pages/signin.module.css';
-import { Formik } from 'formik';
 import type { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
 
 const SignInPage: NextPage = () => {
-  const dispatch = useDispatch()
-  const router = useRouter()
-
-  const calculateDistance = () => {
-    if (!navigator.geolocation) {
-      return dispatch(setError({
-        errorMessage: 'โปรดเปิดใช้งานการอนุญาตตำแหน่งในเบราว์เซอร์',
-        errorCode: 971
-      }))
-    }
-
-    let result: boolean = false
-
-    navigator.geolocation.getCurrentPosition(position => {
-      const { latitude, longitude } = position.coords
-
-      const pos1 = Math.pow(latitude - 13.9371215, 2)
-      const pos2 = Math.pow(longitude - 100.6301741, 2)
-
-      const resultInDegree = Math.sqrt(pos1 + pos2)
-      const resultInMeters = resultInDegree * 111139
-
-      console.log(resultInMeters)
-
-      result = resultInMeters <= 0.00000001
-    })
-
-    return result
-  }
-
   const handleSignIn = () => {
-
-    // if (calculateDistance()) {
-    //   return dispatch(setError({
-    //     errorMessage: 'โปรดเข้าใกล้ที่เรียนมากกว่านี้',
-    //     errorCode: 970
-    //   }))
-    // }
-
-    window.open(`/api/auth/signin/google?redirectUrl=http://localhost:7810/api/auth/callback`, "_self")
+    window.open(`/api/auth/signin/google?redirectUrl=1`, "_self")
   }
 
   return (

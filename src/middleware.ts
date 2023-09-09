@@ -39,6 +39,6 @@ export const config = {
   matcher: [
     '/dashboard',
     '/assignment/:path*',
-    '/me'
+    '/create-profile'
   ],
 }
